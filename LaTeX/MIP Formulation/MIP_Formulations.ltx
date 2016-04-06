@@ -1,0 +1,145 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+
+\title{}
+\author{Zach Saunders}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+
+\section{Perfect Detection Data}
+
+\subsection{Assumptions}
+
+\begin{enumerate}
+  \item Constant and known \# of Targets (P)
+  \item No missed Detections
+  \item No False Alarms
+\end{enumerate}
+
+\subsection{Original Formulation}
+
+\begin{align*}
+\underset{y_{itj}, \alpha_{it}, \beta_{it}}{\text{minimize: }} & \sum_{i=1}^{P} \sum_{t=1}^{T} |x_{it} - \alpha_{it} - \beta_{it}*t| \\
+\text{subject to: }	& \sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t\\
+				& M*(1-y_{itj}) \geq |\alpha_{it} - \mu_{j}| \qquad \forall i,t,j\\
+				& M*(1-y_{itj}) \geq |\beta_{it} - \lambda_{j}| \qquad \forall i,t,j\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& \alpha_{it} \in \mathbb{R}^n, \quad \beta_{it} \in \mathbb{R}^n \quad \forall i,t\\
+				& \mu_{j} \in \mathbb{R}^n,\quad \lambda_{j} \in \mathbb{R}^n \quad \forall j\\
+\end{align*}
+
+\subsection{Alternate Formulation}
+
+\begin{align*}
+\underset{y_{itj}, \alpha_{j}, \beta_{j}, z_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| \\
+\text{subject to: }	& \sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t\\
+				& x_{it}y_{itj} + M(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+				& x_{it}y_{itj} - M(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t\\
+\end{align*}
+
+\subsection{Missed Detections Only}
+
+\begin{align*}
+\underset{y_{itj}, \alpha_{j}, \beta_{j}, z_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| \\
+\text{subject to: }	& \sum_{j=1}^{P} y_{itj} \leq 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t\\
+				& x_{it}y_{itj} + M(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+				& x_{it}y_{itj} - M(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t\\
+\end{align*}
+
+\section{Imperfect Detection Data}
+
+\subsection{Assumptions}
+
+\begin{enumerate}
+  \item Constant and unknown \# of Targets (P)
+  \item Missed Detections exist with probability $P_{d}$
+  \item False Alarms exist at rate $\lambda_{FA}$
+\end{enumerate}
+
+\subsection{Formulation 1- Equal Penalties ($\theta_{0}$) for TF and TM}
+
+\begin{align*}
+\underset{y_{itj}, \alpha_{j}, \beta_{j}, z_{jt}, S_{t}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| + \theta_{o} \sum_{t=1}^{T} S_{t} \\
+\text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} \leq 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{n_{t}} y_{itj} \leq 1 \qquad \forall j,t\\
+				& x_{it}y_{itj} + M(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+				& x_{it}y_{itj} - M(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
+				& N_{0} \leq \sum_{i,j} y_{itj} \qquad \forall t\\
+				& \sum_{i,j} y_{itj} + S_{t} = N_{1} \qquad \forall t\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t\\
+				& S_{t} \in \mathbb{Z} \quad \forall t\\
+\end{align*}
+
+\subsection{Formulation 2 - Different Penalties $\theta_{0} (\phi_{0}$) for TF (TM) respectively}
+
+\begin{align*}
+\underset{y_{itj}, \alpha_{j}, \beta_{j}, z_{jt},TF,TM}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| + \theta_{o} TF + \phi_{0} TM\\
+\text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t\\
+				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF\\
+				& \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM\\
+				& N_{0} \leq \sum_{j=1}^{N_{1}} w_{j} \leq N_{1}\\
+				& |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j,t\\
+				& x_{it}y_{itj} + M_{1}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+				& x_{it}y_{itj} - M_{1}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t\\
+				& TF \in \mathbb{Z}, \quad TM \in \mathbb{Z}\\
+\end{align*}
+
+\section{Notation}
+
+\begin{align*}
+n_{t} = \text{number of detections at time } t\\
+N_{1} = \underset{t}{\text{max }} & n_{t}\\
+N_{0} = \underset{t}{\text{min }} & n_{t}\\
+\end{align*}
+
+\[y_{itj} 
+\begin{cases}
+1 & \text{if detection \textit{i} at time \textit{t} is assigned to trajectory \textit{j}}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+\[F_{it} 
+\begin{cases}
+1 & \text{if detection \textit{i} at time \textit{t} is a False Alarm}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+\[M_{jt} 
+\begin{cases}
+1 & \text{if detection for trajectory \textit{j} at time \textit{t} is a Missed Detection}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+\[w_{j} 
+\begin{cases}
+1 & \text{if trajectory \textit{j} exists}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+
+\end{document}  

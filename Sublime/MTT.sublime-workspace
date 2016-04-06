@@ -1,0 +1,355 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "using Distributions\n\n#### CHANGE TO LOCAL GIT DIRECTORY ###\nPath_stem = \"/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/\"\n\n### LOAD REQUIRED FUNCTIONS/SCRIPTS ###\ninclude(string(Path_stem, \"Functions/Miscellaneous/Create_Directories.jl\"))\ninclude(string(Path_stem, \"Functions/Miscellaneous/Read_Partitions.jl\"))\ninclude(string(Path_stem, \"Functions/Miscellaneous/Write_Partitions.jl\"))\n\ninclude(string(Path_stem, \"Functions/Scenario/Generate_Trajectories.jl\"))\ninclude(string(Path_stem, \"Functions/Scenario/Simulate_Perturbations.jl\"))\ninclude(string(Path_stem, \"Functions/Scenario/Assemble_Detections.jl\"))\ninclude(string(Path_stem, \"Functions/Scenario/Shuffle_Detections.jl\"))\n\n\n########################################\n###    STEP 0: DEFINE PARAMETERS    ####\n########################################\n\n### SET EXPERIMENTAL PARAMETERS ###\n#P_range           = collect(4:2:10)                   # Number of true targets (constant)\nT_range           = collect(4:2:10)                   # Number of time steps (known)\nScenario_range    = collect(1:1:100)                  # Number of scenarios to construct\nSim_range         = collect(1:1:30)                   # Number of simulations to run per scenario\nσ_range           = round(collect(0.1:0.1:2.0),2)     # Range of scenaro noise parameters\nN_range           = Int64[100, 1000, 10000]           # Number of starting points per run of the heuristic\n\n### SET SCENARIO PARAMETERS ###\nGrid_size = 5                                         # Bounded max/min possible position\nGrid_steps = 20                                       # Number of possible starting/stopping points\n\n\n#####################################################\n###    STEP 1: GENERATE NEW TRUE TRAJECTORIES    ####\n#####################################################\nfor P in ARGS\n  for T in T_range\n\n    ### CREATE REQUIRED DIRECTORIES ###\n    mypath = string(Path_stem,\"Scenario_Data\")\n    isdir(mypath) || mkdir(mypath)\n    mypath = string(Path_stem,\"Scenario_Data/P=\", string(P))\n    isdir(mypath) || mkdir(mypath)\n    mypath = string(Path_stem,\"Scenario_Data/P=\", string(P),\"/T=\", string(T))\n    isdir(mypath) || mkdir(mypath)\n    mypath = string(Path_stem,\"Scenario_Data/P=\", string(P),\"/T=\", string(T), \"/True_Positions\")\n    isdir(mypath) || mkdir(mypath)\n\n    for Scenario_num in Scenario_range\n      ### PRINT PROGRESS TO SCREEN\n      println(\"Building \", string(P), \"x\", string(T), \" scenario number: \", string(Scenario_num))\n\n      ### SET THE SEED\n      srand(P + T*10 + Scenario_num*100)\n\n      ### GENERATE NEW TRAJECTORY DATA ###\n      True_Positions = generate_trajectories(P, T, Grid_size, Grid_steps)\n\n      ### WRITE TRAJECTORY DATA TO FILE ###\n      Write_path = string(Path_stem, \"Scenario_Data/P=\", string(P), \"/T=\", string(T), \"/True_Positions/Scenario_\", string(Scenario_num),\".csv\")\n      write_partitions(True_Positions, Write_path, P, T)\n\n    end # Scenario_range\n  end # T_range\nend # P_range\n#=\n#################################################\n###    STEP 2: SIMULATE NEW PERTURBATIONS    ####\n#################################################\nfor P in P_range\n  for T in T_range\n\n    ### CREATE REQUIRED DIRECTORIES ###\n    mypath = string(Path_stem,\"Scenario_Data/P=\", string(P),\"/T=\", string(T), \"/Perturbations\")\n    isdir(mypath) || mkdir(mypath)\n\n    for Sim_num in Sim_range\n\n      ### PRINT PROGRESS TO SCREEN\n      println(\"Simulating \", string(P), \"x\", string(T), \" perturbation number: \", string(Sim_num))\n\n      ### SET THE SEED  ###\n      srand(P + T*10 + Sim_num*1000)\n\n      ### SIMULATE NEW PERTURBATIONS ###\n      Perturbations = simulate_perturbations(P, T)\n\n      ### WRITE PERTURBATIONS TO FILE ###\n      Write_path = string(Path_stem, \"Scenario_Data/P=\", string(P), \"/T=\", string(T), \"/Perturbations/Sim_\", string(Sim_num), \".csv\")\n      write_partitions(Perturbations, Write_path, P, T)\n\n    end # Sim_range\n  end # T_range\nend # P_range\n\n\n#######################################################\n###    STEP 3: GENERATE SIMULATED RADAR DATA    ####\n#######################################################\n\n### CREATE REQUIRED DIRECTORIES ###\ncreate_directories(Path_stem, P_range, T_range, Scenario_range, Sim_range, σ_range, N_range)\n\nfor P in P_range\n  for T in T_range\n    for Scenario_num in Scenario_range\n\n      ### READ IN TRUE POSITION DATA ###\n      Position_path = string(Path_stem, \"Scenario_Data/P=\", string(P), \"/T=\", string(T), \"/True_Positions/Scenario_\", string(Scenario_num),\".csv\")\n      True_position = read_partitions(Position_path, T)\n\n      for Sim_num in Sim_range\n\n        ### READ IN PERTURBATION DATA ###\n        Perturbation_path = string(Path_stem, \"Scenario_Data/P=\", string(P), \"/T=\", string(T), \"/Perturbations/Sim_\", string(Sim_num), \".csv\")\n        Perturbations = read_partitions(Perturbation_path, T)\n\n        for σ in σ_range\n\n          ### PRINT PROGRESS TO SCREEN\n          println(\"Assembling detections for \", string(P), \"x\", string(T),  \" Scenario #: \", string(Scenario_num), \", Sim #: \", string(Sim_num), \", σ: \", string(σ))\n\n          ### ASSEMBLE DATA ###\n          Detections = assemble_detections(True_position, Perturbations, P, T, σ)\n\n          ### SET THE SEED  ###\n          srand(convert(Int64,P + T*10 + Scenario_num*100 + Sim_num*1000 + σ*10000))\n\n          ### SHUFFLE DATA ###\n          Data = shuffle_detections(Detections, T)\n\n          ### WRITE BOTH DATA CONSTRUCTS TO FILE ###\n          Detection_path = string(Path_stem,\"Experiment/P=\",string(P),\"/T=\",string(T),\"/Scenario_\",string(Scenario_num),\"/Sim_\",string(Sim_num),\"/sigma=\",string(σ),\"/Data/Detections.csv\")\n          Data_path = string(Path_stem,\"Experiment/P=\",string(P),\"/T=\",string(T),\"/Scenario_\",string(Scenario_num),\"/Sim_\",string(Sim_num),\"/sigma=\",string(σ),\"/Data/Data.csv\")\n          write_partitions(Detections, Detection_path, P, T)\n          write_partitions(Data, Data_path, P, T)\n\n        end # σ_range\n      end # Sim_range\n    end # Scenario_range\n  end # T_range\nend # P_range\n\n=#\n",
+			"file": "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Main/Generate_Scenarios.jl",
+			"file_size": 6036,
+			"file_write_time": 131000708820000000,
+			"settings":
+			{
+				"buffer_size": 6025,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Main/Run_Simulations.jl",
+			"settings":
+			{
+				"buffer_size": 5834,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Optimization/Run_MIP.jl",
+			"settings":
+			{
+				"buffer_size": 4799,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/za25454/Desktop/Test.jl",
+			"settings":
+			{
+				"buffer_size": 307,
+				"line_ending": "Unix",
+				"name": "using Gurobi, JuMP"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "package",
+		"selected_items":
+		[
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"open Iju",
+				"Sublime-IJulia: Open New IJulia Console"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic",
+		"/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Optimization"
+	],
+	"file_history":
+	[
+		"/Users/za25454/Library/Application Support/Sublime Text 3/Packages/SublimeJulia/SublimeJulia.sublime-settings",
+		"/Users/za25454/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/za25454/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Main/Head.jl",
+		"/Users/za25454/Documents/Research/Julia/mini_assignment.jl",
+		"/Users/za25454/Documents/PCS Stuff/AF FORM 4380.xfdl",
+		"/Users/za25454/Library/Application Support/Sublime Text 3/Packages/User/Sublime-IJulia.sublime-settings",
+		"/Users/za25454/Library/Application Support/Sublime Text 3/Packages/IJulia/Sublime-IJulia.sublime-settings",
+		"/Users/za25454/Library/Application Support/Sublime Text 3/Packages/User/Distraction Free.sublime-settings",
+		"/Users/za25454/Documents/Research/Julia/misc_functions.jl",
+		"/Users/za25454/Library/Application Support/Sublime Text 3/Packages/User/Plain text.sublime-settings",
+		"/Users/za25454/Documents/Research/Julia/run_sim.jl"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ignore"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Main/Generate_Scenarios.jl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6025,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Sublime-Julia/Syntax/Julia.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Main/Run_Simulations.jl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5834,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								900,
+								900
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Sublime-Julia/Syntax/Julia.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 227.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Basic/Optimization/Run_MIP.jl",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4799,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								498,
+								518
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Sublime-Julia/Syntax/Julia.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/za25454/Desktop/Test.jl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 307,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								103,
+								103
+							]
+						],
+						"settings":
+						{
+							"auto_name": "using Gurobi, JuMP",
+							"syntax": "Packages/Sublime-Julia/Syntax/Julia.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "MTT.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 286.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

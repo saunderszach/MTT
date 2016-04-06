@@ -1,0 +1,425 @@
+
+%% bare_jrnl.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% see http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+\documentclass[journal]{IEEEtran}
+
+
+% *** PACKAGES ***
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[noadjust]{cite}
+\usepackage{color}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\newtheorem{assumption}{Assumption}
+
+% correct bad hyphenation here
+%\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+% Do not put math or special symbols in the title.
+\title{Mixed Integer Optimization for the \\Multi-Target Tracking Problem}
+
+
+% author names and IEEE memberships
+\author{Dimitris~Bertsimas, Shimrit~Shtern, and~Zach~Saunders}
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\begin{abstract}
+The field of multi-target tracking consists of two primary challenges: (i) data association and (ii) trajectory estimation. MTT problems are well researched with many algorithms solving these two problems separately, however few algorithms attempt to solve these simultaneously and even fewer utilize optimization. In this paper we introduce a new mixed integer optimization (MIO) model which solves the data association and trajectory estimation problems simultaneously. Furthermore, we propose a greedy heuristic which provides good solutions very quickly and demonstrate its effectiveness as a warm start to the optimization solver. 
+\end{abstract}
+
+% Note that keywords are not normally used for peer review papers.
+\begin{IEEEkeywords}
+optimization; multi-target tracking; data association; trajectory estimation; mixed integer optimization 
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+{\color{red} suggestions: Add the type of MTT models - sequential vs. batch , one sweep vs. multi sweep batch when describing types of MTT's since you use these terms later. I am still missing a more thorough discussion of robustness - what are the issues with missed detections and false alarms, how is this dealt with in current algorithms, and in the optimization algorithm that we cite, maybe one or two words about gating. This is very important since this is one of the goals of this work. I suggest maybe calling the case with false alarms and missed detections - detection ambiguity which justified the term robust. Add a brief discussion about evaluation of scenario difficulty as well as performance measures (we have three of them) and add as one of the papers contributions}
+
+
+{\color{red} you can not start the paper with the challenges of multi target tracking without first addressing what is target tracking, shortly at least of the audience is familiar with the matter and in more detail if they are not. So I would suggest something along the lines of:
+
+Multi-target tracking the problem of estimation the state of multiple dynamic objects, in various points in time, which are referred to as targets, by using a set of unassociated detections from one or more sensors. The solution of this problem is of utmost importance in various military and civilian security applications (maybe some references).}
+\IEEEPARstart{T}{he} field of multi-target tracking consists of two primary challenges: (i) data association and (ii) trajectory estimation.  Given a set of sensor detections the data association problem consists of assigning the detections to a set of targets. Alternatively, this can be viewed as a labeling problem in which {\color{red} each detection needs to be labeled with a target identifier}.  The trajectory estimation problem consists of estimating the state space of a target (\textit{i.e} position, velocity, acceleration, size, etc.) from the associated detections of the aforementioned assignment problem. Even under the simplest of conditions. This {\color{red} estimation} problem is difficult, even when the associations are known, due to the presence of measurement noise. The problem is further complicated when sensors  fail to report detections or report false detections, resulting in ambiguity in the number of existing targets. 
+
+Although these two challenges are closely related to one another, traditionally these problems are solved separately using a combination of probabilistic approaches to determine data associations and filters to estimate trajectories. The global nearest neighbor algorithm, for example, is a naive 2-D assignment algorithm, which evaluates one scan {\color{red} you introduce a new term "scan" without explaining what is means, later you do the same for the term "pass" - maybe use a specific point in time instead of scan or define scan} at a time, globally assigning the nearest detection at each scan \cite{GNN}. Once the data association has been determined, the detections are passed through a Kalman filter {\color{red} why specifically the Kalman filter? although it might be the most common one various filters are used, so I would be more careful of my wording and use Kalman as an example rather then saying Kalman filter. Moreover, there are smoothing techniques which actually smooth the Kalman estimator backwards as well} to update the trajectory estimates and the algorithm progresses forward sequentially \cite{Kalman}.
+
+Adding another depth of complexity, the Multiple Hypothesis Tracker (MHT) {\color{red} is that the only one? what about JPDAF (joint probabilistic association filter) and I'm sure there are some more, you can look in Bar-Shalom's book (the one I sent you) and there are probably more recent review papers as well. Actually the PDA uses a Bayesian approach to try to combine the two problems but in an "online" fashion rather then a batch.}, first proposed by Reid in  \cite{MHT-Seminal} has the ability to evaluate N scans back before making hard associations. However, the combination of associations grows exponentially with each scan, leading to tractability issues. This algorithm is heavily researched and is generally considered to be the modern standard for solving the data association problem, with numerous implementation methods as summarized by Blackman in \cite{MHT-Overview}.
+
+All of the methods described so far are recursive, meaning that the algorithm advances sequentially through scans of data to solve the data association {\color{red} this is not necessarily true since you can apply the Kalman on a batch of detections or rather smooths the tracks according to the decisions and the MHT you describe also is a batch process, maybe you should start by defining the two "modes" of data tracking batch vs. sequential giving examples of algorithms and uses,advantages and disadvantages of both}, continually updating the state estimates along the way. Alternatively, batch method algorithms aim to solve data associations and state estimates of all scans known up to the point of time of interest. However, these are generally solved via multiple passes {\color{red} you didn't define pass here and should define it before use, but I'm sure that as I said Kalman can be applied in batch rather than multiple pass even though it might not be common to use it in that way} rather than a single pass, refining the solution with each iteration [citation].
+
+Compared to the number of probabilistic approaches available in the MTT literature, optimization focused methods are relatively lacking. The first presence of optimization applied to the MTT problem is the use of integer programming to leverage the MHT data association decision making process \cite{MHT-IP}. Somewhat similarly, linear programming has also been used to leverage the power of optimization with the MHT \cite{MHT-LP}. However, these methods still treat the data association and trajectory estimation problems separately. Finally, some aim to solve the MHT problem using Lagrangian relaxation \cite{Lagrangian}.
+
+Recently, there has been an effort to utilization optimization to solve both problems \cite{Discrete-Continuous}. However, this approach requires the use of two methods solved iteratively to update one another, and is therefore considered a multi-pass batch algorithm.  {\color{red}what about the number of tuning parameters or assumptions in the model? . I would rewrite the next sentence to say something along the lines of : "To the best of our knowledge, this paper is the first to suggest an optimization based approach that uses a single pass batch process to solve both the association and estimation problem simultaneously."} The authors have not found a single pass batch algorithm which utilizes optimization to solve both problems simultaneously within the literature we have reviewed. 
+
+There is no shortage of literature on MTT methodologies. A more exhaustive overview of all MTT methods, including additional methods not discussed in this paper, can be found in \cite{MTT-Taxonomy}.
+
+{\color{red} You suddenly switch to talking about MIOs. Give a preliminary sentence to explain it:
+In this paper we suggest a mixed integer optimization (MIO) approach to solving the multi-target tracking problem. Although MIO are generally thought as intractable since their theoretical categorization as NP-Hard problem, in many practical cases good solutions, and even optimal solutions to these problems can be obtained in reasonable time. This is due to the fact that MIO} solvers have seen significant performance improvements in recent years due to advancements in both the literature and hardware. The development of new heuristic methods, discoveries in cutting plane theory, and improved linear programming methods have all contributed to improvement in performance \cite{Gurobi-MIP}. Modern solvers such as Gurobi and CPLEX have been shown to perform extremely well on benchmark tests. In the past six years alone, Gurobi has seen performance improvements of 48.7x \cite{Gurobi-Benchmark}.
+
+{\color{red} When evaluating MTT algorithms the literature is also lacking, since no is no standard way of measuring scenario complexity or algorithm performance as a function of this complexity. In many cases only the sensor's detection noise is taken into account and other factors such as target density is negated. Recent work [add citation] tries to deal with these issues by suggesting a unified measure of complexity and performance. In this paper we also suggest measures of complexity and performance which are related to the ones suggested in [put citation again] and address the connection between then on various scenarios, as well as apply them to measure the performance of the suggested model}
+
+In this work we aim to simultaneously solve the data association and trajectory estimation problems using a single interpretable {\color{red} MIO} model which can be solved in practical time for the applications considered. We propose a heuristic that gives us feasible solutions to this problem and show how it can be used as warm start to the MIO in order to improve the quality of the solutions obtained {\color{red} as well as the running time. The main contributions of this paper are as follows: (\textit{i}) we introduce a simple interpretable MIO model which solves the data association and trajectory estimation problems simultaneously for a sensor with no detection ambiguity. (\textit{ii}) We extend this basic model for the case of detection ambiguity, i.e., the case where there are both missed detections and false alarms, keeping interoperability while only adding two tunable parameters, as well as provide general guidelines as to how tune this parameters. (\textit{iii}). we present several measures of scenarios complexity algorithms performance, and discuss the connection between these measures, in order to create a performance threshold for our algorithm. We believe that this measures are good indicator of problem complexity and performance and can be utilized for other algorithms as well}  (\textit{vi}). Our experiments demonstrate significant improvement in ....
+
+The paper structure is as follows...we begin by explaining the MTT problem as we wish to model it. Then we develop our MIO model, and follow it up with a discuss on our proposed heuristic. Then we show how these methods are adapted to scenarios where the number of targets is unknown. Finally, we test our methods in the simulated experiments section, discuss performance metrics, and summarize our experimental results. 
+
+
+\section{Problem Description}
+{\color{red} this description is much better and clearer so you can leave it as is}
+
+In this paper we restrict our exploration of the MTT problem to the automatic tracking of multiple, independent point targets using a single sensor. A \textit{target} is the object of interest. A point target's only identifiable attributes are its state space, which we restrict to position and velocity. The state space fully defines the field of \textit{trajectories}, or paths along which targets travel. A \textit{detection} is collected from each target at sequential time steps. Detections are subject to noise. {\color{red} We treat two general scenarios: with and without detection ambiguity. 
+
+When there is no detection ambiguity, the sensor produced exactly one detection for each target at each time, and there is no other source of detections. Therefore, the number of detections at each point in time is the same as the number of targets, and the data association problem at each point in time is equivalent to a simple assignment problem. Our basic optimization model, presented in section [add reference] will this with this problem. 
+
+Detection ambiguity refers to the more complex case where the sensor generates both false alarms and missed detections. A \textit{False Alarm} occurs when a detection is collected when no target exists. This could be the result of measurement error or difficulties in signal processing. A \textit{Missed Detection} occurs when a data point is not collected at a given time when a target actually exists. Therefore, the number of detections at each point in time may be either higher or lower than the actual number of targets, and each detection can be classified in either of these categories in addition to assigning targets to trajectories as before. In section [add reference] we will extend the formulation of basic model to a robust formulation dealing with this ambiguity, and refer to it as the robust MIO model.}
+
+{\color{red} rearranged. Last assumption was redundant. changed the wording on the one before last, also added a assumption about the detection error.}
+
+Throughout the paper we make the following assumptions.
+\begin{assumption}\label{ass:general_assumption}
+\begin{enumerate}[(i)]
+\item{}All targets have constant velocity. \textit{i.e.} Targets cannot change maneuver and no outside forces act on them.
+\item Each target's dynamics are independent of one another
+\item{}The number of targets remains constant throughout the window of observation \textit{i.e.} there is no birth/death of targets
+\item Each target produces at most one detection at a given time. 
+\item The detections generated by the sensor for each target at each point in time have independent errors. 
+\end{enumerate}
+\end{assumption}
+
+{\bf Notation:}
+We use $P$ to indicate the true number of targets under observation, which for now we have assumed is known a priori. Targets are observed over a time window in which detections are collected at $T$ time steps. $T$ is always known because we know the number of detections which have been collected a priori. The $i^{th}$ detection at the $t^{th}$ time step is indicated by $x_{it}$. Trajectories \textit{j} are parameterized by an initial position $\alpha_{j}$ and an constant velocity $\beta_{j}$, which we aim to estimate. {\color{red} Notice that $x_{it}$, $\alpha_{j}$ and $\beta_{j}$, may all be vectors however for simplicity we treat them in the following as scalars.
+
+when describing the objective function it might be worth mentioning that for vectors we can extend the result for either l1 or l2 norm for the sum absolute values and RSS, respectively.}
+
+\section{{\color{red} Basic MIO Model}}
+
+In this section we deal with the case of no detection ambiguity. Therefore, we add the following, more restrictive assumptions, to those presented in Assumption~\ref{ass:general_assumption}
+\begin{assumption}\label{ass:basic_assumptions}
+\begin{enumerate}[(i)]
+\item The sensor generates exactly one detection for each target at each time (no missed detections).
+\item The sensor does not generate any additional detections (no false alarms).
+\end{enumerate}
+\end{assumption}
+
+{\color{red} bad constructed setence you use decision to explain decision. most of the description is to general you need to relate it to the problem at hand.
+
+We begin constructing our MIO model by defining decision variables that represent the desired detection to target associations and target estimated trajectories. Next, using these decision variables, we develop an objective function which mathematically quantifies the value of the model decisions, in this case as a measure of distance of the estimated trajectories from the associated detections.} Finally, we restrict these variables using constraints that force the model to find solutions that are feasible to the MTT problem. The model is developed step by step in the coming sections before the full model is presented. 
+
+\subsection{Decision Variables}
+The data association and trajectory estimation problems require unique decision variables. Because these two problems lie in different domains, the variables we use to represent these decisions also differ. First, we introduce \textit{continuous} decision variables $\alpha_{j} \in \mathbb{R}^n$ and $\beta_{j} \in \mathbb{R}^n$ to represent the initial position and velocity of each trajectory \textit{j}.  In our interpretation of the MTT problem we have allow the trajectory parameters to lie anywhere in the real-continuous domain. For the data estimation problem, we wish to assign detections to trajectories, a naturally discrete problem. Therefore, we introduce binary decision variables $y_{itj}$ to indicate whether detection $x_{it}$ is assigned to trajectory \textit{j} or not:
+\begin{align}
+y_{itj} 
+\begin{cases}
+1 & \text{if detection $x_{it}$ is assigned to trajectory \textit{j}} \\
+0 & \text{otherwise}
+\end{cases}
+\end{align}
+
+\subsection{Objective Function}
+Next, we would like to develop a function which accurately captures the quality of a feasible solution. An ideal objective function would jointly provide a single quantifiable measure of goodness for both the data association and trajectory estimation problems. Therefore we want the objective to take into account the assignments of detections in addition to the estimated trajectory determined by those assignments.
+
+In terms of our decision variables, the estimated position of the linear trajectory \textit{j} at time \textit{t} is given by:
+
+\begin{align}\label{eq:estimate_pos}
+	\hat{x}_{jt} =  \alpha_{j} - \beta_{j}*t
+\end{align}
+
+For the trajectory estimation problem we wish to minimize the distance between $x_{it}$ and $\hat{x}_{jt}$. In other words we wish to minimize {\color{red}$\|x_{it} - \hat{x}_{jt}\|$ for some norm, for detections $x_{it}$ assigned to trajectory $j$. [Enter discussion of RSS vs. l1 here and use the corresponding norm in your formulation and also show how the l1 norm can be reformulated as a linear program, which is not available for the RSS] }
+Substituting \eqref{eq:estimate_pos} for $\hat{x}_{jt}$ we arrive at our objective function:
+\begin{align}
+\underset{\alpha_{j}, \beta_{j}}{\text{minimize: }} & \sum_{i -> j} \sum_{t=1}^{T} \|x_{it} - \alpha_{j} - \beta_{j}*t\| 
+\end{align}
+ 
+For the data association problem, we wish to only penalize the objective function when $x_{it}$ has been assigned to trajectory \textit{j}, which occurs when $y_{itj}=1$. An easy method to enforce this using our current variables would be to construct an interaction term such as: $|y_{itj}x_{it} - \alpha_{j} - \beta_{j}*t|$. However, this creates an undesirable non-linearity {\color{red} this is still a linear problem since $x_{it}$ are given, and the norm is an l1 norm..... actually come to think about it why didn't we just use $$\|\sum_{i}y_{itj}x_{it} - \alpha_{j} - \beta_{j}*t\|_1$$ I mean we actually need $z_{jt}$ only when there is a missed detection...which actually means that the use of big M here is quite redundant. We may want to consider this reformulation but present the original formulation in order to use it later when describing ambiguity in detections. Can you actually check if this formulation is faster for the 10 by 10? this can not be done for the RSS by the way which is another instantiate to show both forms} which can be linearized through the introduction of binary decision variables. Alternatively, we can create a new variable $z_{jt}$ which takes on the value $x_{it}$ when $y_{ijt}=1$ and some arbitrary number when $y_{itj}=0$. Using this method we arrive at the final objective function. 
+
+\begin{align}
+\underset{\alpha_{j}, \beta_{j}, z_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| 
+\end{align}
+
+\subsection{Constraints}
+Next, we add constraints to our model. Constraints ensure that the model satisfies our assumptions, restricting the set of feasible solutions to those that reflect reality. In particular, we need to set assignment constraints to define the set of legal data associations.
+
+At each time step, each detection $x_{it}$ must be assigned to exactly one target \textit{j}:
+\begin{align}
+\sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t
+\end{align}
+
+Similarly, at each time step, each target must be assigned exactly one detection:
+\begin{align}
+\sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t
+\end{align}
+
+ Additionally, constraints can be used to reduce the number of variables in the problem, increasing the simplicity and interpretability of a model. This can also greatly improve the performance of the model. we must ensure that the decision variable $z_{jt}$ will only take on the value of $x_{it}$ in the objective function if $x_{it}$ is assigned to target \textit{j} ($y_{itj} = 1$). We enforce this effect using the following constraint:
+
+\begin{align}
+M_{t}(1-y_{itj}) \geq |z_{jt} - x_{it}y_{itj}| \qquad \forall i,t,j
+\end{align}
+
+where $\underset{y_{itj}}{\text{maximize}}\{x_{it}\}$ for each time step. This can be done 
+This can be written equivalently as the following set of two linear constraints:
+
+\begin{align}
+x_{it}y_{itj} + M(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+x_{it}y_{itj} - M(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j
+\end{align}
+
+\subsection{Full Formulation}
+Combining all of these elements together, we arrive at the following MIO model:
+\begin{align*}
+\underset{y_{itj}, \alpha_{j}, \beta_{j}, z_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| \\
+\text{subject to: }	& \sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t\\
+				& x_{it}y_{itj} + M(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+				& x_{it}y_{itj} - M(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& \alpha_{j} \in \mathbb{R}^n \quad \forall j,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j, \quad z_{jt} \in \mathbb{R}^n \quad \forall j,t\\
+\end{align*}
+
+
+\section{Heuristic}
+
+In swap $k$ for time step $t$ choose $i,l\in \{1,\ldots,P\}$ detections and for $j,m\in\{1,\ldots,P\}$ targets such that $y^k_{itj}=1$ and $y^k_{ltm}=1$ switch the detection association so that $y^{k+1}_{ltj}=1$, and $y^{k+1}_{itm}=1$, recalculate $\alpha_j, \beta_j, \alpha_m$ and $\beta_m$ . Compute the objective using the new associations and return the swap if the objective does not improve. The heuristic then advances to the next time step where the same process is completed. The algorithm terminates once it makes a single pass through every time step without accepting a single switch. As we will see in the computational results section, this algorithm runs very efficiently, providing good solutions very quickly. Furthermore, this algorithm can be parallelized by running a subset of the $N$ starting points on a separate core.
+
+\section{Robust MIO Model}
+{\color{red}
+In this section we treat the case of detection ambiguity. Since in this case both missed detections and false alarms are present the number of targets is unknown and we may no longer have the same number of detections at each time step. Therefore, we must introduce additional notation for this scenario. We let $n_{t}$ represent  the number of detections at time \textit{t}. We can then identify the fewest and largest number of detections in a time step with $N_{0} = \underset{t}{\text{min }} n_{t}$ and $N_{1} = \underset{t}{\text{max }}  n_{t}$, respectively. 
+
+Specifically, in this case we replace assumption~\ref{ass:basic_assumptions} by the following less restrictive assumptions.
+\begin{assumption}\label{ass:robust_assumptions}
+\begin{enumerate}[(i)]
+\item The sensor does not generate a detection for any target for any time with probability $P_{d}$ which is constant and independent between targets and time steps.
+\item At each point in time the sensor generates false alarms according to a Poisson distribution with rate $\lambda_{FA}$, which are located uniformally in the space.
+\item The number of true targets $P$ satisfies $N_0\leq P \leq N_1$.
+\end{enumerate}
+\end{assumption}
+
+
+Here add why we first treat a fixed number of targets and how we can use this formulation via parallelization to solve the problem. Then state that for completeness we also present a formulation which solves the original problem without the need for multiple parallelized MIOs.
+}
+
+\subsection{Fixed Number of Targets (P)}
+If we first assume that the number of targets is fixed, we can more easily adapt the earlier formulation to handle the addition of false alarms and missed detections. This simple adaptation requires the introduction of two additional variable types and minimal constraint changes. We can then run these formulations for each possible value of fixed number of targets \textit{P} across the range of $N_{0}$ to $N_{1}$ and choose the solution with the best objective overall. Furthermore, this is an advantageous strategy because each independent experiment can be run in parallel. 
+
+\subsubsection{Decision Variables}
+
+We first introduce new binary decision variables $F_{it}$ to indicate whether or not a detection $x_{it}$ is a false alarm. 
+
+\[F_{it}= 
+\begin{cases}
+1 & \text{if detection \textit{i} at time \textit{t} is a False Alarm}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+Similarly, we introduce binary decision variables $M_{jt}$ to indicate whether or not an \textit{existing} trajectory \textit{j} has a missed detection at time \textit{t}.
+
+\[M_{jt} =
+\begin{cases}
+1 & \text{if detection for trajectory \textit{j}}\\
+   &\text{at time \textit{t} is a Missed Detection}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+\subsubsection{Constraints}
+
+All detections must either be assigned to a trajectory \textit{j} or a false alarm. 
+\begin{align}
+\sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t
+\end{align}
+
+All trajectories \textit{j} must either be assigned a detection or a missed detection. 
+\begin{align}
+\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t
+\end{align}
+
+The sum of all false alarms is TF, and similarly the sum of all missed detections is TM. 
+\begin{align}
+\sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF\\
+\sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM
+\end{align}
+
+\subsubsection{Full Formulation}
+
+\begin{align*}
+\underset{y_{itj}, \alpha_{j}, \beta_{j}, z_{jt},F_{it},M_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| + \theta_{o} TF + \phi_{0} TM\\
+\text{subject to: }	& \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t\\
+				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF\\
+				& \sum_{j=1}^{P} \sum_{t=1}^{T} M_{jt} = TM\\
+				& x_{it}y_{itj} + M_{1}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+				& x_{it}y_{itj} - M_{1}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& M_{jt} \in \{0,1\} \quad \forall j,t \quad F_{it} \in \{0,1\} \quad \forall i,t\\ 
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t\\
+				& TF \in \mathbb{Z}, \quad TM \in \mathbb{Z}\\
+\end{align*}
+
+
+\subsection{Number of Targets as a Decision Variable}
+Now let's say we wish to allow the number of targets to be chosen via optimization. We can further adapt the formulation to account for the number of targets. We must be careful to identify targets which are \textit{existing}. We say that  with think a trajectory \textit{j} \textit{exists} if the detections assigned to that trajectory correspond to an actual target. As a result the detections assigned to a trajectory \textit{j} that does not exist will naturally be false alarms.
+
+
+\subsubsection{Decision Variables}
+We introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target.
+
+\[w_{j}= 
+\begin{cases}
+1 & \text{if trajectory \textit{j} exists}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+
+\subsubsection{Constraints}
+Most constraints remain similar to their original counterparts, except now we must account for the possibility that some trajectories may not exist. Therefore, where before we summed over \textit{P}, we will now be summing over $N_{1}$. This affects two constraints.
+
+All detections must either be assigned to a trajectory \textit{j} or a false alarm. 
+\begin{align}
+\sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t
+\end{align}
+
+Similarly, the sum of all missed detections is TM. 
+\begin{align}
+\sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM
+\end{align}
+
+{\color{red} as we discussed you can state here that because of assumption 3(iii) we can set $w_j=1$ for all $j=1,\ldots,N_0$ which leaves us with only $N_1-N_0$ additional binary variables. Since they are binary the constraint which binds them between $N_0$ and $N_1$ is redundant and the additional constraint $w_{N_0+1}\geq ...\geq w_{N_1}$ will guarantee a unique $w$ solution} 
+
+All \textit{existing} trajectories must either be assigned a detection or a missed detection. 
+\begin{align}
+\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t
+\end{align}
+
+Working of the assumption that the true number of targets \textit{P} falls between $N_{0}$ and $N_{1}$, we must introduce this as a constraint to our model. The sum of all existing targets is bound by $N_{0}$ and $N_{1}$.
+\begin{align}
+N_{0} \leq \sum_{j=1}^{N_{1}} w_{j} \leq N_{1}
+\end{align}
+
+Finally, we restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \textit{j} does not exist. This ensures only existing trajectories are penalized in the objective function. 
+\begin{align}
+|\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j\
+\end{align}
+
+\subsubsection{Full Formulation 2}
+
+Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
+
+\begin{align*}
+\underset{y_{itj}, \alpha_{j}, \beta_{j}, z_{jt},F_{it},M_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} |z_{jt} - \alpha_{j} - \beta_{j}*t| + \theta_{o} TF + \phi_{0} TM\\
+\text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t\\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t\\
+				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF\\
+				& \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM\\
+				& N_{0} \leq \sum_{j=1}^{N_{1}} w_{j} \leq N_{1}\\
+				& |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j\\
+				& x_{it}y_{itj} + M_{1}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
+				& x_{it}y_{itj} - M_{1}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
+				& {\color{red} \text{Erase no need} - M_{jt} \in \{0,1\} \quad \forall j,t \quad F_{it} \in \{0,1\} \quad \forall i,t}\\ 
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t\\
+				& {\color{red} \text{Erase no need} TF \in \mathbb{Z}, \quad TM \in \mathbb{Z}}\\
+\end{align*}
+
+\subsection{Adaptation of Heuristic}
+The heuristic for the robust scenario follows similarly from the heuristic from the deterministic scenario. The main difference is that now the options for making switches must include false alarms and missed detections. Therefore, framework of the algorithm is the same as for Algorithm 1, but now the heuristic randomly chooses from the following options. 
+\begin{enumerate}
+  \item Switch detection assignments between two existing targets
+  \item Switch the detection assignment of an existing target with a false alarm
+  \item Switch the detection assignment of an existing target with a missed detection identifier for a different existing target
+  \item Move the detection assignment of an existing target to a false alarm and replace with a missed detection identifier
+  \item Move a false alarm into the location of a missed detection identifier for an existing target
+\end{enumerate}
+
+Like in the deterministic heuristic, the algorithm will accept the switch/move if the objective score improves, and reject the switch/move otherwise. The algorithm terminates under the same condition as the deterministic heuristic. We expect this algorithm to run slightly slower due to the vast increase in possible solutions. 
+
+\section{Performance Metrics}
+
+{\color{red} add definition of scenario complexity here and relate to the appropriate performance metrics, add the additional performace metric of RSS (or abslute value) as well as association accuracy}
+
+Although two challenges of data association and trajectory estimation are interrelated, we argue that it is important to identify performance metrics which are unique to each problem. For the data association problem, which is naturally discrete, we propose the use of \% accuracy \textit{i.e} the number of correction detection labels. Naturally the trajectory estimation problem calls for a performance metric which compares the distance of the ground truth to the estimation trajectory. Therefore, we propose the following metric. 
+\begin{align*}
+\delta = \frac{\sum\limits_{t=1}^{T}\sum\limits_{i=1}^{P}|Distance_{true, estimated}|}{PT}
+\end{align*}
+
+
+\section{Experimental Simulations}
+There does not exist among the literature a clearly defined comprehensive set of simulation scenarios as pointed out by \cite{MTT-Taxonomy}.  However, this work also noted that two types of scenarios of particular importance include crossing trajectories and parallel trajectories. In agreement, we choose to develop scenarios of both types. 
+
+We evaluated our methods on two separate experiments, with the key difference in the two experiments being that the number of targets is known in the first but unknown in the second.
+
+
+
+\subsection{Experiment 1}
+We considered a fixed state space of [-5,5], only allowing target trajectories to exist within this window. We began by randomly generate 200 unique scenarios of true trajectories of various scenario sizes. We tested a range of possible number targets: [4, 6, 8, 10] and similarly a range of time steps: [4, 6, 8, 10]
+Additionally, we randomly generate 30 unique normally distributed perturbations with mean 0 and standard deviation 1. We considered $\sigma$ values in the range of [0.1, 2.0] with step size 0.1. We assemble the noise for each detection by multiplying the perturbation by $\sigma$. Detections were assembled by adding noise to the true trajectories and randomizing the detection order. and randomizing the detection order. 
+
+Next, we began testing our methods by running the heuristic. For each simulation, we ran the heuristic with a range of starting points (N), [100 1,000 10,000].
+
+Finally, we feed each heuristic solution as a warm start into the MIO and run.  The optimization process was exited after minimin\{Run time: 2 min, Number of IP solutions: 15\}
+
+\subsection{Experiment 2}
+
+\section{Scenario Complexity Coefficient ($\rho$)}
+We develop a coefficient $\rho$ for use in describing the difficulty of a given scenario. As mentioned previously, ambiguity exists in describing scenario complexity. Yet it is important to have metrics which capture the differences among scenarios. Furthermore, the data association and trajectory estimation problems are very different by nature and therefore have. The first three metrics 
+
+\begin{align}
+\rho = \frac{\sum\limits_{t=1}^{T}\sum\limits_{i<j}|Distance_{ijt}|}{\binom{P}{2}T}
+\end{align}
+This metric has several desirable attributes. For example, the error is equivalent to the noise when $\rho = 1$.  Lower values of $\rho$ correspond to increasingly difficult scenarios, while higher values of $\rho$ correspond to easier scenarios. For a set of fixed trajectories, raising $\sigma$ increases the difficulty, while lowering $\sigma$ decreases the difficulty. 
+
+
+\section{Computational Results}
+
+
+\section{Conclusion and Future Work}
+We presented a multi-target tracking approach which jointly solves the problems of data association and trajectory estimation. We accomplish this without the need of a trajectory bank nor the a prior computation of trajectory hypothesis. We demonstrated that the proposed method outperforms for linear trajectories.
+
+\section*{Acknowledgment}
+The authors would like to thank Sung Son, Ph.D and Steve Relyea at Lincoln Laboratories for their efforts in problem clarification as well as for providing feedback and other expert knowledge on the problem details. 
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\nocite{*}
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{Bibliography}
+%
+
+%\printbibliography
+
+\end{document}
