@@ -28,6 +28,13 @@ const T                 = parse(Int, ARGS[2])       # Number of time steps
 const Scenario_num      = parse(Int, ARGS[3])       # Scenario number
 const Sim_num           = parse(Int, ARGS[4])       # Simulation number
 
+const σ_1               = 0.1                       # 1st noise parameter value
+const σ_2               = 0.5                       # 2nd noise parameter value
+const σ_3               = 1.0                       # 3rd noise parameter value
+const σ_4               = 2.0                       # 4th noise parameter value
+const σ_5               = 3.5                       # 4th noise parameter value
+const σ_6               = 5.0                       # 4th noise parameter value
+  
 const N_1               = 100                       # 1st N to run heuristic 
 const N_2               = 1000                      # 2nd N to run heuristic 
 const N_3               = 10000                     # 3rd N to run heuristic 
@@ -37,12 +44,7 @@ const Num_threads       = 1                         # Set gurobi thread limit
 
 
 ### CONSTRUCT RANGES ###
-if P <= 6
-  σ_range = Float64[0.5, 1.0, 2.5, 5.0]             # Range of scenaro noise
-else
-  σ_range = Float64[1.0, 2.0, 5.0, 10.0]            # Range of scenaro noise
-end
-
+σ_range           = Float64[σ_1, σ_2, σ_3, σ_4, σ_5, σ_6] # Range of noise parameters
 N_range           = Int64[N_1, N_2, N_3]            # Range of heuristic starting points
 MIP_time_limits   = Int64[1, T, 2*T, 3*T]           # Define range of times to run MIP
 

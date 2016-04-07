@@ -20,16 +20,38 @@
 
 
 % *** PACKAGES ***
+\usepackage{algorithm, algorithmic}
 \usepackage{amsmath}
-\usepackage{mathtools}
 \usepackage{amssymb}
-\usepackage[noadjust]{cite}
-\usepackage{color}
-\usepackage{url}
-\usepackage{enumerate}
 \usepackage{amsthm}
 \newtheorem{assumption}{Assumption}
-\usepackage{algorithm, algorithmic}
+\usepackage{caption}
+\usepackage[noadjust]{cite}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{url}
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+\usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+ \graphicspath{{Figure_1}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
 
 % correct bad hyphenation here
 %\hyphenation{op-tical net-works semi-conduc-tor}
@@ -511,6 +533,17 @@ The second experiment serves as an extension of the first in order to test the p
 Both experiments were implemented in the development software \textit{julia} 0.4.3 \cite{julia} using the optimization package \textit{JuMP} \cite{JuMP}. The implemented MIO utilized the optimization solver Gurobi 6.5.0\cite{gurobi}. Gurobi was limited to the use of a single core for the optimization processes. Each simulation was run on a single node of the unclassified TX-Green supercomputer located at Lincoln Laboratories \cite{LLGrid}. [Insert computer specs (RAM, CPU, etc.) if available.]
 
 \section{Computational Results}
+We begin by outlining the performance of the basic MIO model in both the data association and trajectory estimation spheres. Following is a discussion of the robust MIO model evaluated under both spheres. 
+
+
+\subsection{Basic Heuristic \& MIO Results}
+The performance of the basic heuristic and MIO in the sphere of the data association problem is summarized in Figure 1 below. 
+\includegraphics[width=9cm, height=7cm]{Figure_1}
+Both are compared to a baseline randomized solution. Figure 1 shows that Heuristic 1 provides improved solutions to the data association problem.  For smaller scenarios of $P$ and $T$, the heuristic achieves optimal and near optimal solutions. We also see that the easier the scenario, the more improvement the MIO has over the heuristic, while in more difficult scenarios the effect is diminished. Furthermore, it can be seen that in nearly all scenarios, the MIO model achieves its best solutions, which could be optimal, after $T$ or fewer seconds, suggesting the usefulness of the MIO as an online algorithm in a sliding window.
+
+Next, we evaluate the performance of the basic heuristic and MIO through the lens of the trajectory estimation problem. Figure 2 summarizes this performance.  
+
+\subsection{Robust Heuristic \& MIO Results}
 
 
 \section{Conclusion and Future Work}

@@ -19,6 +19,16 @@ const T              = parse(Int, ARGS[2])       # Number of time steps
 const Scenario_num   = parse(Int, ARGS[3])       # Scenario number
 const Sim_num        = parse(Int, ARGS[4])       # Simulation number
 
+const σ_1              = 0.1                # 1st noise parameter value
+const σ_2              = 0.5                # 2nd noise parameter value
+const σ_3              = 1.0                # 3rd noise parameter value
+const σ_4              = 2.0                # 4th noise parameter value
+const σ_5              = 3.5                # 4th noise parameter value
+const σ_6              = 5.0                # 4th noise parameter value
+
+### CONSTRUCT RANGES ###
+σ_range         = Float64[σ_1, σ_2, σ_3, σ_4, σ_5, σ_6] # Range of noise parameters
+
 #######################################################
 ###    STEP 3: GENERATE SIMULATED RADAR DATA    ####
 #######################################################
@@ -26,13 +36,6 @@ const Sim_num        = parse(Int, ARGS[4])       # Simulation number
 ### READ IN TRUE POSITION DATA ###
 Position_path = string(Path_stem, "Experiment/True_Positions/", string(P), "_", string(T), "_", string(Scenario_num), ".csv")
 True_position = read_partitions(Position_path, T)
-
-### Define range of noise parameters
-if P <= 6
-  σ_range = Float64[0.5, 1.0, 2.5, 5.0]     # Range of scenaro noise
-else
-  σ_range = Float64[1.0, 2.0, 5.0, 10.0]    # Range of scenaro noise
-end
 
 for σ in σ_range
 

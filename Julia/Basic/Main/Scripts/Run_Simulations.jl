@@ -33,6 +33,13 @@ const T_max             = 10                # Maximum of time range
 const Scenario_min      = 1                 # Starting range of scenario numbers
 const Scenario_max      = 20                # Ending range of scenario numbers
 
+const σ_1               = 0.1               # 1st noise parameter value
+const σ_2               = 0.5               # 2nd noise parameter value
+const σ_3               = 1.0               # 3rd noise parameter value
+const σ_4               = 2.0               # 4th noise parameter value
+const σ_5               = 3.5               # 4th noise parameter value
+const σ_6               = 5.0               # 4th noise parameter value
+
 const Sim_min           = 1                 # Starting range of simulations
 const Sim_max           = 10                # Ending range of simulations
 
@@ -47,6 +54,7 @@ const Num_threads       = 1                 # Set gurobi thread limit
 P_range         = collect(P_min:P_step:P_max)            # Range of targets 
 T_range         = collect(T_min:T_step:T_max)            # Range of time steps
 Scenario_range  = collect(Scenario_min:1:Scenario_max)   # Range of scenarios
+σ_range         = Float64[σ_1, σ_2, σ_3, σ_4, σ_5, σ_6]  # Range of noise parameters
 Sim_range       = collect(Sim_min:1:Sim_max)             # Range of simulations
 N_range         = Int64[N_1, N_2, N_3]                   # Range of heuristic starting points
 
@@ -60,15 +68,7 @@ create_directories(Path_stem, P_range, T_range)
 ### PRECOMPILE CODE TO ELIMINATE GARBAGE TIME ###
 run_precompiler()
 
-for P in P_range
-  
-  ### Define range of noise parameters
-  if P <= 6
-    σ_range = Float64[0.5, 1.0, 2.5, 5.0]     # Range of scenaro noise
-  else
-    σ_range = Float64[1.0, 2.0, 5.0, 10.0]    # Range of scenaro noise
-  end
-  
+for P in P_range  
   for T in T_range
 
     ### Define range of times to run MIP
