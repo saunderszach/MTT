@@ -23,6 +23,7 @@ const Num_parallel     = 10                 # Number of scenarios to generate us
 const Num_crossing     = 10                 # Number of scenarios to generate using "crossing" method
 
 const Gap_size         = 0.5                # Gap size between targets
+const Grid_size        = 10                 # Size of window for targets to exist within
 
 const Parallel_grid_steps  = 5              # Grid step size for parallel scenarios
 const Crossing_grid_steps  = 20             # Grid step size for crossing scenarios
@@ -49,11 +50,11 @@ isdir(mypath) || mkdir(mypath)
 for P in P_range
 
   # Set the grid window size
-  if P <= 6
-    Grid_size = 5
-  else
-    Grid_size = 10
-  end
+  # if P <= 6
+  #   Grid_size = 5
+  # else
+  #   Grid_size = 10
+  # end
 
   for T in T_range
     for Scenario_num in Parallel_range
