@@ -4,6 +4,7 @@ function remove_detections(Data::Vector{Vector{Float64}},
 				  	       γ::Float64)
 
 	New_data = deepcopy(Data)
+	Data_key = deepcopy(Data)
 
 	for t = 1:T 
 		
@@ -13,12 +14,13 @@ function remove_detections(Data::Vector{Vector{Float64}},
 
 			if rand() > γ
 				splice!(New_data[t], (i-Num_removed))
+				Data_key[t][i] = -1000
 				Num_removed = Num_removed + 1
 			end
 
 		end 
 	end
 
-	return New_data
+	return New_data, Data_key
 
 end

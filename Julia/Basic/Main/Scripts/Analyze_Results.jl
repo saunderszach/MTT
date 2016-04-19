@@ -93,6 +93,10 @@ for P in P_range
       True_positions = read_partitions(True_path, T)
 
       for σ in σ_range
+
+        ### CALCULATE RHO FOR THE CURRENT SIMULATION ###
+        (ρ1, ρ2, ρ3, ρ4) = calc_density(True_positions, P, T, σ)
+
         for Sim_num in Sim_range
 
           ### READ IN AND STORE IDEAL ASSIGNMENTS ###
@@ -104,9 +108,6 @@ for P in P_range
 
           ### GENERATE RANDOMIZED ASSIGNMENTS ###
           Random_partitions = random_assignment(Ideal_partitions, T)
-
-          ### CALCULATE RHO FOR THE CURRENT SIMULATION ###
-          (ρ1, ρ2, ρ3, ρ4) = calc_density(True_positions, P, T, σ)
 
           for N in N_range
             for Time_limit in MIP_time_limits

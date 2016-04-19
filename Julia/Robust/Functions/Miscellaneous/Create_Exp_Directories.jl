@@ -1,7 +1,8 @@
 function create_directories(Path_stem::ASCIIString,
                             P_range::Array{Int64,1},
                             T_range::Array{Int64,1},
-                            Scenario_range::Array{Int64,1})
+                            Scenario_range::Array{Int64,1},
+                            σ_range::Array{Float64,1})
 
   mypath = string(Path_stem, "Experiment/Data")
   isdir(mypath) || mkdir(mypath)
@@ -9,7 +10,13 @@ function create_directories(Path_stem::ASCIIString,
   mypath = string(Path_stem, "Experiment/Garbage")
   isdir(mypath) || mkdir(mypath)
   
-  mypath = string(Path_stem, "Experiment/Detections")
+  mypath = string(Path_stem, "Experiment/Unshuffled_Data")
+  isdir(mypath) || mkdir(mypath)
+
+  mypath = string(Path_stem, "Experiment/Data_Key")
+  isdir(mypath) || mkdir(mypath)
+
+  mypath = string(Path_stem, "Experiment/Original_Detections")
   isdir(mypath) || mkdir(mypath)
 
   mypath = string(Path_stem, "Experiment/MIP_Solutions")
@@ -25,19 +32,17 @@ function create_directories(Path_stem::ASCIIString,
   isdir(mypath) || mkdir(mypath)
 
   for P in P_range
-
-    ### Define variable parameters ###
-    if P <= 6
-      σ_range   = Float64[0.5, 1.0, 2.5, 5.0]     # Range of scenaro noise
-    else
-      σ_range   = Float64[1.0, 2.0, 5.0, 10.0]    # Range of scenaro noise
-    end
-
       
     mypath = string(Path_stem, "Experiment/Data/", string(P))
     isdir(mypath) || mkdir(mypath)
 
-    mypath = string(Path_stem, "Experiment/Detections/", string(P))
+    mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P))
+    isdir(mypath) || mkdir(mypath)
+
+    mypath = string(Path_stem, "Experiment/Data_Key/", string(P))
+    isdir(mypath) || mkdir(mypath)
+
+    mypath = string(Path_stem, "Experiment/Original_Detections/", string(P))
     isdir(mypath) || mkdir(mypath)
 
     mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P))
@@ -57,7 +62,13 @@ function create_directories(Path_stem::ASCIIString,
       mypath = string(Path_stem, "Experiment/Data/", string(P), string(/), string(T))
       isdir(mypath) || mkdir(mypath)
 
-      mypath = string(Path_stem, "Experiment/Detections/", string(P), string(/), string(T))
+      mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P), string(/), string(T))
+      isdir(mypath) || mkdir(mypath)
+
+      mypath = string(Path_stem, "Experiment/Data_Key/", string(P), string(/), string(T))
+      isdir(mypath) || mkdir(mypath)
+
+      mypath = string(Path_stem, "Experiment/Original_Detections/", string(P), string(/), string(T))
       isdir(mypath) || mkdir(mypath)
 
       mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T))
@@ -73,12 +84,6 @@ function create_directories(Path_stem::ASCIIString,
       isdir(mypath) || mkdir(mypath)
 
       for Scenario_num in Scenario_range
-
-        mypath = string(Path_stem, "Experiment/Data/", string(P), string(/), string(T), string(/), string(Scenario_num))
-        isdir(mypath) || mkdir(mypath)
-
-        mypath = string(Path_stem, "Experiment/Detections/", string(P), string(/), string(T), string(/), string(Scenario_num))
-        isdir(mypath) || mkdir(mypath)
 
         mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num))
         isdir(mypath) || mkdir(mypath)

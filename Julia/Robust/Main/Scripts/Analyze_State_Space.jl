@@ -19,12 +19,13 @@ const T_min            = 4                  # Minimum of time range
 const T_step           = 2                  # Step size of time range
 const T_max            = 10                 # Maximum of time range
 
-const Num_easy         = 50                 # Number of scenarios to generate using "Easy" method
-const Num_hard         = 50                 # Number of scenarios to generate using "Hard" method
+const Num_easy         = 10                 # Number of scenarios to generate using "Easy" method
+const Num_hard         = 10                 # Number of scenarios to generate using "Hard" method
 
-const σ_min            = 0.1                # Minimum of noise range
-const σ_step           = 0.1                # Step size of noise range
-const σ_max            = 2.0                # Maximum of noise range
+const σ_1               = 0.1               # 1st noise parameter value
+const σ_2               = 0.5               # 2nd noise parameter value
+const σ_3               = 1.0               # 3rd noise parameter value
+const σ_4               = 2.0               # 4th noise parameter value
 
 Num_scenarios = Num_easy + Num_hard         # Number of total scenarios to generate
 
@@ -32,7 +33,7 @@ Num_scenarios = Num_easy + Num_hard         # Number of total scenarios to gener
 P_range           = collect(P_min:P_step:P_max)               # Range of targets 
 T_range           = collect(T_min:T_step:T_max)               # Range of time steps
 Scenario_range    = collect(1:1:Num_scenarios)                # Range of scenarios
-σ_range           = collect(σ_min:σ_step:σ_max)               # Range of scenaro noise
+σ_range           = Float64[σ_1, σ_2, σ_3, σ_4]               # Range of scenaro noise
 
 ### CREATE REQUIRED DIRECTORIES ###
 mypath = string(Path_stem, "Results")

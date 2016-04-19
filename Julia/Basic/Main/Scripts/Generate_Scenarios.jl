@@ -48,14 +48,6 @@ isdir(mypath) || mkdir(mypath)
 ###    STEP 1: GENERATE NEW TRUE TRAJECTORIES    ####
 #####################################################
 for P in P_range
-
-  # Set the grid window size
-  # if P <= 6
-  #   Grid_size = 5
-  # else
-  #   Grid_size = 10
-  # end
-
   for T in T_range
     for Scenario_num in Parallel_range
 

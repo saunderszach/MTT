@@ -168,7 +168,7 @@ for t = 1:T
 
   for i = 1:Num_detections[t]
     for j = 1:P
-      if convert(Int64, getValue(y[t,i,j])) == 1
+      if convert(Int64, round(getValue(y[t,i,j]))) == 1
         Assignment_index[i] = j
       end
     end
@@ -190,7 +190,7 @@ for t = 1:T
   end
 
   for i = 1:Num_detections[t]
-    if convert(Int64, getValue(F[t,i])) == 1
+    if convert(Int64, round(getValue(F[t,i]))) == 1
       push!(Temp, Data[t][i])
     end
   end

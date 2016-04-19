@@ -6,7 +6,6 @@ include(string(Path_stem, "Functions/Miscellaneous/Write_Partitions.jl"))
 include(string(Path_stem, "Functions/Scenario/Generate_Trajectories.jl"))
 include(string(Path_stem, "Functions/Scenario/Simulate_Perturbations.jl"))
 
-
 #####################################################
 ###    STEP 0: DEFINE EXPERIMENTAL PARAMETERS    ####
 #####################################################
@@ -23,6 +22,7 @@ const Num_parallel     = 10                 # Number of scenarios to generate us
 const Num_crossing     = 10                 # Number of scenarios to generate using "crossing" method
 
 const Gap_size         = 0.5                # Gap size between targets
+const Grid_size        = 10                 # Size of window for targets to exist within
 
 const Parallel_grid_steps  = 5              # Grid step size for parallel scenarios
 const Crossing_grid_steps  = 20             # Grid step size for crossing scenarios
@@ -47,14 +47,6 @@ isdir(mypath) || mkdir(mypath)
 ###    STEP 1: GENERATE NEW TRUE TRAJECTORIES    ####
 #####################################################
 for P in P_range
-
-  # Set the grid window size
-  if P <= 6
-    Grid_size = 5
-  else
-    Grid_size = 10
-  end
-
   for T in T_range
     for Scenario_num in Parallel_range
 
@@ -69,7 +61,7 @@ for P in P_range
 
       ### WRITE TRAJECTORIES TO FILE ###
       Write_path = string(Path_stem, "Experiment/True_Positions/", string(P), "_", string(T), "_", string(Scenario_num), ".csv")
-      write_partitions(True_Positions, Write_path, P, T)
+      write_partitions(True_Positions, Write_path, T)
 
     end # Parallel_range
 
@@ -86,7 +78,7 @@ for P in P_range
 
       ### WRITE TRAJECTORIES TO FILE ###
       Write_path = string(Path_stem, "Experiment/True_Positions/", string(P), "_", string(T), "_", string(Scenario_num), ".csv")
-      write_partitions(True_Positions, Write_path, P, T)
+      write_partitions(True_Positions, Write_path, T)
 
     end # Crossing_range
     

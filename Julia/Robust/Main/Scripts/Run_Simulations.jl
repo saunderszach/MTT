@@ -23,40 +23,44 @@ include(string(Path_stem, "Optimization/Robust_MIP.jl"))
 ###    STEP 0: DEFINE EXPERIMENTAL PARAMETERS    ####
 #####################################################
 
-const P_min             = 4                 # Minimum of target range
+const P_min             = 6                 # Minimum of target range
 const P_step            = 2                 # Step size of target range
-const P_max             = 10                # Maximum of target range
+const P_max             = 6                 # Maximum of target range
 
 const T_min             = 4                 # Minimum of time range
 const T_step            = 2                 # Step size of time range
-const T_max             = 10                # Maximum of time range
+const T_max             = 4                 # Maximum of time range
 
 const Scenario_min      = 1                 # Starting range of scenario numbers
-const Scenario_max      = 20                # Ending range of scenario numbers
+const Scenario_max      = 1                 # Ending range of scenario numbers
 
-const γ_min             = 0.8               # Minimum missed detection probability
+const σ_1               = 0.1               # 1st noise parameter value
+#const σ_2               = 0.5              # 2nd noise parameter value
+#const σ_3               = 1.0              # 3rd noise parameter value
+#const σ_4               = 2.0              # 4th noise parameter value
+
+const γ_min             = 0.85              # Minimum missed detection probability
 const γ_step            = 0.5               # Missed detection probability step size
-const γ_max             = 1.0               # Maximum missed detection probability
+const γ_max             = 0.85              # Maximum missed detection probability
 
-const λ_min             = 0.5               # Minimum false alarm rate
-const λ_step            = 0.5               # Missed false alarm rate step size
-const λ_max             = 1.0               # Maximum false alarm rate
+const λ_1               = 0.5               # 1st false alarm rate
+#const λ_2               = 0.5              # 2nd false alarm rate
+#const λ_3               = 1.0              # 3rd false alarm rate
 
 const Sim_min           = 1                 # Starting range of perturbations
-const Sim_max           = 10                # Ending range of perturbations 
+const Sim_max           = 1                 # Ending range of perturbations 
 
-const N_1               = 100               # 1st N to run heuristic 
-const N_2               = 1000              # 2nd N to run heuristic 
-const N_3               = 10000             # 3rd N to run heuristic 
+const N                 = 1000              # Number of starting points for heuristic 
 
 const θ_min             = 0.1               # Minimum false alarm penalty
 const θ_step            = 0.1               # False alarm penalty step size
-const θ_max             = 0.2               # Maximum false alarm penalty
+const θ_max             = 0.5               # Maximum false alarm penalty
 
 const ϕ_min             = 0.1               # Minimum missed detection penalty
 const ϕ_step            = 0.1               # Missed detection penalty step size
-const ϕ_max             = 0.2               # Maximum missed detection penalty
+const ϕ_max             = 0.5               # Maximum missed detection penalty
 
+const Grid_size         = 10                # Size of window for targets to exist within
 const MIP_seed          = 5271992           # Set gurobi seed
 const Num_threads       = 1                 # Set gurobi thread limit
 
@@ -64,38 +68,36 @@ const Num_threads       = 1                 # Set gurobi thread limit
 P_range           = collect(P_min:P_step:P_max)               # Range of targets 
 T_range           = collect(T_min:T_step:T_max)               # Range of time steps
 Scenario_range    = collect(Scenario_min:1:Scenario_max)      # Range of scenarios
+#σ_range           = Float64[σ_1, σ_2, σ_3, σ_4]               # Range of scenaro noise
+σ_range           = Float64[σ_1]
 γ_range           = collect(γ_min:γ_step:γ_max)               # Range of missed detection probabilities
-λ_range           = collect(λ_min:λ_step:λ_max)               # Range of false alarm rates
-Sim_range         = collect(Sim_min:1:Sim_max)                # Range of perturbation sims
-N_range           = Int64[N_1, N_2, N_3]                      # Range of heuristic starting points
+#λ_range           = Float64[λ_1, λ_2, λ_3]                    # Range of false alarm rates
+λ_range           = Float64[λ_1]
+Sim_range         = collect(Sim_min:1:Sim_max)                # Range of simulations
 θ_range           = collect(θ_min:θ_step:θ_max)               # Range of missed detection penalties
 ϕ_range           = collect(ϕ_min:ϕ_step:ϕ_max)               # Range of false alarm penalties
 
 ### CREATE REQUIRED DIRECTORIES ###
-create_directories(Path_stem, P_range, T_range, Scenario_range)
+create_directories(Path_stem, P_range, T_range, Scenario_range, σ_range)
 
 #######################################################
 ###    STEP 4: RUN EXPERIMENT ON SIMULATED DATA    ####
 #######################################################
 
+### WRITE SUMMARY RESULTS TO FILE ###
+Summary_path = string(Path_stem, "Experiment/Simulation_Summaries/Summary.csv")
+open(Summary_path,"w") do fp
+  println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,N,MIP_Time_Limit,Heuristic_run_time,MIP_run_time,Total_run_time,Heuristic_abs_obj,Optimized_abs_obj,Heuristic_RSS_obj,Optimized_RSS_obj")
+end
+
 ### PRECOMPILE CODE TO ELIMINATE GARBAGE TIME ###
 run_precompiler()
 
 for P in P_range
-  
-  ### Define variable parameters ###
-  if P <= 6
-    Grid_size = 5                               # Grid size
-    σ_range   = Float64[0.5, 1.0, 2.5, 5.0]     # Range of scenaro noise
-  else
-    Grid_size = 10                              # Grid size
-    σ_range   = Float64[1.0, 2.0, 5.0, 10.0]    # Range of scenaro noise
-  end
-
   for T in T_range
 
     ### Define range of times to run MIP
-    MIP_time_limits = Int64[1, T, 2*T, 3*T]       
+    MIP_time_limits = Int64[1, T, 2*T, 3*T]     
 
     ### PRECOMPUTE DESIGN MATRIX ###
     X      = ones(T, 2);
@@ -130,63 +132,56 @@ for P in P_range
                     ### PREPARE DATA FOR HEURISTIC ###
                     (Prepared_data, Lengths) = prepare_data(Data, Num_detections, Test_P, T)
                         
-                    for N in N_range
+                    ### SET THE SEED  ###
+                    srand(convert(Int64, P + T*10 + Scenario_num*100 + σ*1000 + γ*10000 + λ*100000 + Sim_num*1000000 + θ*10000000 + ϕ*100000000 + Test_P*1000000000))
 
-                      ### SET THE SEED  ###
-                      srand(convert(Int64, P + T*10 + Scenario_num*100 + σ*1000 + γ*10000 + λ*100000 + Sim_num*1000000 + θ*10000000 + ϕ*100000000 + Test_P*1000000000 + N*10000000000))
+                    ### RUN AND TIME HEURISTIC ###
+                    Heuristic_start_time   = time()
+                    (Heuristic_partitions) = run_robust_heuristic(Prepared_data, Num_detections, Lengths, N, Test_P, T, θ, ϕ)
+                    Heuristic_run_time     = time() - Heuristic_start_time
 
-                      ### BEGIN TIMING SIMULATION ###
-                      Total_start_time = time()
+                    ### ESTIMATE PARAMETERS OF HEURISTIC SOLUTION ###
+                    (Heuristic_abs_obj, Alpha, Beta) = solve_estimation(Data, Heuristic_partitions, Num_detections, Grid_size, Test_P, T, θ, ϕ)
 
-                      ### RUN AND TIME HEURISTIC ###
-                      Heuristic_start_time   = time()
-                      (Heuristic_partitions) = run_robust_heuristic(Prepared_data, Num_detections, Lengths, N, Test_P, T, θ, ϕ)
-                      Heuristic_run_time     = time() - Heuristic_start_time
+                    ### WRITE SOLUTION RESULTS TO FILE ###
+                    Heuristic_write_path = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), ".csv")  
+                    write_partitions(Heuristic_partitions, Heuristic_write_path, T)
 
-                      ### ESTIMATE PARAMETERS OF HEURISTIC SOLUTION ###
-                      (Heuristic_abs_obj, Alpha, Beta) = solve_estimation(Data, Heuristic_partitions, Num_detections, Grid_size, Test_P, T, θ, ϕ)
+                    ### CALCULATE TOTAL RSS FOR EACH SOLUTION ###
+                    (Heuristic_RSS, Heuristic_Total_FA, Heuristic_Total_MD) = calc_obj(Test_P, T, Heuristic_partitions, Lengths)
+                    Heuristic_RSS_obj = sum(Heuristic_RSS) + θ*Heuristic_Total_FA + ϕ*Heuristic_Total_MD
 
-                      for Time_limit in MIP_time_limits
+                    for Time_limit in MIP_time_limits
 
-                        ### PRINT PROGRESS TO SCREEN ###
-                        println("P:", P, " T:", T, " Sce num:", Scenario_num, " Sigma:", σ, " Gamma:", γ, " Lambda:", λ, " Sim num:", Sim_num, " Theta:", θ, " Phi:", ϕ, " Test P:", Test_P, " N:", N, "\tTime Limit:", Time_limit)
+                      ### PRINT PROGRESS TO SCREEN ###
+                      println("P:", P, " T:", T, " Sce num:", Scenario_num, " Sigma:", σ, " Gamma:", γ, " Lambda:", λ, " Sim num:", Sim_num, " Theta:", θ, " Phi:", ϕ, " Test P:", Test_P, "\tTime Limit:", Time_limit)
 
-                        ### RUN AND TIME MIP ###
-                        MIP_start_time = time()
-                        MIP_write_path = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), "_", string(N), "_", string(Time_limit), ".csv")
-                        (Optimized_abs_obj, Optimized_partitions) = run_robust_MIP(Data, Heuristic_partitions,  Num_detections, Alpha, Beta, Grid_size, Test_P, T, θ, ϕ, MIP_write_path, Time_limit, MIP_seed, Num_threads)
-                        MIP_run_time = time() - MIP_start_time
+                      ### RUN AND TIME MIP ###
+                      MIP_start_time = time()
+                      MIP_write_path = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), "_", string(Time_limit), ".csv")
+                      (Optimized_abs_obj, Optimized_partitions) = run_robust_MIP(Data, Heuristic_partitions,  Num_detections, Alpha, Beta, Grid_size, Test_P, T, θ, ϕ, MIP_write_path, Time_limit, MIP_seed, Num_threads)
+                      MIP_run_time = time() - MIP_start_time
 
-                        ### END TIMING SIMULATION ###
-                        Total_run_time = time() - Total_start_time
+                      ### CALCULATE TOTAL RUN TIME ###
+                      Total_run_time = Heuristic_run_time + MIP_run_time
 
-                        ### STORE LENGTHS OF OPTIMIZED PARTITIONS ###
-                        Lengths = zeros(Int64, T)
-                        for t in 1:T 
-                          Lengths[t] = length(Optimized_partitions[t])
-                        end
+                      ### PREPARE OPTIMIZED PARTIONS FOR OBJECTIVE CALCULATION ###
+                      (Prepared_optimized, Lengths) = prepare_data(Optimized_partitions, Num_detections, Test_P, T)
 
-                        ### WRITE SOLUTION RESULTS TO FILE ###
-                        Heuristic_write_path = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), "_", string(N), "_", string(Time_limit), ".csv")
-                        Optimized_write_path = string(Path_stem, "Experiment/MIP_Solutions/",       string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), "_", string(N), "_", string(Time_limit), ".csv")
-                        write_partitions(Heuristic_partitions, Heuristic_write_path, T)
-                        write_partitions(Optimized_partitions, Optimized_write_path, T)
+                      ### WRITE SOLUTION RESULTS TO FILE ###
+                      Optimized_write_path = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), "_", string(Time_limit), ".csv")
+                      write_partitions(Optimized_partitions, Optimized_write_path, T)
 
-                        ### CALCULATE TOTAL RSS FOR EACH SOLUTION ###
-                        (Heuristic_RSS, Heuristic_Total_FA, Heuristic_Total_MD) = calc_obj(Test_P, T, Heuristic_partitions, Lengths)
-                        (Optimized_RSS, Optimized_Total_FA, Optimized_Total_MD) = calc_obj(Test_P, T, Optimized_partitions, Lengths)
-                        Heuristic_RSS_obj = sum(Heuristic_RSS) + θ*Heuristic_Total_FA + ϕ*Heuristic_Total_MD
-                        Optimized_RSS_obj = sum(Optimized_RSS) + θ*Optimized_Total_FA + ϕ*Optimized_Total_MD
+                      ### CALCULATE TOTAL RSS FOR EACH SOLUTION ###
+                      (Optimized_RSS, Optimized_Total_FA, Optimized_Total_MD) = calc_obj(Test_P, T, Prepared_optimized, Lengths)
+                      Optimized_RSS_obj = sum(Optimized_RSS) + θ*Optimized_Total_FA + ϕ*Optimized_Total_MD
 
-                        ### WRITE SUMMARY RESULTS TO FILE ###
-                        Summary_path = string(Path_stem, "Experiment/Simulation_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), "_", string(N), "_", string(Time_limit), ".csv")
-                        open(Summary_path,"w") do fp
-                          println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,N,MIP_Time_Limit,Heuristic_run_time,MIP_run_time,Total_run_time,Heuristic_abs_obj,Optimized_abs_obj,Heuristic_RSS_obj,Optimized_RSS_obj")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", N, ",", Time_limit, ",", Heuristic_run_time, ",", MIP_run_time, ",", Total_run_time, ",", Heuristic_abs_obj, ",", Optimized_abs_obj, ",", Heuristic_RSS_obj, ",", Optimized_RSS_obj)
-                        end
+                      ### WRITE SUMMARY RESULTS TO FILE ###
+                      open(Summary_path,"a") do fp
+                        println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", N, ",", Time_limit, ",", Heuristic_run_time, ",", MIP_run_time, ",", Total_run_time, ",", Heuristic_abs_obj, ",", Optimized_abs_obj, ",", Heuristic_RSS_obj, ",", Optimized_RSS_obj)
+                      end
 
-                      end # MIP_Times
-                    end # N_range
+                    end # MIP_Times
                   end # P_test_range
                 end # ϕ_range
               end # θ_range

@@ -21,6 +21,23 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{MTT-Taxonomy}
+G.~Pulford, ``Taxonomy of multiple target tracking methods,'' \emph{Radar,
+  Sonar and Navigation, IEE Proceedings -}, vol. 152, no.~5, pp. 291--304,
+  October 2005.
+
+\bibitem{Bar-Shalom_MTT}
+\BIBentryALTinterwordspacing
+Y.~Bar-Shalom and X.~Li, \emph{Multitarget-multisensor Tracking: Principles and
+  Techniques}.\hskip 1em plus 0.5em minus 0.4em\relax Yaakov Bar-Shalom, 1995.
+  [Online]. Available: \url{https://books.google.com/books?id=GfOoMQEACAAJ}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Bar-Shalom_Estimation}
+Y.~Bar-Shalom and X.-R. Li, \emph{Estimation with Applications to Tracking and
+  Navigation}.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: John
+  Wiley \& Sons, Inc., 2001.
+
 \bibitem{GNN}
 \BIBentryALTinterwordspacing
 S.~Blackman, \emph{Multiple-target Tracking with Radar Applications}, ser.
@@ -41,13 +58,6 @@ D.~Reid, ``An algorithm for tracking multiple targets,'' \emph{Automatic
 S.~Blackman, ``Multiple hypothesis tracking for multiple target tracking,''
   \emph{Aerospace and Electronic Systems Magazine, IEEE}, vol.~19, no.~1, pp.
   5--18, {Jan} 2004.
-
-\bibitem{Bar-Shalom_MTT}
-\BIBentryALTinterwordspacing
-Y.~Bar-Shalom and X.~Li, \emph{Multitarget-multisensor Tracking: Principles and
-  Techniques}.\hskip 1em plus 0.5em minus 0.4em\relax Yaakov Bar-Shalom, 1995.
-  [Online]. Available: \url{https://books.google.com/books?id=GfOoMQEACAAJ}
-\BIBentrySTDinterwordspacing
 
 \bibitem{Viterbi-1}
 J.~K. Wolf, A.~M. Viterbi, and G.~S. Dixon, ``Finding the best set of k paths
@@ -92,16 +102,6 @@ A.~Andriyenko and K.~Schindler, ``Multi-target tracking by continuous energy
 A.~Andriyenko, K.~Schindler, and S.~Roth, ``Discrete-continuous optimization
   for multi-target tracking,'' in \emph{Computer Vision and Pattern Recognition
   (CVPR), 2012 IEEE Conference on}, June 2012, pp. 1926--1933.
-
-\bibitem{MTT-Taxonomy}
-G.~Pulford, ``Taxonomy of multiple target tracking methods,'' \emph{Radar,
-  Sonar and Navigation, IEE Proceedings -}, vol. 152, no.~5, pp. 291--304,
-  October 2005.
-
-\bibitem{Bar-Shalom_Estimation}
-Y.~Bar-Shalom and X.-R. Li, \emph{Estimation with Applications to Tracking and
-  Navigation}.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: John
-  Wiley \& Sons, Inc., 2001.
 
 \bibitem{Computation}
 A.~Lodi, \emph{50 Years of Integer Programming 1958-2008.From the Early Years

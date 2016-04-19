@@ -1,10 +1,11 @@
 function add_false_alarms(Data::Vector{Vector{Float64}},
+						  Data_key::Vector{Vector{Float64}},
 						  Grid_size::Int64, 
 					   	  T::Int64,
 				  	      λ::Float64)
 
 	New_data 	 = deepcopy(Data)
-	False_alarms = Array(Vector{Float64},T)
+	New_key 	 = deepcopy(Data_key)
 
 	poisson_dist = Poisson(λ)
 	uniform_dist = Uniform(-Grid_size, Grid_size)
@@ -12,7 +13,6 @@ function add_false_alarms(Data::Vector{Vector{Float64}},
 	for t = 1:T 
 
 		Num_false_alarms = rand(poisson_dist)
-		False_alarms[t] = Float64[]
 
 		if Num_false_alarms != 0
 
@@ -21,7 +21,7 @@ function add_false_alarms(Data::Vector{Vector{Float64}},
 				Position = rand(uniform_dist)
 				
 				push!(New_data[t], Position)
-				push!(False_alarms[t], Position)
+				push!(New_key[t], Position)
 			
 			end
 
@@ -29,6 +29,6 @@ function add_false_alarms(Data::Vector{Vector{Float64}},
 
 	end 
 
-	return New_data, False_alarms
+	return New_data, New_key
 
 end
