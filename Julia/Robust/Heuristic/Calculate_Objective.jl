@@ -27,15 +27,13 @@ for p in 1:P
 
   Time = Int64[]
   Position = Float64[]
-  index = 1
 
   for t = 1:T
 
     if Partitions[t][p] != -1000
-      push!(Time,index)
+      push!(Time, t)
       push!(Position,Partitions[t][p])
     end
-    index = index + 1
 
   end
 

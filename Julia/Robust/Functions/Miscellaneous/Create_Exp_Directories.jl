@@ -10,20 +10,20 @@ function create_directories(Path_stem::ASCIIString,
   mypath = string(Path_stem, "Experiment/Garbage")
   isdir(mypath) || mkdir(mypath)
   
-  mypath = string(Path_stem, "Experiment/Unshuffled_Data")
-  isdir(mypath) || mkdir(mypath)
+  # mypath = string(Path_stem, "Experiment/Unshuffled_Data")
+  # isdir(mypath) || mkdir(mypath)
 
   mypath = string(Path_stem, "Experiment/Data_Key")
   isdir(mypath) || mkdir(mypath)
 
-  mypath = string(Path_stem, "Experiment/Original_Detections")
-  isdir(mypath) || mkdir(mypath)
+  # mypath = string(Path_stem, "Experiment/Original_Detections")
+  # isdir(mypath) || mkdir(mypath)
 
   mypath = string(Path_stem, "Experiment/MIP_Solutions")
   isdir(mypath) || mkdir(mypath)
 
-  mypath = string(Path_stem, "Experiment/MIP_Summaries")
-  isdir(mypath) || mkdir(mypath)
+  # mypath = string(Path_stem, "Experiment/MIP_Summaries")
+  # isdir(mypath) || mkdir(mypath)
 
   mypath = string(Path_stem, "Experiment/Heuristic_Solutions")
   isdir(mypath) || mkdir(mypath)
@@ -36,20 +36,20 @@ function create_directories(Path_stem::ASCIIString,
     mypath = string(Path_stem, "Experiment/Data/", string(P))
     isdir(mypath) || mkdir(mypath)
 
-    mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P))
-    isdir(mypath) || mkdir(mypath)
+    # mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P))
+    # isdir(mypath) || mkdir(mypath)
 
     mypath = string(Path_stem, "Experiment/Data_Key/", string(P))
     isdir(mypath) || mkdir(mypath)
 
-    mypath = string(Path_stem, "Experiment/Original_Detections/", string(P))
-    isdir(mypath) || mkdir(mypath)
+    # mypath = string(Path_stem, "Experiment/Original_Detections/", string(P))
+    # isdir(mypath) || mkdir(mypath)
 
     mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P))
     isdir(mypath) || mkdir(mypath)
 
-    mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P))
-    isdir(mypath) || mkdir(mypath)
+    # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P))
+    # isdir(mypath) || mkdir(mypath)
 
     mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P))
     isdir(mypath) || mkdir(mypath)
@@ -62,20 +62,20 @@ function create_directories(Path_stem::ASCIIString,
       mypath = string(Path_stem, "Experiment/Data/", string(P), string(/), string(T))
       isdir(mypath) || mkdir(mypath)
 
-      mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P), string(/), string(T))
-      isdir(mypath) || mkdir(mypath)
+      # mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P), string(/), string(T))
+      # isdir(mypath) || mkdir(mypath)
 
       mypath = string(Path_stem, "Experiment/Data_Key/", string(P), string(/), string(T))
       isdir(mypath) || mkdir(mypath)
 
-      mypath = string(Path_stem, "Experiment/Original_Detections/", string(P), string(/), string(T))
-      isdir(mypath) || mkdir(mypath)
+      # mypath = string(Path_stem, "Experiment/Original_Detections/", string(P), string(/), string(T))
+      # isdir(mypath) || mkdir(mypath)
 
       mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T))
       isdir(mypath) || mkdir(mypath)
 
-      mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T))
-      isdir(mypath) || mkdir(mypath)
+      # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T))
+      # isdir(mypath) || mkdir(mypath)
 
       mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T))
       isdir(mypath) || mkdir(mypath)
@@ -88,8 +88,8 @@ function create_directories(Path_stem::ASCIIString,
         mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num))
         isdir(mypath) || mkdir(mypath)
 
-        mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num))
-        isdir(mypath) || mkdir(mypath)
+        # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num))
+        # isdir(mypath) || mkdir(mypath)
 
         mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num))
         isdir(mypath) || mkdir(mypath)
@@ -102,8 +102,8 @@ function create_directories(Path_stem::ASCIIString,
           mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
           isdir(mypath) || mkdir(mypath)
 
-          mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
-          isdir(mypath) || mkdir(mypath)
+          # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
+          # isdir(mypath) || mkdir(mypath)
 
           mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
           isdir(mypath) || mkdir(mypath)

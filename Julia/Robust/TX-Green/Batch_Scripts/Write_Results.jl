@@ -39,8 +39,8 @@ Scenario_range    = collect(Scenario_min:1:Scenario_max)      # Range of scenari
 λ_range           = Float64[λ_1, λ_2, λ_3, λ_4]               # Range of false alarm rates
 
 
-Write_path = string(Path_stem, "Batch_Run_Sims.sh")
-open(Write_path,"w") do fp
+Write_path = string(Path_stem, "Batch_Analyze_Results.sh")
+	open(Write_path,"w") do fp
 end
 
 for P in P_range
@@ -51,9 +51,9 @@ for P in P_range
   		  for λ in λ_range
 
 			open(Write_path, "a") do fp
-			  println(fp, "qsub -N julia -o Robust/Logs/Sim_", string(P), "_",
+			  println(fp, "qsub -N julia -o Robust/Logs/Results_", string(P), "_",
 			  	string(T), "_", string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), ".txt", " ",
-			  	"/home/gridsan/ZA25454/Robust/TX-Green/Wrappers/Sims_wrapper.sh ", string(P), " ", string(T), " ",
+			  	"/home/gridsan/ZA25454/Robust/TX-Green/Wrappers/Results_wrapper.sh ", string(P), " ", string(T), " ",
 			  	string(Scenario_num), " ", string(σ), " ", string(γ), " ", string(λ))
 			end
 

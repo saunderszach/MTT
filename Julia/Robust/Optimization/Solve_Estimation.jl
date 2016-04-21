@@ -7,6 +7,9 @@ function solve_estimation(Data::Vector{Vector{Float64}},
                           Theta::Float64, 
                           Phi::Float64)
 
+### RUN GARBAGE COLLECTOR ###
+gc()
+
 ### Initialize optimization model
 MIP = Model(solver=GurobiSolver(OutputFlag=0, Threads=1));
 
@@ -129,6 +132,9 @@ status = solve(MIP)
 Objective_value = getObjectiveValue(MIP)
 Alpha = getValue(α[:])
 Beta = getValue(β[:])
+
+### RUN GARBAGE COLLECTOR ###
+gc()
 
     return Objective_value, Alpha, Beta
 end

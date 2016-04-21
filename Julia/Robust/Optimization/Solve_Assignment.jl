@@ -8,8 +8,10 @@ function solve_traj_assignment(True_Position::Vector{Vector{Float64}},
                                Test_P::Int64,
                                T::Int64)
 
-#TAM = Trajectory Assignment Model
+### RUN GARBAGE COLLECTOR ###
+gc()
 
+#TAM = Trajectory Assignment Model
 TAM = Model(solver=GurobiSolver(OutputFlag=0, Threads = 1));
 
 @defVar(TAM, y[i=1:Test_P,j=1:True_P], Bin);
@@ -72,6 +74,9 @@ for i = 1:Test_P
     end
   end
 end
+
+### RUN GARBAGE COLLECTOR ###
+gc()
 
   return Track_assignments
 

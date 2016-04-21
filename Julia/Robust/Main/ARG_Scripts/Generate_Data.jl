@@ -1,7 +1,11 @@
+### LIMIT THREAD COUNT ###
+blas_set_num_threads(1)
+
+### LOAD REQUIRED PACKAGES ###
 using Distributions
 
 #### CHANGE TO LOCAL GIT DIRECTORY ###
-const Path_stem = "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Robust/"
+const Path_stem = "/home/gridsan/ZA25454/Robust/"
 
 ### LOAD REQUIRED FUNCTIONS/SCRIPTS ###
 include(string(Path_stem, "Functions/Miscellaneous/Read_Partitions.jl"))
@@ -24,7 +28,7 @@ const Scenario_num   = parse(Int,     ARGS[3])   # Scenario number
 const σ              = parse(Float64, ARGS[4])   # Noise parameter
 
 const γ_min          = 0.80                      # Minimum missed detection probability
-const γ_step         = 0.5                       # Missed detection probability step size
+const γ_step         = 0.05                      # Missed detection probability step size
 const γ_max          = 0.95                      # Maximum missed detection probability
 
 const λ_1            = 0.1                       # 1st false alarm rate
@@ -33,7 +37,7 @@ const λ_3            = 1.0                       # 3rd false alarm rate
 const λ_4            = 2.0                       # 3rd false alarm rate
 
 const Sim_min        = 1                         # Starting range of simulation numbers
-const Sim_max        = 2                        # Ending range of simulation numbers 
+const Sim_max        = 1                         # Ending range of simulation numbers 
 
 const Grid_size      = 10                        # Size of window for targets to exist within
 
@@ -48,7 +52,7 @@ Sim_range         = collect(Sim_min:1:Sim_max)                # Range of simulat
 
 ### READ IN TRUE POSITION DATA ###
 Position_path = string(Path_stem, "Experiment/True_Positions/", string(P), "_", string(T), "_", string(Scenario_num), ".csv")
-True_position = read_partitions(Position_path, T)
+True_position = read_partitions(Position_path)
 
 
 for γ in γ_range

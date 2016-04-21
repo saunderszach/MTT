@@ -19,6 +19,9 @@ function run_robust_MIP(Data::Vector{Vector{Float64}},
                         Random_seed::Int64,
                         Num_threads::Int64)
 
+### RUN GARBAGE COLLECTOR ###
+gc()
+
 #Initialize optimization model
 MIP = Model(solver=GurobiSolver(OutputFlag=0, MIPFocus=1, Cuts=2, Presolve=2,
                                 Threads   = Num_threads,
@@ -176,19 +179,36 @@ for t = 1:T
 
   Temp = Float64[]
   
-  for i = 1:Num_detections[t]
+  # for i = 1:Num_detections[t]
 
-    index = find(Assignment_index.==i)
+  #   index = find(Assignment_index.==i)
+  #   @show index
+  #   if !isempty(index)
+  #     push!(Temp, Data[t][index[1]])
+  #   end
+
+  #   if i <= P && M_value[i,t] == 1
+  #     push!(Temp, -1000)
+  #   end
+
+  #   @show Temp
+  # end
+
+  for j = 1:P
     
-    if isempty(index) == false
+    index = find(Assignment_index.==j)
+  
+    if !isempty(index)
       push!(Temp, Data[t][index[1]])
     end
 
-    if i <= P && M_value[i,t] == 1
+    if M_value[j,t] == 1
       push!(Temp, -1000)
-    end
+    end 
+
   end
 
+  ### ADD FALSE ALARMS ###
   for i = 1:Num_detections[t]
     if convert(Int64, round(getValue(F[t,i]))) == 1
       push!(Temp, Data[t][i])
@@ -197,7 +217,29 @@ for t = 1:T
   Optimized_partitions[t] = Temp
 end
 
+for t in 1:T
+  Difference = setdiff(Data[t], Optimized_partitions[t])
+  if !isempty(setdiff(Difference, [-1000]))
+    println("WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING") 
+    @show Data[t]
+    @show getValue(M[:,t])
+    for i in 1:Num_detections[t]
+      @show getValue(F[t,i])
+    end
+
+    for i in 1:Num_detections[t]
+      for j in 1:P
+        @show getValue(y[t,i,j])
+      end
+    end
+    @show Optimized_partitions[t]
+  end
+end
+
 Objective_Value = getObjectiveValue(MIP)
+
+### RUN GARBAGE COLLECTOR ###
+gc()
 
     return Objective_Value, Optimized_partitions
 end

@@ -26,23 +26,24 @@ const T_step           = 2                  # Step size of time range
 const T_max            = 10                 # Maximum of time range
 
 const Scenario_min     = 1                  # Starting range of scenario numbers
-const Scenario_max     = 5                 # Ending range of scenario numbers 
+const Scenario_max     = 2                  # Ending range of scenario numbers 
 
 const σ_1              = 0.1                # 1st noise parameter value
 const σ_2              = 0.5                # 2nd noise parameter value
 const σ_3              = 1.0                # 3rd noise parameter value
 const σ_4              = 2.0                # 4th noise parameter value
 
-const γ_min            = 0.85               # Minimum missed detection probability
-const γ_step           = 0.5                # Missed detection probability step size
+const γ_min            = 0.80               # Minimum missed detection probability
+const γ_step           = 0.05               # Missed detection probability step size
 const γ_max            = 0.95               # Maximum missed detection probability
 
 const λ_1              = 0.1                # 1st false alarm rate
 const λ_2              = 0.5                # 2nd false alarm rate
 const λ_3              = 1.0                # 3rd false alarm rate
+const λ_4              = 2.0                # 4th false alarm rate
 
 const Sim_min          = 1                  # Starting range of simulation numbers
-const Sim_max          = 10                 # Ending range of simulation numbers 
+const Sim_max          = 1                  # Ending range of simulation numbers 
 
 const Grid_size        = 10                 # Size of window for targets to exist within
 
@@ -52,7 +53,7 @@ T_range           = collect(T_min:T_step:T_max)               # Range of time st
 Scenario_range    = collect(Scenario_min:1:Scenario_max)      # Range of scenarios
 σ_range           = Float64[σ_1, σ_2, σ_3, σ_4]               # Range of scenaro noise
 γ_range           = collect(γ_min:γ_step:γ_max)               # Range of missed detection probabilities
-λ_range           = Float64[λ_1, λ_2, λ_3]                    # Range of false alarm rates
+λ_range           = Float64[λ_1, λ_2, λ_3, λ_4]               # Range of false alarm rates
 Sim_range         = collect(Sim_min:1:Sim_max)                # Range of simulations
 
 ### CREATE REQUIRED DIRECTORIES ###
@@ -71,7 +72,7 @@ for P in P_range
 
       ### READ IN TRUE POSITION DATA ###
       Position_path = string(Path_stem, "Experiment/True_Positions/", string(P), "_", string(T), "_", string(Scenario_num), ".csv")
-      True_position = read_partitions(Position_path, T)
+      True_position = read_partitions(Position_path)
 
       for σ in σ_range
         for γ in γ_range

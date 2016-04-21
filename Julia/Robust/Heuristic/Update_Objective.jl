@@ -7,10 +7,7 @@ function update_obj(RSS,
                     t::Int64, 
                     T::Int64)
 
-Temp_Partitions = cell(T)
-for j = 1:T
-    Temp_Partitions[j] = copy(Partitions[j])
-end
+Temp_Partitions = deepcopy(Partitions)
 
 if Swap_Index[2] > P
   if Temp_Partitions[t][Swap_Index[1]] == -1000 && Temp_Partitions[t][Swap_Index[2]] != -1000
@@ -48,7 +45,6 @@ for p in Swap_Index
           X[:,2]   = Time;
           M        = eye(Temp_T)-X*((X'X)\(X'));
           New_RSS[p] = (norm((Position')*M))^2
-          #New_RSS[p] = (norm(Position- X*(X\Position)))^2
       end
   end
 end

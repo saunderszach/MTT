@@ -1,7 +1,11 @@
+### LIMIT THREAD COUNT ###
+blas_set_num_threads(1)
+
+### LOAD REQUIRED PACKAGES ###
 using Gurobi, JuMP
 
 #### CHANGE TO LOCAL GIT DIRECTORY ###
-const Path_stem = "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-Tracking/Julia/Robust/"
+const Path_stem = "/home/gridsan/ZA25454/Robust/"
 
 ### LOAD REQUIRED FUNCTIONS/SCRIPTS ###
 include(string(Path_stem, "Functions/Miscellaneous/Read_Partitions.jl"))
@@ -33,7 +37,7 @@ const γ                 = parse(Float64, ARGS[5])   # Missed Detection probabil
 const λ                 = parse(Float64, ARGS[6])   # False Alarm Rate
 
 const Sim_min           = 1                         # Starting range of perturbations
-const Sim_max           = 2                         # Ending range of perturbations 
+const Sim_max           = 1                         # Ending range of perturbations 
 
 const N                 = 1000                      # Number of starting points for heuristic 
 
@@ -77,9 +81,12 @@ M      = eye(T)-X*inv(X'X)*X';
 
 for Sim_num in Sim_range
 
+  ### RUN GARBAGE COLLECTOR ###
+  gc()
+
   ### READ IN DATA FOR SIMULATION ###
   Read_path = string(Path_stem, "Experiment/Data/", string(P), string(/), string(T), string(/), string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), "_", string(Sim_num), ".csv")    
-  Data      = read_partitions(Read_path, T)
+  Data      = read_partitions(Read_path)
 
   ### DETERMINE RANGE OF POSSIBLE NUMBER OF TARGETS  ###
   Num_detections = zeros(Int64, T)
@@ -93,8 +100,19 @@ for Sim_num in Sim_range
   P_test_range = collect(P_test_min:1:P_test_max)
 
   for θ in θ_range
+
+    ### RUN GARBAGE COLLECTOR ###
+    gc()
+
     for ϕ in ϕ_range
+
+      ### RUN GARBAGE COLLECTOR ###
+      gc()
+
       for Test_P in P_test_range
+
+        ### RUN GARBAGE COLLECTOR ###
+        gc()
 
         ### PREPARE DATA FOR HEURISTIC ###
         (Prepared_data, Lengths) = prepare_data(Data, Num_detections, Test_P, T)
@@ -119,6 +137,9 @@ for Sim_num in Sim_range
         Heuristic_RSS_obj = sum(Heuristic_RSS) + θ*Heuristic_Total_FA + ϕ*Heuristic_Total_MD
 
         for Time_limit in MIP_time_limits
+
+          ### RUN GARBAGE COLLECTOR ###
+          gc()
 
           ### PRINT PROGRESS TO SCREEN ###
           println("P:", P, " T:", T, " Sce num:", Scenario_num, " Sigma:", σ, " Gamma:", γ, " Lambda:", λ, " Sim num:", Sim_num, " Theta:", θ, " Phi:", ϕ, " Test P:", Test_P, "\tTime Limit:", Time_limit)

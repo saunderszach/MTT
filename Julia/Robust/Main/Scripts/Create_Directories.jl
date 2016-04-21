@@ -11,7 +11,7 @@ const T_step           = 2                  # Step size of time range
 const T_max            = 10                 # Maximum of time range
 
 const Scenario_min     = 1                  # Starting range of scenario numbers
-const Scenario_max     = 5                 # Ending range of scenario numbers 
+const Scenario_max     = 2                  # Ending range of scenario numbers 
 
 const σ_1              = 0.1                # 1st noise parameter value
 const σ_2              = 0.5                # 2nd noise parameter value
@@ -31,20 +31,20 @@ isdir(mypath) || mkdir(mypath)
 mypath = string(Path_stem, "Experiment/Garbage")
 isdir(mypath) || mkdir(mypath)
 
-mypath = string(Path_stem, "Experiment/Unshuffled_Data")
-isdir(mypath) || mkdir(mypath)
+# mypath = string(Path_stem, "Experiment/Unshuffled_Data")
+# isdir(mypath) || mkdir(mypath)
 
 mypath = string(Path_stem, "Experiment/Data_Key")
 isdir(mypath) || mkdir(mypath)
 
-mypath = string(Path_stem, "Experiment/Original_Detections")
-isdir(mypath) || mkdir(mypath)
+# mypath = string(Path_stem, "Experiment/Original_Detections")
+# isdir(mypath) || mkdir(mypath)
 
 mypath = string(Path_stem, "Experiment/MIP_Solutions")
 isdir(mypath) || mkdir(mypath)
 
-mypath = string(Path_stem, "Experiment/MIP_Summaries")
-isdir(mypath) || mkdir(mypath)
+# mypath = string(Path_stem, "Experiment/MIP_Summaries")
+# isdir(mypath) || mkdir(mypath)
 
 mypath = string(Path_stem, "Experiment/Heuristic_Solutions")
 isdir(mypath) || mkdir(mypath)
@@ -57,20 +57,20 @@ for P in P_range
   mypath = string(Path_stem, "Experiment/Data/", string(P))
   isdir(mypath) || mkdir(mypath)
 
-  mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P))
-  isdir(mypath) || mkdir(mypath)
+  # mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P))
+  # isdir(mypath) || mkdir(mypath)
 
   mypath = string(Path_stem, "Experiment/Data_Key/", string(P))
   isdir(mypath) || mkdir(mypath)
 
-  mypath = string(Path_stem, "Experiment/Original_Detections/", string(P))
-  isdir(mypath) || mkdir(mypath)
+  # mypath = string(Path_stem, "Experiment/Original_Detections/", string(P))
+  # isdir(mypath) || mkdir(mypath)
 
   mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P))
   isdir(mypath) || mkdir(mypath)
 
-  mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P))
-  isdir(mypath) || mkdir(mypath)
+  # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P))
+  # isdir(mypath) || mkdir(mypath)
 
   mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P))
   isdir(mypath) || mkdir(mypath)
@@ -80,20 +80,20 @@ for P in P_range
     mypath = string(Path_stem, "Experiment/Data/", string(P), string(/), string(T))
     isdir(mypath) || mkdir(mypath)
 
-    mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P), string(/), string(T))
-    isdir(mypath) || mkdir(mypath)
+    # mypath = string(Path_stem, "Experiment/Unshuffled_Data/", string(P), string(/), string(T))
+    # isdir(mypath) || mkdir(mypath)
 
     mypath = string(Path_stem, "Experiment/Data_Key/", string(P), string(/), string(T))
     isdir(mypath) || mkdir(mypath)
 
-    mypath = string(Path_stem, "Experiment/Original_Detections/", string(P), string(/), string(T))
-    isdir(mypath) || mkdir(mypath)
+    # mypath = string(Path_stem, "Experiment/Original_Detections/", string(P), string(/), string(T))
+    # isdir(mypath) || mkdir(mypath)
 
     mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T))
     isdir(mypath) || mkdir(mypath)
 
-    mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T))
-    isdir(mypath) || mkdir(mypath)
+    # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T))
+    # isdir(mypath) || mkdir(mypath)
 
     mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T))
     isdir(mypath) || mkdir(mypath)
@@ -103,8 +103,8 @@ for P in P_range
       mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num))
       isdir(mypath) || mkdir(mypath)
 
-      mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num))
-      isdir(mypath) || mkdir(mypath)
+      # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num))
+      # isdir(mypath) || mkdir(mypath)
 
       mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num))
       isdir(mypath) || mkdir(mypath)
@@ -114,8 +114,8 @@ for P in P_range
         mypath = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
         isdir(mypath) || mkdir(mypath)
 
-        mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
-        isdir(mypath) || mkdir(mypath)
+        # mypath = string(Path_stem, "Experiment/MIP_Summaries/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
+        # isdir(mypath) || mkdir(mypath)
 
         mypath = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ))
         isdir(mypath) || mkdir(mypath)

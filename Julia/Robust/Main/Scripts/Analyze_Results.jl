@@ -24,61 +24,59 @@ include(string(Path_stem, "Functions/Scenario/Calculate_Density.jl"))
 ###    STEP 0: DEFINE EXPERIMENTAL PARAMETERS    ####
 #####################################################
 
-const P_min            = 6                  # Minimum of target range
-const P_step           = 2                  # Step size of target range
-const P_max            = 6                 # Maximum of target range
+const P_min             = 4                   # Minimum of target range
+const P_step            = 2                   # Step size of target range
+const P_max             = 10                  # Maximum of target range
 
-const T_min            = 4                  # Minimum of time range
-const T_step           = 2                  # Step size of time range
-const T_max            = 4                 # Maximum of time range
+const T_min             = 4                   # Minimum of time range
+const T_step            = 2                   # Step size of time range
+const T_max             = 10                  # Maximum of time range
 
-const Num_parallel     = 2                 # Number of scenarios to generate using "parallel" method
-const Num_crossing     = 2                 # Number of scenarios to generate using "crossing" method
+const Num_parallel      = 1                   # Number of scenarios to generate using "parallel" method
+const Num_crossing      = 1                   # Number of scenarios to generate using "crossing" method
 
-const σ_1               = 0.1               # 1st noise parameter value
-#const σ_2               = 0.5              # 2nd noise parameter value
-#const σ_3               = 1.0              # 3rd noise parameter value
-#const σ_4               = 2.0              # 4th noise parameter value
+const σ_1               = 0.1                 # 1st noise parameter value
+const σ_2               = 0.5                 # 2nd noise parameter value
+const σ_3               = 1.0                 # 3rd noise parameter value
+const σ_4               = 2.0                 # 4th noise parameter value
 
-const γ_min             = 0.85              # Minimum missed detection probability
-const γ_step            = 0.5               # Missed detection probability step size
-const γ_max             = 0.85              # Maximum missed detection probability
+const γ_min             = 0.80                # Minimum missed detection probability
+const γ_step            = 0.05                # Missed detection probability step size
+const γ_max             = 0.95                # Maximum missed detection probability
 
-const λ_1               = 0.5               # 1st false alarm rate
-#const λ_2               = 0.5              # 2nd false alarm rate
-#const λ_3               = 1.0              # 3rd false alarm rate
+const λ_1               = 0.1                 # 1st false alarm rate
+const λ_2               = 0.5                 # 2nd false alarm rate
+const λ_3               = 1.0                 # 3rd false alarm rate
+const λ_4               = 2.0                 # 4th false alarm rate
 
-const Sim_min           = 1                 # Starting range of perturbations
-const Sim_max           = 1                 # Ending range of perturbations 
+const θ_min             = 0.1                 # Minimum false alarm penalty
+const θ_step            = 0.1                 # False alarm penalty step size
+const θ_max             = 0.5                 # Maximum false alarm penalty
 
-const N                 = 1000              # Number of starting points for heuristic 
+const ϕ_min             = 0.1                 # Minimum missed detection penalty
+const ϕ_step            = 0.1                 # Missed detection penalty step size
+const ϕ_max             = 0.5                 # Maximum missed detection penalty
 
-const θ_min             = 0.1               # Minimum false alarm penalty
-const θ_step            = 0.1               # False alarm penalty step size
-const θ_max             = 0.5               # Maximum false alarm penalty
+const Sim_min           = 1                   # Starting range of perturbations
+const Sim_max           = 2                   # Ending range of perturbations 
 
-const ϕ_min             = 0.1               # Minimum missed detection penalty
-const ϕ_step            = 0.1               # Missed detection penalty step size
-const ϕ_max             = 0.5               # Maximum missed detection penalty
+const Grid_size         = 10                  # Size of window for targets to exist within
+const MIP_seed          = 5271992             # Set gurobi seed
+const Num_threads       = 1                   # Set gurobi thread limit
 
-const Grid_size         = 10                # Size of window for targets to exist within
-const MIP_seed          = 5271992           # Set gurobi seed
-const Num_threads       = 1                 # Set gurobi thread limit
-
-Num_scenarios = Num_parallel + Num_crossing         # Number of total scenarios to generate
+Num_scenarios = Num_parallel + Num_crossing   # Number of total scenarios to generate
 
 ### CONSTRUCT RANGES ###
-P_range           = collect(P_min:P_step:P_max)               # Range of targets 
-T_range           = collect(T_min:T_step:T_max)               # Range of time steps
-Scenario_range    = collect(1:1:Num_scenarios)                # Range of scenarios
-#σ_range           = Float64[σ_1, σ_2, σ_3, σ_4]              # Range of scenaro noise
-σ_range           = Float64[σ_1]
-γ_range           = collect(γ_min:γ_step:γ_max)               # Range of missed detection probabilities
-#λ_range           = Float64[λ_1, λ_2, λ_3]                   # Range of false alarm rates
-λ_range           = Float64[λ_1]
-Sim_range         = collect(Sim_min:1:Sim_max)                # Range of simulations
-θ_range           = collect(θ_min:θ_step:θ_max)               # Range of missed detection penalties
-ϕ_range           = collect(ϕ_min:ϕ_step:ϕ_max)               # Range of false alarm penalties
+P_range           = collect(P_min:P_step:P_max)    # Range of targets 
+T_range           = collect(T_min:T_step:T_max)    # Range of time steps
+Scenario_range    = collect(1:1:Num_scenarios)     # Range of scenarios
+σ_range           = Float64[σ_1, σ_2, σ_3, σ_4]    # Range of scenaro noise
+γ_range           = collect(γ_min:γ_step:γ_max)    # Range of missed detection probabilities
+λ_range           = Float64[λ_1, λ_2, λ_3, λ_4]    # Range of false alarm rates
+#λ_range           = Float64[λ_4]
+θ_range           = collect(θ_min:θ_step:θ_max)    # Range of missed detection penalties
+ϕ_range           = collect(ϕ_min:ϕ_step:ϕ_max)    # Range of false alarm penalties
+Sim_range         = collect(Sim_min:1:Sim_max)     # Range of simulations
 
 ### CREATE REQUIRED DIRECTORIES ###
 mypath = string(Path_stem, "Results")
@@ -87,25 +85,15 @@ isdir(mypath) || mkdir(mypath)
 mypath = string(Path_stem, "Results/Files")
 isdir(mypath) || mkdir(mypath)
 
-mypath = string(Path_stem, "Results/Plots")
-isdir(mypath) || mkdir(mypath)
+# mypath = string(Path_stem, "Results/Plots")
+# isdir(mypath) || mkdir(mypath)
 
 #################################################
 ###    STEP 5: ANALYZE SIMULATION RESULTS    ####
 #################################################
-Accuracy_path = string(Path_stem, "Results/Files/Accuracy.csv")
-open(Accuracy_path,"w") do fp
-  println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,N,MIO_Time,Rho,Rho_Type,Accuracy,Solution_Type,Scenario_Type")
-end
-
-Delta_path = string(Path_stem, "Results/Files/Delta.csv")
-open(Delta_path,"w") do fp
-  println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,N,MIO_Time,Rho,Rho_Type,Delta,Solution_Type,Scenario_Type")
-end
-
-Objective_path = string(Path_stem, "Results/Files/Objective.csv")
-open(Objective_path,"w") do fp
-  println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,N,MIO_Time,Rho,Rho_Type,Objective,Solution_Type,Scenario_Type")
+Summary_path = string(Path_stem, "Results/Files/Summary.csv")
+open(Summary_path,"w") do fp
+  println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,MIO_Time,Rho,Accuracy,Delta,Objective,Solution_Type,Scenario_Type")
 end
 
 for P in P_range
@@ -118,7 +106,7 @@ for P in P_range
 
       ### READ IN AND STORE TRUE POSITIONS ###
       True_path = string(Path_stem, "Experiment/True_Positions/", string(P), "_", string(T), "_", string(Scenario_num), ".csv")
-      True_positions = read_partitions(True_path, T)
+      True_positions = read_partitions(True_path)
 
       for σ in σ_range
 
@@ -130,12 +118,12 @@ for P in P_range
             for Sim_num in Sim_range
 
               ### READ IN AND STORE IDEAL ASSIGNMENTS ###
-              Ideal_path = string(Path_stem, "Experiment/Data_key/", string(P), string(/), string(T), string(/), string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), "_", string(Sim_num), ".csv")
-              Raw_ideal  = read_partitions(Ideal_path, T)
+              Ideal_path = string(Path_stem, "Experiment/Data_Key/", string(P), string(/), string(T), string(/), string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), "_", string(Sim_num), ".csv")
+              Raw_ideal  = read_partitions(Ideal_path)
 
               ### READ IN AND STORE DATA ###
               Data_path = string(Path_stem, "Experiment/Data/", string(P), string(/), string(T), string(/), string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), "_", string(Sim_num), ".csv") 
-              Data = read_partitions(Data_path, T)
+              Data = read_partitions(Data_path)
 
               ### DETERMINE RANGE OF POSSIBLE NUMBER OF TARGETS  ###
               Num_detections = zeros(Int64, T)
@@ -186,7 +174,7 @@ for P in P_range
 
                     ### READ IN AND STORE HEURISTIC PARTITIONS ###
                     Heuristic_path = string(Path_stem, "Experiment/Heuristic_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), ".csv")
-                    Heuristic_partitions = read_partitions(Heuristic_path, T)
+                    Heuristic_partitions = read_partitions(Heuristic_path)
 
                     ### CALCULATE ESTIMATED PARAMETERS & OBJECTIVE SCORE ###
                     (Heuristic_objective, Heuristic_alpha, Heuristic_beta) = solve_estimation(Data, Heuristic_partitions, Num_detections, Grid_size, Test_P, T, θ, ϕ)
@@ -211,7 +199,7 @@ for P in P_range
  
                       ### READ IN AND STORE OPTIMIZED PARTITIONS ###
                       Optimized_path = string(Path_stem, "Experiment/MIP_Solutions/", string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/), string(γ), "_", string(λ), "_", string(Sim_num), "_", string(θ), "_", string(ϕ), "_", string(Test_P), "_", string(Time_limit), ".csv")
-                      Raw_optimized = read_partitions(Optimized_path, T)
+                      Raw_optimized = read_partitions(Optimized_path)
 
                       ### PREPARE PARTITIONS FOR USE ###
                       (Optimized_partitions, Lengths) = prepare_data(Raw_optimized, Num_detections, P, T)
@@ -234,49 +222,21 @@ for P in P_range
                       ### WRITE RESULTS TO FILE ###
                       if Scenario_num <= Num_parallel
 
-                        open(Accuracy_path, "a") do fp
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Random_accuracy,    ",", "Random",     ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Heuristic_accuracy, ",", "Heuristic",  ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", "Optimized",  ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Ideal_accuracy,     ",", "Ideal",      ",", "Parallel")
-                        end
-
-                        open(Delta_path, "a") do fp
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Random_δ,    ",", "Random",     ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Heuristic_δ, ",", "Heuristic",  ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Optimized_δ, ",", "Optimized",  ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Ideal_δ,     ",", "Ideal",      ",", "Parallel")
-                        end
-
-                        open(Objective_path, "a") do fp
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Random_objective,    ",", "Random",     ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Heuristic_objective, ",", "Heuristic",  ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Optimized_objective, ",", "Optimized",  ",", "Parallel")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Ideal_objective,     ",", "Ideal",      ",", "Parallel")
+                        open(Summary_path, "a") do fp
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Random_accuracy,    ",", Random_δ,    ",", Random_objective,    ",", "Random",     ",", "Parallel")
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Heuristic_accuracy, ",", Heuristic_δ, ",", Heuristic_objective, ",", "Heuristic",  ",", "Parallel")
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", Optimized_δ, ",", Optimized_objective, ",", "Optimized",  ",", "Parallel")
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Ideal_accuracy,     ",", Ideal_δ,     ",", Ideal_objective,     ",", "Ideal",      ",", "Parallel")
                         end
 
                       else
 
-                        open(Accuracy_path, "a") do fp
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Random_accuracy,    ",", "Random",     ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Heuristic_accuracy, ",", "Heuristic",  ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", "Optimized",  ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Ideal_accuracy,     ",", "Ideal",      ",", "Crossing")
+                        open(Summary_path, "a") do fp
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Random_accuracy,    ",", Random_δ,    ",", Random_objective,    ",", "Random",     ",", "Crossing")
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Heuristic_accuracy, ",", Heuristic_δ, ",", Heuristic_objective, ",", "Heuristic",  ",", "Crossing")
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", Optimized_δ, ",", Optimized_objective, ",", "Optimized",  ",", "Crossing")
+                          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Ideal_accuracy,     ",", Ideal_δ,     ",", Ideal_objective,     ",", "Ideal",      ",", "Crossing")
                         end
-
-                        open(Delta_path, "a") do fp
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Random_δ,    ",", "Random",     ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Heuristic_δ, ",", "Heuristic",  ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Optimized_δ, ",", "Optimized",  ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Ideal_δ,     ",", "Ideal",      ",", "Crossing")
-                        end
-
-                        open(Objective_path, "a") do fp
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Random_objective,    ",", "Random",     ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Heuristic_objective, ",", "Heuristic",  ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Optimized_objective, ",", "Optimized",  ",", "Crossing")
-                          println(fp, P, ",", T, ",", Scenario_num, ",", Sim_num, ",", σ, ",", N, ",", Time_limit, ",", ρ, ",", Ideal_objective,     ",", "Ideal",      ",", "Crossing")
-                        end 
 
                       end
                     

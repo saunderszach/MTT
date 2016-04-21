@@ -43,6 +43,7 @@ while stop == false
     end
 
       (New_RSS, New_Total_FA, New_Total_MD) = update_obj(Best_RSS, Best_Total_FA, Best_Total_MD, Swap_Index, Partitions, P, t, T)
+      
       New_Objective = sum(New_RSS) + θ*New_Total_FA + ϕ*New_Total_MD
 
       if New_Objective < Best_Objective
@@ -50,10 +51,14 @@ while stop == false
         Best_RSS       = copy(New_RSS)
         Best_Total_FA  = New_Total_FA
         Best_Total_MD  = New_Total_MD
-        stop = false;
-      else
+
+        # Make the switch
         Partitions[t][Swap_Index[1]], Partitions[t][Swap_Index[2]] = Partitions[t][Swap_Index[2]], Partitions[t][Swap_Index[1]]
+
+        # Mark to continue switching
+        stop = false;        
       end
+
   end
 end
 
