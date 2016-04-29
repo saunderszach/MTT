@@ -13,8 +13,8 @@ const T_min             = 4                 # Minimum of time range
 const T_step            = 2                 # Step size of time range
 const T_max             = 10                # Maximum of time range
 
-const Scenario_min     = 1                  # Starting range of scenario numbers
-const Scenario_max     = 2                  # Ending range of scenario numbers 
+const Scenario_min      = 1                 # Starting range of scenario numbers
+const Scenario_max      = 20                # Ending range of scenario numbers 
 
 const σ_1              = 0.1                # 1st noise parameter value
 const σ_2              = 0.5                # 2nd noise parameter value

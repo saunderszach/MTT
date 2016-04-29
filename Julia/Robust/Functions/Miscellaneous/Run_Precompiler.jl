@@ -30,11 +30,20 @@ function run_precompiler()
 	### PRECOMPILE HEURISTIC ###
 	(Heuristic_partitions) = run_robust_heuristic(Test_data, Num_detections, Lengths, N, P, T, θ, ϕ)
 
+	 ### RUN GARBAGE COLLECTOR ###
+  	gc()
+
 	### PRECOMPILE PRESOLVER ###
 	(Heuristic_abs_obj, Alpha, Beta) = solve_estimation(Data, Heuristic_partitions, Num_detections, Grid_size, P, T, θ, ϕ)
+
+	### RUN GARBAGE COLLECTOR ###
+  	gc()
 
 	### PRECOMPILE MIP ###
 	MIP_write_path = string(Path_stem, "Experiment/Garbage/Output.csv")
 	(Optimized_abs_obj, Optimized_partitions) = run_robust_MIP(Data, Heuristic_partitions, Num_detections, Alpha, Beta, Grid_size, P, T, θ, ϕ, MIP_write_path, Time_limit, MIP_seed, Num_threads)
+
+	### RUN GARBAGE COLLECTOR ###
+  	gc()
 
 end #run_precompiler

@@ -26,7 +26,6 @@ Summary = data.frame(P                  = integer(num_rows),
 count = 0
 for (P in P_range){
   for (T in T_range){
-    
     for (Scenario_num in 1:Num_scenarios){
       for (Sim_num in 1:Num_sims){
         for (Sigma in Sigma_range){
@@ -61,24 +60,14 @@ write.csv(file="Summary.csv", Summary, row.names = FALSE)
 
 Summary = read.csv("Summary.csv")
 
-Summary = Summary %>% filter(P!=0,T!=0)
+Summary = Summary %>% filter(P!=0, T!=0, N==1000)
 Summary$P = factor(Summary$P)
 Summary$T = factor(Summary$T)
 Summary$Scenario_num = factor(Summary$Scenario_num)
 Summary$Sim_num = factor(Summary$Sim_num)
 Summary$N = factor(Summary$N)
 
-Table_data = Summary%>% group_by(P,T,N) %>% summarize(Mean.time=mean(Heuristic_run_time)) %>% select(P,T,N,Mean.time)
-
-Table_data = Table_data %>% spread(N,Mean.time)
-
-Table_data_P = Summary%>% group_by(P,N) %>% summarize(Mean.time=mean(Heuristic_run_time)) %>% select(P,N,Mean.time)
-
-Table_data_P = Table_data_P %>% spread(N,Mean.time) 
-
-Table_data_T = Summary%>% group_by(T,N) %>% summarize(Mean.time=mean(Heuristic_run_time)) %>% select(T,N,Mean.time)
-
-Table_data_T = Table_data_T %>% spread(N,Mean.time)
+Table_data = Summary %>% group_by(P, T) %>% summarize(Min_time=min(Heuristic_run_time), Mean_time=mean(Heuristic_run_time), Max_time=max(Heuristic_run_time))
 
 xtable(Table_data)
 

@@ -4,8 +4,6 @@ library(tidyr)
 
 setwd("~/Desktop/Results/Basic/")
 
-#Rho_Types = c("Average", "Min", "Alpha_Min", "Proximity")
-
 Num_scenarios = 20
 
 State_space=read.csv("Files/State_Space.csv",header=TRUE)
@@ -13,16 +11,8 @@ State_space$P <- factor(State_space$P)
 State_space$T <- factor(State_space$T)
 State_space$Sigma <- factor(State_space$Sigma)
 
-# for (type in Rho_Types){
-#   
-# Data=State_space%>%filter(Rho_Type == type)
-# Data$Rho_Type = factor(Data$Rho_Type)
-# 
-# if (type != "Proximity"){
-#   Data$Rho = log(Data$Rho)
-# }
-
 Data=State_space%>%filter(Rho_Type == "Proximity")
+Data$Rho_Type = NULL
 
 plot = ggplot(data=Data, 
               aes(x=Sigma,
@@ -39,11 +29,9 @@ plot = ggplot(data=Data,
         strip.text.x=element_text(size=14),
         strip.text.y=element_text(size=14)) +
   xlab("Sigma") +
-  ylab("Rho")
-
-Save_str = paste("Plots/State_Space/Sigma_vs_Rho.png", sep="")
+  ylab("Rho") + guides(color=guide_legend(title='Scenario Type')) 
+Save_str = paste("Plots/State_Space/State_Space.png", sep="")
 png(file=Save_str,width=1000, height=700)
 print(plot)
 dev.off()
 
-#}

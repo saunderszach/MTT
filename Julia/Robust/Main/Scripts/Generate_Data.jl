@@ -6,7 +6,7 @@ const Path_stem = "/Users/za25454/Documents/Academic/Research/Git/Multi-Target-T
 ### LOAD REQUIRED FUNCTIONS/SCRIPTS ###
 include(string(Path_stem, "Functions/Miscellaneous/Read_Partitions.jl"))
 include(string(Path_stem, "Functions/Miscellaneous/Write_Partitions.jl"))
-include(string(Path_stem, "Functions/Miscellaneous/Create_Exp_Directories.jl"))
+include(string(Path_stem, "Functions/Miscellaneous/Create_Directories.jl"))
 
 include(string(Path_stem, "Functions/Scenario/Assemble_Detections.jl"))
 include(string(Path_stem, "Functions/Scenario/Remove_Detections.jl"))
@@ -26,7 +26,7 @@ const T_step           = 2                  # Step size of time range
 const T_max            = 10                 # Maximum of time range
 
 const Scenario_min     = 1                  # Starting range of scenario numbers
-const Scenario_max     = 2                  # Ending range of scenario numbers 
+const Scenario_max     = 20                 # Ending range of scenario numbers 
 
 const σ_1              = 0.1                # 1st noise parameter value
 const σ_2              = 0.5                # 2nd noise parameter value
@@ -43,7 +43,7 @@ const λ_3              = 1.0                # 3rd false alarm rate
 const λ_4              = 2.0                # 4th false alarm rate
 
 const Sim_min          = 1                  # Starting range of simulation numbers
-const Sim_max          = 1                  # Ending range of simulation numbers 
+const Sim_max          = 10                 # Ending range of simulation numbers 
 
 const Grid_size        = 10                 # Size of window for targets to exist within
 

@@ -1,5 +1,6 @@
 #### CHANGE TO LOCAL GIT DIRECTORY ###
-const Path_stem = "/home/gridsan/ZA25454/Robust/"
+const Path_stem = "/Users/za25454/Desktop/"
+#const Path_stem = "/home/gridsan/ZA25454/Robust/"
 
 #####################################################
 ###    STEP 0: DEFINE EXPERIMENTAL PARAMETERS    ####
@@ -14,7 +15,7 @@ const T_step            = 2                 # Step size of time range
 const T_max             = 10                # Maximum of time range
 
 const Scenario_min      = 1                 # Starting range of scenario numbers
-const Scenario_max      = 2                 # Ending range of scenario numbers 
+const Scenario_max      = 20                # Ending range of scenario numbers 
 
 const σ_1               = 0.1               # 1st noise parameter value
 const σ_2               = 0.5               # 2nd noise parameter value
@@ -37,7 +38,6 @@ Scenario_range    = collect(Scenario_min:1:Scenario_max)      # Range of scenari
 σ_range           = Float64[σ_1, σ_2, σ_3, σ_4]               # Range of scenaro noise
 γ_range           = collect(γ_min:γ_step:γ_max)               # Range of missed detection probabilities
 λ_range           = Float64[λ_1, λ_2, λ_3, λ_4]               # Range of false alarm rates
-
 
 Write_path = string(Path_stem, "Batch_Analyze_Results.sh")
 	open(Write_path,"w") do fp

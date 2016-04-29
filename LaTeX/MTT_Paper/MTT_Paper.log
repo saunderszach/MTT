@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 APR 2016 14:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  29 APR 2016 15:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -365,11 +365,7 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \Gin@req@height=\dimen165
 \Gin@req@width=\dimen166
 )
-(./MTT_Paper.aux
-
-LaTeX Warning: Label `sec:Computational Results' multiply defined.
-
-)
+(./MTT_Paper.aux)
 \openout1 = `MTT_Paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
@@ -466,76 +462,154 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7]
-[8] <Sigma_vs_Rho.png, id=44, 1003.75pt x 702.625pt>
+[8] <Sigma_vs_Rho.png, id=43, 1003.75pt x 702.625pt>
 File: Sigma_vs_Rho.png Graphic file (type png)
  <use Sigma_vs_Rho.png>
-Package pdftex.def Info: Sigma_vs_Rho.png used on input line 533.
+Package pdftex.def Info: Sigma_vs_Rho.png used on input line 536.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 533--534
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 536--537
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \vbox (badness 1281) has occurred while \output is active []
-
- [9 <./Sigma_vs_Rho.png>] <Basic_Heuristic_Objective.png, id=52, 1003.75pt x 70
-2.625pt>
+[9 <./Sigma_vs_Rho.png>]
+<Basic_Heuristic_Objective.png, id=49, 1003.75pt x 702.625pt>
 File: Basic_Heuristic_Objective.png Graphic file (type png)
 
 <use Basic_Heuristic_Objective.png>
-Package pdftex.def Info: Basic_Heuristic_Objective.png used on input line 577.
+Package pdftex.def Info: Basic_Heuristic_Objective.png used on input line 586.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 577--578
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 586--587
  [][] 
  []
 
-<Basic_Heuristic_Accuracy.png, id=53, 1003.75pt x 702.625pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Basic_Heuristic_Accuracy.png, id=50, 1003.75pt x 702.625pt>
 File: Basic_Heuristic_Accuracy.png Graphic file (type png)
 
 <use Basic_Heuristic_Accuracy.png>
-Package pdftex.def Info: Basic_Heuristic_Accuracy.png used on input line 591.
+Package pdftex.def Info: Basic_Heuristic_Accuracy.png used on input line 599.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 591--592
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 599--600
  [][] 
  []
 
-<Basic_Accuracy_Summary.png, id=54, 1003.75pt x 702.625pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10 <./Basic_Heuristic_Objective.png>]
+<Basic_Accuracy_Summary.png, id=55, 1003.75pt x 702.625pt>
 File: Basic_Accuracy_Summary.png Graphic file (type png)
 
 <use Basic_Accuracy_Summary.png>
-Package pdftex.def Info: Basic_Accuracy_Summary.png used on input line 605.
+Package pdftex.def Info: Basic_Accuracy_Summary.png used on input line 613.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 605--606
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 613--614
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10 <./Basic_Heuristic_Objective.png> <./Basic_Heuristic_Accuracy.png>]
-<Basic_Delta_Summary.png, id=60, 1003.75pt x 702.625pt>
+<Basic_Delta_Summary.png, id=56, 1003.75pt x 702.625pt>
 File: Basic_Delta_Summary.png Graphic file (type png)
 
 <use Basic_Delta_Summary.png>
-Package pdftex.def Info: Basic_Delta_Summary.png used on input line 616.
+Package pdftex.def Info: Basic_Delta_Summary.png used on input line 625.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 616--617
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 625--626
+ [][] 
+ []
+
+[11 <./Basic_Heuristic_Accuracy.png> <./Basic_Accuracy_Summary.png> <./Basic_De
+lta_Summary.png>] [12] <4_8_Histogram.png, id=68, 1003.75pt x 702.625pt>
+File: 4_8_Histogram.png Graphic file (type png)
+
+<use 4_8_Histogram.png>
+Package pdftex.def Info: 4_8_Histogram.png used on input line 695.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 695--696
+ [][] 
+ []
+
+<8_8_Histogram.png, id=69, 1003.75pt x 702.625pt>
+File: 8_8_Histogram.png Graphic file (type png)
+ <use 8_8_Histogram.png>
+Package pdftex.def Info: 8_8_Histogram.png used on input line 702.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 702--703
+ [][] 
+ []
+
+<4_8_Accuracy.png, id=70, 1003.75pt x 702.625pt>
+File: 4_8_Accuracy.png Graphic file (type png)
+ <use 4_8_Accuracy.png>
+Package pdftex.def Info: 4_8_Accuracy.png used on input line 713.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 713--714
+ [][] 
+ []
+
+<8_8_Accuracy.png, id=71, 1003.75pt x 702.625pt>
+File: 8_8_Accuracy.png Graphic file (type png)
+ <use 8_8_Accuracy.png>
+Package pdftex.def Info: 8_8_Accuracy.png used on input line 720.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 720--721
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-(./MTT_Paper.bbl [11 <./Basic_Accuracy_Summary.png> <./Basic_Delta_Summary.png>
-]
+[13 <./4_8_Histogram.png> <./8_8_Histogram.png> <./4_8_Accuracy.png>]
+<4_8_Delta.png, id=79, 1003.75pt x 702.625pt>
+File: 4_8_Delta.png Graphic file (type png)
+ <use 4_8_Delta.png>
+Package pdftex.def Info: 4_8_Delta.png used on input line 736.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 736--737
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<8_8_Delta.png, id=80, 1003.75pt x 702.625pt>
+File: 8_8_Delta.png Graphic file (type png)
+ <use 8_8_Delta.png>
+Package pdftex.def Info: 8_8_Delta.png used on input line 743.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 743--744
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14 <./8_8_Accuracy.png> <./4_8_Delta.png> <./8_8_Delta.png>]
+Overfull \hbox (6.88985pt too wide) in paragraph at lines 800--800
+[] 
+ []
+
+
+Underfull \hbox (badness 1817) in paragraph at lines 884--885
+[]\OT1/ptm/m/n/10 CONTRACT AC-KNOWL-EDG-MENT: This ma-te-rial is
+ []
+
+[15] (./MTT_Paper.bbl
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
 
@@ -550,44 +624,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--126
 / presentation . pdf$,
  []
 
-) [12
+[16]) [17
 
-] (./MTT_Paper.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+] (./MTT_Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 5538 strings out of 493117
- 87115 string characters out of 6135433
- 158481 words of memory out of 5000000
- 8884 multiletter control sequences out of 15000+600000
+ 5587 strings out of 493117
+ 88092 string characters out of 6135433
+ 174568 words of memory out of 5000000
+ 8921 multiletter control sequences out of 15000+600000
  46029 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,19n,38p,1448b,663s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
-/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2014/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texmf-dist
-/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2014/texmf-
-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/ur
-w/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/ut
-mri8a.pfb>
-Output written on MTT_Paper.pdf (12 pages, 894343 bytes).
+ 37i,19n,38p,1500b,663s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8
+r.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy1
+0.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10
+.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
+b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
+usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
+r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/loc
+al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/
+texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
+exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/tex
+live/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
+/texlive/2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
+014/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf
+-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/font
+s/type1/urw/times/utmri8a.pfb>
+Output written on MTT_Paper.pdf (17 pages, 1731562 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 151 PDF objects out of 1000 (max. 8388607)
+ 92 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

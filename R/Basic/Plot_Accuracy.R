@@ -63,6 +63,12 @@ Sigma_Data = Data %>% filter(Solution_Type!='MIO_3T_sec', Solution_Type != 'Idea
 
 Sigma_Data$Solution_Type = factor(Sigma_Data$Solution_Type)
 
+Labels = c('Random',
+           'Heuristic',
+           'MIO (1sec)',
+           'MIO (Tsec)',
+           'MIO (2T sec)')
+
 plot_1 = ggplot(data = Sigma_Data,
                 aes(x=Sigma,
                     y=mean.value,
@@ -79,7 +85,9 @@ plot_1 = ggplot(data = Sigma_Data,
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
   ylab('% of Correctly Labelled Detections') +
-  scale_color_manual(values=group.colors[1:5])
+  scale_color_manual(name = 'Solution Type',
+                     values=group.colors[1:5], 
+                     labels=Labels)
 
 Save_str = 'Plots/Accuracy/vs_Sigma_Solution_Type.png'
 png(file=Save_str,width=1000, height=700)
@@ -138,7 +146,8 @@ plot_3 = ggplot(data = MIO_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
-  ylab('% of Correctly Labelled Detections')
+  ylab('% of Correctly Labelled Detections') + 
+  scale_fill_discrete(name = 'Scenario Type')
 
 Save_str = 'Plots/Accuracy/vs_Sigma_MIO_by_Scenario_Type.png'
 png(file=Save_str,width=1000, height=700)
@@ -186,7 +195,13 @@ Rho_Data$Solution_Type = factor(Rho_Data$Solution_Type)
 ##########################################
   
 Rho_Data2 = Rho_Data %>% filter(Solution_Type!='MIO_3T_sec', N=='1000') %>% group_by(P,T,Rho,Solution_Type) %>% summarize(mean.value=mean(Accuracy),max.value=max(Accuracy),min.value=min(Accuracy))
-  
+
+Labels = c('Random',
+           'Heuristic',
+           'MIO (1sec)',
+           'MIO (Tsec)',
+           'MIO (2T sec)')
+
 plot_5 = ggplot(data = Rho_Data2,
                 aes(x=Rho,
                     y=mean.value,
@@ -203,7 +218,9 @@ plot_5 = ggplot(data = Rho_Data2,
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
   ylab('% of Correctly Labelled Detections') +
-  scale_color_manual(values=group.colors)
+  scale_color_manual(name = 'Solution Type',
+                     values=group.colors[1:5], 
+                     labels=Labels)
   
 Save_str = 'Plots/Accuracy/vs_Rho_Solution_Type.png'
 png(file=Save_str,width=1000, height=700)
@@ -263,7 +280,8 @@ plot_7 = ggplot(data = MIO_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
-  ylab('% of Correctly Labelled Detections')
+  ylab('% of Correctly Labelled Detections') + 
+  scale_color_manual(name = 'Scenario Type')
   
 Save_str = 'Plots/Accuracy/vs_Rho_MIO_by_Scenario_Type.png'
 png(file=Save_str,width=1000, height=700)

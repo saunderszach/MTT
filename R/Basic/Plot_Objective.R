@@ -89,7 +89,7 @@ plot_1 = ggplot(data = Sigma_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10() +
   scale_color_manual(values=group.colors)
 
@@ -120,7 +120,7 @@ plot_2 = ggplot(data = Heuristic_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10()
 
 Save_str = 'Plots/Objective/vs_Sigma_Heuristic_by_N.png'
@@ -151,7 +151,7 @@ plot_3 = ggplot(data = MIO_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10()
 
 Save_str = 'Plots/Objective/vs_Sigma_MIO_by_Scenario_Type.png'
@@ -182,7 +182,7 @@ plot_4 = ggplot(data = MIO_Data2,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10()
 
 Save_str = 'Plots/Objective/vs_Sigma_MIO_by_N.png'
@@ -216,7 +216,7 @@ plot_5 = ggplot(data = Rho_Data2,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10() +
   scale_color_manual(values=group.colors)
   
@@ -248,7 +248,7 @@ plot_6 = ggplot(data = Heuristic_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10()
   
 Save_str = 'Plots/Objective/vs_Rho_Heuristic_by_N.png'
@@ -279,7 +279,7 @@ plot_7 = ggplot(data = MIO_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10()
   
 Save_str = 'Plots/Objective/vs_Rho_MIO_by_Scenario_Type.png'
@@ -310,7 +310,7 @@ plot_8 = ggplot(data = MIO_Data2,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
-  ylab('Mean MIO Objective Value (% of Ideal Solution)') +
+  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
   scale_y_log10()
   
 Save_str = 'Plots/Objective/vs_Rho_MIO_by_N.png'

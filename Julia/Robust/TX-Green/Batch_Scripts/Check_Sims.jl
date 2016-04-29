@@ -30,6 +30,9 @@ const λ_2               = 0.5               # 2nd false alarm rate
 const λ_3               = 1.0               # 3rd false alarm rate
 const λ_4               = 2.0               # 4th false alarm rate
 
+const Sim_min           = 1                 # Starting range of perturbations
+const Sim_max           = 10                # Ending range of perturbations 
+
 ### CONSTRUCT RANGES ###
 P_range           = collect(P_min:P_step:P_max)               # Range of targets 
 T_range           = collect(T_min:T_step:T_max)               # Range of time steps
@@ -37,28 +40,57 @@ Scenario_range    = collect(Scenario_min:1:Scenario_max)      # Range of scenari
 σ_range           = Float64[σ_1, σ_2, σ_3, σ_4]               # Range of scenaro noise
 γ_range           = collect(γ_min:γ_step:γ_max)               # Range of missed detection probabilities
 λ_range           = Float64[λ_1, λ_2, λ_3, λ_4]               # Range of false alarm rates
+Sim_range         = collect(Sim_min:1:Sim_max)                # Range of simulations
 
+Sims_path = string(Path_stem, "Check_Run_Sims.sh")
+open(Sims_path,"w") do fp
+end
 
-Write_path = string(Path_stem, "Batch_Run_Sims.sh")
-open(Write_path,"w") do fp
+Results_path = string(Path_stem, "Check_Analyze_Results.sh")
+open(Results_path,"w") do fp
 end
 
 for P in P_range
   for T in T_range
     for Scenario_num in Scenario_range
       for σ in σ_range
-      	for γ in γ_range
-  		  for λ in λ_range
 
-			open(Write_path, "a") do fp
+
+      	toUpdate = Set{Tuple{Float64,Float64}}([ (γ, λ) for γ in γ_range, λ in λ_range])
+      	withEmpty = Set{Tuple{Float64,Float64}}()
+
+      	Files = readdir(string(Path_stem, "Experiment/MIP_Solutions/",string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/)))
+      	
+      	for f in Files 
+
+      		l = split(f, "_")
+      		γ = parse(Float64, l[1])   
+      		λ = parse(Float64, l[2])
+
+      		if stat(string(Path_stem, "Experiment/MIP_Solutions/",string(P), string(/), string(T), string(/), string(Scenario_num), string(/), string(σ), string(/),f)).size == 0
+      			push!(withEmpty, (γ, λ))
+      		else 
+      			delete!(toUpdate, (γ, λ))
+      		end
+      	end
+
+      	union!(toUpdate, withEmpty)
+
+		for (γ, λ) in toUpdate
+			open(Sims_path, "a") do fp
 			  println(fp, "qsub -N julia -o Robust/Logs/Sim_", string(P), "_",
 			  	string(T), "_", string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), ".txt", " ",
 			  	"/home/gridsan/ZA25454/Robust/TX-Green/Wrappers/Sims_wrapper.sh ", string(P), " ", string(T), " ",
 			  	string(Scenario_num), " ", string(σ), " ", string(γ), " ", string(λ))
 			end
 
-		  end # λ_range
-		end # γ_range
+			open(Results_path, "a") do fp
+			  println(fp, "qsub -N julia -o Robust/Logs/Results_", string(P), "_",
+			  	string(T), "_", string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), ".txt", " ",
+			  	"/home/gridsan/ZA25454/Robust/TX-Green/Wrappers/Results_wrapper.sh ", string(P), " ", string(T), " ",
+			  	string(Scenario_num), " ", string(σ), " ", string(γ), " ", string(λ))
+			end
+		end
       end # σ_range
     end # Scenario_range
   end # T_range

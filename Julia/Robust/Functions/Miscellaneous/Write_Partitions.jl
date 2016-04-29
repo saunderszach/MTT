@@ -12,7 +12,7 @@ function write_partitions(Partitions::Vector{Vector{Float64}},
     for t in 1:T
       if Num_detections[t] == 0
       
-        println(fp, "NULL")
+        println(fp, "\n")
       
       elseif Num_detections[t] == 1
 

@@ -18,8 +18,8 @@ const T_min            = 4                  # Minimum of time range
 const T_step           = 2                  # Step size of time range
 const T_max            = 10                 # Maximum of time range
 
-const Num_parallel     = 1                 # Number of scenarios to generate using "parallel" method
-const Num_crossing     = 1                 # Number of scenarios to generate using "crossing" method
+const Num_parallel     = 10                 # Number of scenarios to generate using "parallel" method
+const Num_crossing     = 10                 # Number of scenarios to generate using "crossing" method
 
 const Gap_size         = 0.5                # Gap size between targets
 const Grid_size        = 10                 # Size of window for targets to exist within

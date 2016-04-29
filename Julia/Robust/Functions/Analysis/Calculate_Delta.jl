@@ -11,7 +11,7 @@ function calc_delta(True_trajectory::Vector{Vector{Float64}},
     for p = 1:Test_P
 
     	if Assignments[p]!=0
-    		Distances = abs(True_trajectory[t][Assignments[p]] - Estimated_trajectory[t][p])
+    		Distances[p,t] = abs(True_trajectory[t][Assignments[p]] - Estimated_trajectory[t][p])
     	end
       
     end

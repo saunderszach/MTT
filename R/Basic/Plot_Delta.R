@@ -62,6 +62,13 @@ Sigma_Data = Data %>% filter(Solution_Type!='MIO_3T_sec', N == '1000') %>% group
 
 Sigma_Data$Solution_Type = factor(Sigma_Data$Solution_Type)
 
+Labels = c('Random',
+           'Heuristic',
+           'MIO (1 sec)',
+           'MIO (T sec)',
+           'MIO (2T sec)',
+           'Ideal')
+
 plot_1 = ggplot(data = Sigma_Data,
                 aes(x=Sigma,
                     y=mean.value,
@@ -78,7 +85,9 @@ plot_1 = ggplot(data = Sigma_Data,
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
   ylab('Delta') +
-  scale_color_manual(values=group.colors)
+  scale_color_manual(name = 'Solution Type', 
+                     values=group.colors, 
+                     labels=Labels)
 
 Save_str = 'Plots/Delta/vs_Sigma_Solution_Type.png'
 png(file=Save_str,width=1000, height=700)

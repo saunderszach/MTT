@@ -5,42 +5,63 @@ library(RColorBrewer)
 
 setwd('~/Desktop/Results/Robust/')
 
-Raw_Data = read.csv('Files/Summary.csv', 
-                    header=TRUE, 
-                    stringsAsFactors=TRUE)
+P_range = c(4,6,8,10)
+T_range = c(4,6,8,10)
+Num_sceanarios = 2
+Sigma_range = c(0.1,0.5,1.0,2.0)
+Gamma_range = c(0.8,0.85,0.9,0.95)
+Lambda_range = c(0.1,0.5,1.0,2.0)
 
-Raw_Data$P             = factor(Raw_Data$P)
-Raw_Data$Scenario_num  = factor(Raw_Data$Scenario_num)
-Raw_Data$Test_P        = factor(Raw_Data$Test_P)
-Raw_Data$Sim_num       = factor(Raw_Data$Sim_num)
-Raw_Data$MIO_Time      = factor(Raw_Data$MIO_Time)
-Raw_Data$Solution_Type = factor(Raw_Data$Solution_Type, 
-                                levels = c('Ideal',
-                                           'Random',
-                                           'Heuristic',
-                                           'Optimized'))
+Summary = data.frame(P                  = integer(),
+                     T                  = integer(),
+                     Scenario_num       = integer(),
+                     Sigma              = double(),
+                     Gamma              = double(),
+                     Lambda             = double(),
+                     Sim_num            = integer(),
+                     Theta              = double(),
+                     Phi                = double(),
+                     Test_P             = integer(),
+                     MIO_Time           = integer(),
+                     Rho                = double(),
+                     Accuracy           = double(),
+                     Delta              = double(),
+                     Objective          = double(),
+                     Solution_Type      = factor(),
+                     Scenario_Type      = factor())
+count = 1
+for (P in P_range){
+  for (T in T_range){
+    for (Scenario_num in 1:Num_sceanarios){
+      for (Sigma in Sigma_range){
+        for (Gamma in Gamma_range){
+          for (Lambda in Lambda_range){
+            
+            Sigma  = format(Sigma,  nsmall=1)
+            Gamma  = format(Gamma,  nsmall=1)
+            Lambda = format(Lambda, nsmall=1)
+            
+            read_path=paste("Results_Summaries/",
+                            toString(P), "_", 
+                            toString(T), "_", 
+                            toString(Scenario_num), "_",
+                            toString(Sigma), "_",
+                            toString(Gamma), "_", 
+                            toString(Lambda), ".csv", sep="")
+            
+            Raw_data = read.csv(read_path, header = TRUE)
+            
+            Summary = rbind(Summary, Raw_data)
+            print(count)
+            count = count + 1
+          }
+        }
+      }
+    }
+  }
+}
 
-DataOpt1 = Raw_Data %>% filter(Solution_Type=='Optimized',
-                               MIO_Time==1) %>% mutate(Solution_Type='MIO_1_sec')
-DataOpt2 = Raw_Data %>% filter(Solution_Type=='Optimized',
-                               MIO_Time==T) %>% mutate(Solution_Type='MIO_T_sec')
-DataOpt3 = Raw_Data %>% filter(Solution_Type=='Optimized',
-                               MIO_Time==2*T) %>% mutate(Solution_Type='MIO_2T_sec')
-DataOpt4 = Raw_Data %>% filter(Solution_Type=='Optimized',
-                               MIO_Time==3*T) %>% mutate(Solution_Type='MIO_3T_sec')
+setwd("~/Desktop/Results/Robust/Files")
+write.csv(file="Summary.csv", Summary, row.names = FALSE)
 
-Data_subset = Raw_Data %>% filter(Solution_Type!='Optimized')
-
-Data = rbind(Data_subset,DataOpt1,DataOpt2,DataOpt3,DataOpt4)
-
-Data$T = factor(Data$T)
-Data$Solution_Type = factor(Data$Solution_Type, 
-                            levels = c('Random',
-                                       'Heuristic',
-                                       'MIO_1_sec',
-                                       'MIO_T_sec',
-                                       'MIO_2T_sec',
-                                       'MIO_3T_sec',
-                                       'Ideal'))
-
-Temp = Data %>% group_by(P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Solution_Type) %>% filter(min_rank(Objective) <= 1) %>% ungroup()
+########################################################################
