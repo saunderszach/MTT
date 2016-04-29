@@ -138,10 +138,10 @@ Throughout the paper we make the following assumptions:
 \end{assumption}
 
 {\bf Notation:}
-We observe $P$ targets over a fixed time window in which $T$ scans are collected. Scans occur at a fixed rate of 1Hz, such that the set of scans can be time stamped by $\{t_{1}, t_{2},...,T\}. $ The $i^{th}$ detection of the $t^{th}$ scan is indicated by $x_{it}$, such that a scan of data at time \textit{t} is the unordered set of detections $\mathcal{X}_{t} = \{x_{1t}, x_{2,t},...,x_{P,t}\}$. The data for the problem is the ordered set of scans $\boldsymbol{\mathcal{X}}=\{\mathcal{X}_{1},\mathcal{X}_{2},...,\mathcal{X}_{T}\}$. The state space of target trajectories is paramatarized by a true initial position $\alpha^{true}_{j}$ and a true constant velocity $\beta^{true}_{j}$. Therefore, the true position $\bar{x}_{jt}$ of trajectory $j$ at scan $t$ is given by: 
+We observe $P$ targets over a fixed time window in which $T$ scans are collected. Scans occur at a fixed rate of 1Hz, such that the set of scans can be time stamped by $\{t_{1}, t_{2},...,T\}. $ The $i^{th}$ detection of the $t^{th}$ scan is indicated by $x_{it}$, such that a scan of data at time \textit{t} is the unordered set of detections $\mathcal{X}_{t} = \{x_{1t}, x_{2,t},...,x_{P,t}\}$. The data for the problem is the ordered set of scans $\boldsymbol{\mathcal{X}}=\{\mathcal{X}_{1},\mathcal{X}_{2},...,\mathcal{X}_{T}\}$. The state space of target trajectories is paramatarized by a true initial position $\alpha^{\text{true}}_{j}$ and a true constant velocity $\beta^{\text{true}}_{j}$. Therefore, the true position $\bar{x}_{jt}$ of trajectory $j$ at scan $t$ is given by: 
 
 \begin{align}
-	\bar{x}_{jt} = \alpha^{true}_{j} + \beta^{true}_{j}t
+	\bar{x}_{jt} = \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t
 \end{align}
 
 \section{Basic MIO Model}\label{sec:Basic MIO Model}
@@ -483,7 +483,7 @@ Accuracy =  \frac{\text{\# correct assignments}}{PT + \text{\# False Alarms}}.
 Whereas accuracy serves as a good measure of performance for data association, there does not exist a corresponding measure of complexity which comparatively measures the difficulty of the data association problem. We argue that $\sigma$ alone is not the best measure of difficulty for the data association problem. For example, a scenario with very close target trajectories may not actually be difficult to ascertain data associations even for small $\sigma$ values, and similarly with high enough $\sigma$ values even widely spaced targets could be difficult to differentiate. Therefore, we introduce a metric $\rho$ to quantify this complexity. For ease of notation in developing this metric we first define $D_{ijt}$ as the distance between one true trajectory \textit{i} and another true trajectory \textit{j}.
 
 \begin{align}
-D_{ijt} = \| \alpha^{true}_{i} + \beta^{true}_{i}t - \alpha^{true}_{j} + \beta^{true}_{j}t \|
+D_{ijt} = \| \alpha^{\text{true}}_{i} + \beta^{\text{true}}_{i}t - \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t \|
 \end{align}
 
 Additionally, we define a variable $c_{ijt}$ that will take the value of 1 if the distance between trajectory \textit{i} and trajectory \textit{j} is greater than some constant. We propose the use of $2\sigma$, since it is hard to distinguish detections which lie between target trajectories closer that. 
@@ -512,7 +512,7 @@ We match the true trajectories to the estimated trajectories using a one-to-one 
 In Section~\label{sec:Computational Results}, we will see how these measures of complexity and performance are useful in quantifying the strengths and weaknesses of our methods.
 
 \section{Experimental Simulations \& Computational Results}\label{sec:Results}
-There does not exist among the literature a clearly defined comprehensive set of standard test scenarios as pointed out by \cite{MTT-Taxonomy}, which also notes that two types of scenarios of particular importance include crossing trajectories and parallel trajectories. With this in mind, we choose to generate scenarios of both trajectory types using a simple methodology that will be outlined in the following section. Furthermore, we evaluate our algorithms on two separate experiments, one with detection ambiguity and one without, with the first being in Section~\ref{sec:Basic_Results}  here and the second being discussed in Section~\ref{sec:Robust_Results}.
+There does not exist among the literature a clearly defined comprehensive set of standard test scenarios as pointed out by \cite{MTT-Taxonomy}, which also notes that two types of scenarios of particular importance include crossing trajectories and parallel trajectories. With this in mind, we choose to generate scenarios of both trajectory types using a simple methodology that will be outlined in the following section. Furthermore, we evaluate our algorithms on two separate experiments, one with detection ambiguity and one without, with the first first outlined here in this section and the second outlined in the next. 
 
 Both experiments and all steps including the scenario generation process, heuristic, and MIO were implemented in the development software \textit{julia} 0.4.3 \cite{julia} using the optimization package \textit{JuMP} \cite{JuMP}. The optimization software Gurobi 6.5.0\cite{gurobi} was used to solve the MIOs, and the optimization processes was restricted to the use of a single core. Each simulation was run on a single compute node of the unclassified TX-Green cluster located at Lincoln Laboratories. The cluster utilizes DL165 G7 compute nodes, consisting of 2.2 GHz compute cores, with 8 GB of RAM each, for a total peak performance of 77.1 TFLOPS\cite{LLGrid}. 
 
@@ -520,27 +520,29 @@ Both experiments and all steps including the scenario generation process, heuris
 In order to evaluate scalability of our algorithms we test our methods across a range of scenarios with varying numbers of targets and scans. In particular we consider: $ P \in \{4,6,8,10\}$ and $T \in \{4,6,8,10\}$ seconds. Scans are collected at a rate of 1 Hz. The cartesian product of $P$ and $T$ creates 16 unique scenario sizes. We generate 10 unique crossing scenarios and 10 unique parallel scenarios of each size. To generate trajectories, a grid size is first selected and then starting and stopping points are randomly selected within this grid. For crossing trajectories, the starting and stopping points have no restrictions, while for parallel trajectories the starting and stopping points are restricted to fall within subsets of the grid and these subsets are not allowed to overlap, resulting in trajectories that fall within close proximity to one another but do not overlap. For our experiments, a grid size of $[-10,10]$ was used. For each scenario, we randomly generate 10 realizations of data by first perturbing each true position measurement by an error $\epsilon \thicksim \mathcal{N}(0,\sigma)$ with $\sigma \in \{0.1,0.5,1.0,2.0,3.5,5.0\}$, where $\sigma$ represents the noise parameter. The problem data is then generated by adding the detection error to the true position.
 
 \begin{align}
-	x_{it} = \alpha^{true}_{i} + \beta^{true}_{i}t+\epsilon
+	x_{it} = \alpha^{\text{true}}_{i} + \beta^{\text{true}}_{i}t+\epsilon
 \end{align}
 
 Scans $\mathcal{X}_{t}$ are simulated by randomizing the order of $x_{it}$ for each \textit{t}. Each unique $\boldsymbol{\mathcal{X}}$ generated is referred to as a \textit{simulation}. For each such simulation, we run the heuristic with a range of starting points $N \in \{100\ \ 1,000\ \ 10,000\}$, and use each of these solutions as a warmstart for the MIO. The optimization process is set to terminate after 3T seconds, with solutions collected at intervals of $\{1,T,2T,3T\}$ seconds.
 
-We begin by discussing the relationship between $\rho$ and $\sigma$ and discuss the how this relationship benefits both scenario generation and measuring complexity. Then we frame the performance of the basic heuristic before discussing the performance of the basic MIO model in both the data association and trajectory estimation spheres. We follow this with a discussion of the robust MIO model evaluated under both spheres.
+We begin analysis of methodology by discussing the relationship between $\rho$ and $\sigma$ and discuss how this relationship benefits both scenario generation and complexity measuring by allowing each to occur in their own natural domain. Then we frame the performance of the basic heuristic before discussing the performance of the basic MIO model in both the data association and trajectory estimation spheres.
 
 \subsubsection{Scenario Generation}
-Figure ~\ref{fig:Sigma_vs_Rho} below shows the relationship between $\sigma$ and $\rho$ for our scenario generation methods. The plot is broken down by scenario type between crossing and parallel trajectories. It can be seen that according to the measure $\rho$, the parallel method of scenario generation on the average creates easier scenarios for the data association problem. This result supports the hypothesis that crossing scenarios would be more likely to exhibit detections within close proximity, and consequently result in more difficult scenarios as it pertains to the data association problem. 
+Figure ~\ref{fig:Sigma_vs_Rho} shows the relationship between $\sigma$ and $\rho$ for our scenario generation methods. The plot is broken down by scenario type between crossing and parallel trajectories. 
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=9cm, height=7cm]{Sigma_vs_Rho}
-  \caption{Relationship between $\sigma$ and $\rho$ summarized by scenario type for all 20 generated scenarios in Experiment 1.}
+  \caption{Relationship between $\sigma$ and $\rho$ summarized by scenario type for all 20 generated scenarios in this experiment.}
   \label{fig:Sigma_vs_Rho}
 \end{figure}
 
-From this plot we also see how a small range of six values of $\sigma$ corresponds to the full range of $\rho$ from 0 to 1, meaning that we can quantify data association performance across a more continuous range. This means that $\sigma$ can be used in its natural domain of the data generation process, and $\rho$ can be back calculated as a measurement of difficulty for the data association problem. Ultimately, this leads to a more meaningful discussion when evaluating the performance of our algorithms on the data association problem. 
+It can be seen that the parallel method of scenario generation on the average creates easier scenarios for the data association problem, as measured by $\rho$,. This result supports the hypothesis that crossing scenarios would be more likely to exhibit detections within close proximity, and consequently result in more difficult scenarios as it pertains to the data association problem. 
+
+In addition, we see from this plot that a relatively small range of six values of $\sigma$ corresponds to the full range of $\rho$ from 0 to 1, meaning that we can quantify data association performance across a more continuous range. This means that $\sigma$ can be used in its natural domain of the data generation process, and $\rho$ can be back calculated as a measurement of difficulty for the data association problem. As a result, we gain a highly interpretable performance metric for the data association problem without sacrificing the ability to generate scenarios in their natural domain. 
 
 \subsubsection{Basic Heuristic}
-We begin our discussion of the heuristic with an examination of the run times. Table~\ref{tab:Basic_heuristic_times} summarizes the minimum, mean, and maximum run times of the heuristic from Experiment 1 for a single starting point, arranged by the number of targets ($P$) and number of scans ($T$). Times are shown in milliseconds. 
+We begin our discussion of the heuristic with an examination of the run times from the experiment. Table~\ref{tab:Basic_heuristic_times} summarizes the minimum, mean, and maximum run times of the heuristic from this experiment for a single starting point, arranged by the number of targets ($P$) and number of scans ($T$). Times are shown in milliseconds. 
 
 \begin{table}[ht]
 \centering
@@ -591,7 +593,7 @@ We see that increasing the number of starting points improves the quality of the
 
 We also see that for larger values of $\sigma$ the heuristic actually outperforms the ideal solution's MIO objective value. Remember that the ideal solution is simply ideal in the sphere of data association, while the MIO objective intends to score both the data association and trajectory estimation simultaneously. Therefore, we draw the conclusion that achieving perfect data association for large values of sigma does not necessarily correspond to the best solution to the trajectory estimation problem. In other words, as $\sigma$ increases it may be necessary to tradeoff correct data associations in order to improve the trajectory estimation. We believe the results of the heuristic could be explained by this effect.
 
-Next, we evaluate the performance of the basic heuristic on the data association problem as a function of the number of starting points. To this end, we relationship between accuracy and $N$. Figure~\ref{fig:Basic_Heuristic_Accuracy} plots the mean accuracy of each of the three starting points from Experiment 1 against $\rho$. 
+Next, we evaluate the performance of the basic heuristic on the data association problem as a function of the number of starting points. To this end, we relationship between accuracy and $N$. Figure~\ref{fig:Basic_Heuristic_Accuracy} plots the mean accuracy of each of the three starting points from this experiment against $\rho$. 
 
 \begin{figure}[h]
   \centering
@@ -633,11 +635,11 @@ Again, we see that in scenarios with only for scans ($T=4$) we see that for larg
 \subsection{Robust Experimental Simulations \& Computational Results}\label{sec:Robust_Results}
 Here we extend the discussion from the previous section to analyze the performance of our methods on scenarios with detection ambiguity. We first summarize our experimental methods before discussing performance of both the robust heuristic and the robust MIO in the spheres of both the data association and trajectory estimation problems.
 
-The second experiment serves as an extension of the first in order to test the performance of our algorithms under detection ambiguity. We use the same scenarios generated from Experiment 1, but due to the additional difficulty inherent with detection ambiguity, we limit the range of signal noise to $\sigma \in \{0.1,0.5,1.0,2.0\}$, excluding choosing to exclude the extreme cases of signal noise. In addition, we simulate both missed detections and false alarms. A detection is removed with probability, $\gamma$, and we consider $\gamma \in \{0.2,0.15,0.1,0.05\}$. We do not allow empty scans. For each scan, we generate false alarms according to a poisson distribution with parameter, $\lambda$, and detection locations are then randomly selected uniformly within the state space. We consider $\lambda \in \{0.1,0.5,0.1,2.0\}$. The false alarms are then added to $\mathcal{X}_{t}$ and the detection order of $\mathcal{X}_{t}$ is again randomly shuffled as before. 
+The second experiment serves as an extension of the first in order to test the performance of our algorithms under detection ambiguity. We use the same scenarios generated from the first experiment, but due to the additional difficulty inherent with detection ambiguity, we limit the range of signal noise to $\sigma \in \{0.1,0.5,1.0,2.0\}$, excluding choosing to exclude the extreme cases of signal noise. In addition, we simulate both missed detections and false alarms. A detection is removed with probability, $\gamma$, and we consider $\gamma \in \{0.2,0.15,0.1,0.05\}$. We do not allow empty scans. For each scan, we generate false alarms according to a poisson distribution with parameter, $\lambda$, and detection locations are then randomly selected uniformly within the state space. We consider $\lambda \in \{0.1,0.5,0.1,2.0\}$. The false alarms are then added to $\mathcal{X}_{t}$ and the detection order of $\mathcal{X}_{t}$ is again randomly shuffled as before. 
 
 Once the data has been generated, we follow the same sequence as before in Experiment 1, running the heuristic first and then feeding the solution into the MIO as a warmstart. Note that the heuristic is given 1,000 starting points only, as concluded from the results of Experiment 1. Once again, the optimization process was set to terminate after 3T seconds, with solutions collected at intervals of $\{1,T,2T,3T\}$ seconds. Prior to the running of Experiment 2, we performed a mini experiment and used the results to tune the penalties $\theta$ and $\phi$. A summary of the exact penalties used in Experiment 2, along with an explanation of the insight behind them, can be found in Appendix~\ref{sec:Penalty_Appendix}. 
 
-Here we evaluate the performance of the robust heuristic and MIO in Experiment 2 where we simulated a sensor that exhibits detection ambiguity. We begin with a discussion on the run times of the robust heuristic. Table~\ref{tab:Robust_heuristic_times} summarizes the minimum, mean, and maximum run times of the heuristic from Experiment 2 for a single starting point, arranged by the number of estimate targets ($P_{estimated}$) and number of scans ($T$). Times are shown in milliseconds. 
+Here we evaluate the performance of the robust heuristic and MIO in Experiment 2 where we simulated a sensor that exhibits detection ambiguity. We begin with a discussion on the run times of the robust heuristic. Table~\ref{tab:Robust_heuristic_times} summarizes the minimum, mean, and maximum run times of the heuristic from Experiment 2 for a single starting point, arranged by the number of estimate targets ($P_{\text{estimated}}$) and number of scans ($T$). Times are shown in milliseconds. 
 
 \begin{table}[ht]
 \centering
@@ -645,7 +647,7 @@ Here we evaluate the performance of the robust heuristic and MIO in Experiment 2
   \hline
    & & \multicolumn{3}{c}{Heuristic Run Times } \\
    & & \multicolumn{3}{c}{(in milliseconds)}\\
-   $P_{estimated}$ & T & Min & Mean & Max \\ 
+   $P_{\text{estimated}}$ & T & Min & Mean & Max \\ 
   \hline
   \hline
   2 & 4 & 0.15 & 0.23 & 0.41 \\ 
@@ -678,15 +680,15 @@ Here we evaluate the performance of the robust heuristic and MIO in Experiment 2
 \label{tab:Robust_heuristic_times}
 \end{table}
 
-\subsubsection{Robust Heuristic Run Times} Comparing Table~\ref{tab:Basic_heuristic_times} and Table~\ref{tab:Robust_heuristic_times} we see that the run times for an estimated number of targets in the robust heuristic range from roughly double to three and four times that of a comparable number of targets in the basic heuristic. Due to the increase in combinatorial solutions in the robust heuristic over the basic heuristic, this was an expected result. The robust heuristic, however, can be parallelized in the same many as the basic heuristic, meaning that the robust heuristic can actually recover the speed of the basic heuristic with the introduction of additional processors. More importantly, we see that in similar fashion to the basic heuristic, the robust heuristic scales quite efficiently with $P_{estimated}$. This is a great result because it means that a relatively wide range of estimated targets can be parallelized without fear of one subset requiring a substantially longer run time than another. We conclude that these results again support the use of the robust heuristic in an online algorithm with a sliding window, as discussed in the previous section.
+\subsubsection{Robust Heuristic Run Times} Comparing Table~\ref{tab:Basic_heuristic_times} and Table~\ref{tab:Robust_heuristic_times} we see that the run times for an estimated number of targets in the robust heuristic range from roughly double to three and four times that of a comparable number of targets in the basic heuristic. Due to the increase in combinatorial solutions in the robust heuristic over the basic heuristic, this was an expected result. The robust heuristic, however, can be parallelized in the same many as the basic heuristic, meaning that the robust heuristic can actually recover the speed of the basic heuristic with the introduction of additional processors. More importantly, we see that in similar fashion to the basic heuristic, the robust heuristic scales quite efficiently with $P_{\text{estimated}}$. This is a great result because it means that a relatively wide range of estimated targets can be parallelized without fear of one subset requiring a substantially longer run time than another. We conclude that these results again support the use of the robust heuristic in an online algorithm with a sliding window, as discussed in the previous section.
 
 \subsubsection{Evaluating the Number of Targets}
 Next, we continue our analysis of the robust approaches by quantifying the algorithms' ability to estimate the correct number of targets. Perhaps the most important goal of a MTT algorithm is to correctly estimate the number of targets, and so we begin our analysis here. To this end, we define
 \begin{align}
-	P_{difference} = P_{true} - P_{estimated}
+	P_{\text{difference}} = P_{\text{true}} - P_{\text{estimated}}
 \end{align}
 
-where $P_{estimated}$ is the number of estimated targets and $P_{true}$ is the number of true targets, and we plot the distribution of $P_{difference}$. Figure~\ref{fig:Robust_4_8_Histogram} shows the distribution of $P_{difference}$ for scenarios with four targets and eight scans, and for comparison, Figure~\ref{fig:Robust_8_8_Histogram} plots the same result for scenarios of eight targets and eight time scans. 
+where $P_{\text{estimated}}$ is the number of estimated targets and $P_{\text{true}}$ is the number of true targets, and we plot the distribution of $P_{\text{difference}}$. Figure~\ref{fig:Robust_4_8_Histogram} shows the distribution of $P_{\text{difference}}$ for scenarios with four targets and eight scans, and for comparison, Figure~\ref{fig:Robust_8_8_Histogram} plots the same result for scenarios of eight targets and eight time scans. 
 \begin{figure}[h]
   \centering
   \includegraphics[width=9cm, height=7cm]{4_8_Histogram}
@@ -701,7 +703,7 @@ where $P_{estimated}$ is the number of estimated targets and $P_{true}$ is the n
   \label{fig:Robust_8_8_Histogram}
 \end{figure}
 
-Note that the algorithms have correctly estimated the number of targets when $P_{difference} = 0$. When $P_{difference} < 0$, we have underestimated the number of targets, and when $P_{difference} > 0$, we have overestimated the number of targets. We see that both the robust heuristic and the robust MIO estimate the number of targets currently a high proportion of time in the scenario with four targets, particularly for smaller values of $\lambda$, and as $\lambda$ increases both algorithms tend to overestimate. We see the same trend in the larger scenario. This suggests that the false alarm penalty needs further tuning and likely was not set high enough. For the larger scenario of eight targets, we see that even for the smallest value of $\lambda$, the heuristic, in particular, and at times the MIO tend to overestimate. This suggests that the missed detection penalty has been set too high, causing the algorithms to create additional trajectories rather than classify missed detections. We conclude that the penalty for missed detections should probably be tied to the number of targets, $P$, in some manner. 
+Note that the algorithms have correctly estimated the number of targets when $P_{\text{difference}} = 0$. When $P_{\text{difference}} < 0$, we have underestimated the number of targets, and when $P_{\text{difference}} > 0$, we have overestimated the number of targets. We see that both the robust heuristic and the robust MIO estimate the number of targets currently a high proportion of time in the scenario with four targets, particularly for smaller values of $\lambda$, and as $\lambda$ increases both algorithms tend to overestimate. We see the same trend in the larger scenario. This suggests that the false alarm penalty needs further tuning and likely was not set high enough. For the larger scenario of eight targets, we see that even for the smallest value of $\lambda$, the heuristic, in particular, and at times the MIO tend to overestimate. This suggests that the missed detection penalty has been set too high, causing the algorithms to create additional trajectories rather than classify missed detections. We conclude that the penalty for missed detections should probably be tied to the number of targets, $P$, in some manner. 
 
 \subsubsection{Data Association}
 Knowing that we tend to overestimate the number of targets with the penalties set in Experiment 2, we move on in our analysis to measuring the accuracy of our robust approaches. Figures~\ref{fig:Robust_4_8_Accuracy} and~\ref{fig:Robust_8_8_Accuracy} plot the accuracy performance metric against the difficulty metric, $\rho$, for scenarios of four and eight targets, respectively. Both scenarios have eight scans and both Figures have been arranged by $\gamma$ and $\lambda$.
@@ -742,7 +744,7 @@ We conclude our analysis of the robust approaches with a discussion on their per
   \label{fig:Robust_8_8_Delta}
 \end{figure}
 
-Again, we measure against the basic approaches by comparing Figure~\ref{fig:Robust_4_8_Delta} with the 4 target and 8 scan element of Figure~\ref{Fig:Basic_Delta_Summary}. We see that the robust approaches do not drastically reduce in performance for the easiest robust scenario of $\gamma = 0.05$ and $\lambda = 0.1$. However, the gap in performance between the ideal solution and the solutions of the robust algorithms grows wider with increases in $\sigma$, something that is expected but was not as drastic in Experiment 1. Therefore, the robust approaches may be less robust to increases in $\sigma$ in scenarios with detection ambiguity. However, it also appears that these methods are more robust to increases in the false alarm rate $\lambda$ when it comes to trajectory estimation than they were when it came to data association, especially in the larger scenario shown in Figure~\ref{fig:Robust_8_8_Delta}. We conclude that our robust methods are fairly robust to both increases in the false alarm rate and decreases in trajectory estimation under detection ambiguity, but increasing the signal noise degrades the performance of our methods more so in scenarios with detection ambiguity than in scenarios without detection ambiguity.
+Again, we measure against the basic approaches by comparing Figure~\ref{fig:Robust_4_8_Delta} with the 4 target and 8 scan element of Figure~\ref{Fig:Basic_Delta_Summary}. We see that the robust approaches do not drastically reduce in performance for the easiest robust scenario of $\gamma = 0.05$ and $\lambda = 0.1$. However, the gap in performance between the ideal solution and the solutions of the robust algorithms grows wider with increases in $\sigma$, something that is expected but was not as drastic in the first experiment. Therefore, the robust approaches may be less robust to increases in $\sigma$ in scenarios with detection ambiguity. However, it also appears that these methods are more robust to increases in the false alarm rate $\lambda$ when it comes to trajectory estimation than they were when it came to data association, especially in the larger scenario shown in Figure~\ref{fig:Robust_8_8_Delta}. We conclude that our robust methods are fairly robust to both increases in the false alarm rate and decreases in trajectory estimation under detection ambiguity, but increasing the signal noise degrades the performance of our methods more so in scenarios with detection ambiguity than in scenarios without detection ambiguity.
 
 \section{Conclusion and Future Work}\label{sec:Conclusion}
 We presented multi-target tracking approaches which jointly solve the problems of data association and trajectory estimation via global optimization methods using a single objective function. To this end, we proposed the use of a randomized local search heuristic as a warmstart for a mixed integer optimization model, and we did so for scenarios with and without detection ambiguity. We accomplish this without the need of a trajectory bank nor the a prior computation of trajectory hypotheses. We demonstrated that the proposed methods. Possible areas of future work could explore extensions to an online algorithm with a sliding window or extensions which account for the birth/death of targets. Additionally, future research could explore the use of more complex penalty functions through the addition of piecewise linear constraints. 
@@ -764,12 +766,12 @@ Remember that we denote the true position of trajectory \textit{i} at scan \text
 	c_{ij} = \sum_{t=1}^{T} \|\bar{x}_{it} - \hat{x}_{jt}\|
 \end{align}
 
-If we denote the true number of targets as $P_{true}$ and the estimated number of targets as $P_{estimated}$ then the objective of the integer optimization model would be:
+If we denote the true number of targets as $P_{\text{true}}$ and the estimated number of targets as $P_{\text{estimated}}$ then the objective of the integer optimization model would be:
 \begin{align}
-\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{true}} \sum_{j=1}^{P_{estimated}} c_{ij}y_{ij}
+\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{estimated}}} c_{ij}y_{ij}
 \end{align}
 
-When the number of true targets is equal to the number of estimated targets ($P_{true} = P_{estimated} = P$), we simply require two equality constraints to ensure that each true trajectory \textit{i} is assigned to exactly one estimated trajectory \textit{j} and vice versa. 
+When the number of true targets is equal to the number of estimated targets ($P_{\text{true}} = P_{\text{estimated}} = P$), we simply require two equality constraints to ensure that each true trajectory \textit{i} is assigned to exactly one estimated trajectory \textit{j} and vice versa. 
 \begin{align}\label{eqn:assignment_1}
 \sum_{i=1}^{P} y_{ij} = 1 \qquad \forall j = 1,...,P
 \end{align}
@@ -778,22 +780,22 @@ When the number of true targets is equal to the number of estimated targets ($P_
 \sum_{j=1}^{P} y_{ij} = 1 \qquad \forall i = 1,...,P
 \end{align}
 
-However, when the number of estimated trajectories differs from the number of true trajectories, these constraints must be modified slightly. In the case where the number of true targets exceeds the estimated number of targets ($P_{true}\geq P_{estimated}$), we restrict each true trajectory \textit{i} to the assignment of \textit{at most} one estimated trajectory \textit{j}, and Equation~\ref{eqn:assignment_1} is modified to
+However, when the number of estimated trajectories differs from the number of true trajectories, these constraints must be modified slightly. In the case where the number of true targets exceeds the estimated number of targets ($P_{\text{true}}\geq P_{\text{estimated}}$), we restrict each true trajectory \textit{i} to the assignment of \textit{at most} one estimated trajectory \textit{j}, and Equation~\ref{eqn:assignment_1} is modified to
 \begin{align}
-\sum_{i=1}^{P_{true}} y_{ij} \leq 1 \qquad \forall  j = 1,...,P_{estimated}
+\sum_{i=1}^{P_{\text{true}}} y_{ij} \leq 1 \qquad \forall  j = 1,...,P_{\text{estimated}}
 \end{align}
 
-On the contrary, when the number of estimated targets exceeds the true number of targets ($P_{true}\leq P_{estimated}$), then we restrict each estimated trajectory \textit{j} to the assignment of \textit{at most} one true trajectory \textit{i}, and Equation~\ref{eqn:assignment_2} is modified to
+On the contrary, when the number of estimated targets exceeds the true number of targets ($P_{\text{true}}\leq P_{\text{estimated}}$), then we restrict each estimated trajectory \textit{j} to the assignment of \textit{at most} one true trajectory \textit{i}, and Equation~\ref{eqn:assignment_2} is modified to
 \begin{align}
-\sum_{j=1}^{P_{estimated}} y_{ij} \leq 1 \qquad \forall i = 1,...,P_{true}
+\sum_{j=1}^{P_{\text{estimated}}} y_{ij} \leq 1 \qquad \forall i = 1,...,P_{\text{true}}
 \end{align}
 
 In summary, the generalized integer optimization assignment model is presented below.  
 \begin{align*}
-\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{true}} \sum_{j=1}^{P_{estimated}} c_{ij}y_{ij}\\
-\text{subject to: }	& \sum_{i=1}^{P_{true}} y_{ij} = 1 \qquad \forall j = 1,...,P_{estimated}\\
-				& \sum_{j=1}^{P_{estimated}} y_{ij} = 1 \qquad \forall i = 1,...,P_{true}\\
-				& y_{ij} \in \{0,1\} \quad \forall i = 1,...,P_{true},j = 1,...,P_{estimated}
+\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{estimated}}} c_{ij}y_{ij}\\
+\text{subject to: }	& \sum_{i=1}^{P_{\text{true}}} y_{ij} = 1 \qquad \forall j = 1,...,P_{\text{estimated}}\\
+				& \sum_{j=1}^{P_{\text{estimated}}} y_{ij} = 1 \qquad \forall i = 1,...,P_{\text{true}}\\
+				& y_{ij} \in \{0,1\} \quad \forall i = 1,...,P_{\text{true}},j = 1,...,P_{\text{estimated}}
 \end{align*}
 
 \section{Experiment 2 Penalty Values}\label{sec:Penalty_Appendix}
