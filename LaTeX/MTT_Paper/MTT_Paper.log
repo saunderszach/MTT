@@ -1,13 +1,23 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  29 APR 2016 15:32
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.8.13)  29 APR 2016 15:56
 entering extended mode
- restricted \write18 enabled.
- file:line:error style messages enabled.
- %&-line parsing enabled.
 **MTT_Paper.tex
-(./MTT_Paper.tex
-LaTeX2e <2014/05/01>
-Babel <3.9k> and hyphenation patterns for 78 languages loaded.
-(./IEEEtran.cls
+
+("C:\Users\Shim\Dropbox (MIT)\Research\Tracking\Git\Multi-Target-Tracking\LaTeX
+\MTT_Paper\MTT_Paper.tex"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+
+("C:\Users\Shim\Dropbox (MIT)\Research\Tracking\Git\Multi-Target-Tracking\LaTeX
+\MTT_Paper\IEEEtran.cls"
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
 -- http://www.michaelshell.org/tex/ieeetran/
@@ -20,7 +30,7 @@ Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 \@IEEEtrantmptoksA=\toks14
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 503.
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 -- Using 8.5in x 11in (letter) paper.
@@ -114,11 +124,11 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \IEEEPARstartletwidth=\dimen125
 \c@IEEEbiography=\count93
 \@IEEEtranrubishbin=\box27
-) (/usr/local/texlive/2014/texmf-dist/tex/latex/algorithms/algorithm.sty
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\algorithms\algorithm.sty"
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/float/float.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count94
 \float@exts=\toks15
@@ -126,17 +136,17 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks16
 \@floatcapt=\box29
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/base/ifthen.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks17
 \c@algorithm=\count95
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/algorithms/algorithmic.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\algorithms\algorithmic.sty"
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks18
 )
 \c@ALC@unique=\count96
@@ -146,24 +156,24 @@ Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
 \ALC@tlm=\skip44
 \algorithmicindent=\skip45
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsmath.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amstext.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsgen.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks19
 \ex@=\dimen126
 ))
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsbsy.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen127
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsopn.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count100
@@ -204,17 +214,17 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/amssymb.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amscls/amsthm.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amscls\amsthm.sty"
 Package: amsthm 2004/08/06 v2.20
 \thm@style=\toks24
 \thm@bodyfont=\toks25
@@ -228,7 +238,7 @@ Package: amsthm 2004/08/06 v2.20
 )
 \c@assumption=\count112
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/booktabs/booktabs.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty"
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \heavyrulewidth=\dimen135
 \lightrulewidth=\dimen136
@@ -248,15 +258,15 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \@lastruleclass=\count116
 \@thisrulewidth=\dimen147
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/cite/cite.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\cite\cite.sty"
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 373.
 Package: cite 2010/09/10  v 5.3
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/caption/caption.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/caption/caption3.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption3.sty"
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
 \captionmargin=\dimen148
@@ -287,33 +297,33 @@ ference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }
 \fi .
 \c@ContinuedFloat=\count117
 Package caption Info: float package is loaded.
-) (/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 137.
+Package color Info: Driver file: pdftex.def on input line 130.
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/pdftex-def/pdftex.def
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count118
 ))
-(/usr/local/texlive/2014/texmf-dist/tex/latex/tools/enumerate.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\enumerate.sty"
 Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
 \@enLab=\toks30
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/mh/mathtools.sty
-Package: mathtools 2014/05/21 v1.14 mathematical typesetting tools
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\mh\mathtools.sty"
+Package: mathtools 2013/02/12 v1.13 mathematical typesetting tools
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/tools/calc.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count119
 \calc@Bcount=\count120
@@ -321,12 +331,12 @@ Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Bdimen=\dimen156
 \calc@Askip=\skip52
 \calc@Bskip=\skip53
-LaTeX Info: Redefining \setlength on input line 75.
-LaTeX Info: Redefining \addtolength on input line 76.
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count121
 \calc@Cskip=\skip54
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/mh/mhsetup.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\mh\mhsetup.sty"
 Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
 )
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
@@ -341,33 +351,32 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \l_MT_above_shortintertext_sep=\dimen162
 \l_MT_below_shortintertext_sep=\dimen163
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/multirow/multirow.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
 \bigstrutjot=\dimen164
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/url/url.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
 \Urlmuskip=\muskip11
-Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/graphics.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/trig.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 )
 \Gin@req@height=\dimen165
 \Gin@req@width=\dimen166
 )
-(./MTT_Paper.aux)
-\openout1 = `MTT_Paper.aux'.
-
+("C:\Users\Shim\Dropbox (MIT)\Research\Tracking\Git\Multi-Target-Tracking\LaTeX
+\MTT_Paper\MTT_Paper.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
 LaTeX Font Info:    ... okay on input line 60.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
@@ -384,7 +393,7 @@ LaTeX Font Info:    ... okay on input line 60.
 -- Lines per column: 58 (exact).
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-(/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
+("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count123
 \scratchdimen=\dimen167
@@ -397,189 +406,152 @@ Package caption Info: End \AtBeginDocument code.
 \MPnumerator=\count127
 \makeMPintoPDFobject=\count128
 \everyMPtoPDFconversion=\toks32
-) (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-(/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.jpeg,.png,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-[1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+) [1{C:/Users/Shim/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
-]
-[2]
+] [2]
 LaTeX Font Info:    Try loading font information for U+msa on input line 120.
- (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 120.
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [3] [4]
 [5] [6]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7]
-[8] <Sigma_vs_Rho.png, id=43, 1003.75pt x 702.625pt>
+[8] <Sigma_vs_Rho.png, id=42, 1003.75pt x 702.625pt>
 File: Sigma_vs_Rho.png Graphic file (type png)
  <use Sigma_vs_Rho.png>
-Package pdftex.def Info: Sigma_vs_Rho.png used on input line 536.
+Package pdftex.def Info: Sigma_vs_Rho.png used on input line 535.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 536--537
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 535--536
  [][] 
  []
 
-[9 <./Sigma_vs_Rho.png>]
-<Basic_Heuristic_Objective.png, id=49, 1003.75pt x 702.625pt>
+[9 <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Git/Multi-Target-Tracking/LaT
+eX/MTT_Paper/Sigma_vs_Rho.png>]
+<Basic_Heuristic_Objective.png, id=48, 1003.75pt x 702.625pt>
 File: Basic_Heuristic_Objective.png Graphic file (type png)
 
 <use Basic_Heuristic_Objective.png>
-Package pdftex.def Info: Basic_Heuristic_Objective.png used on input line 586.
+Package pdftex.def Info: Basic_Heuristic_Objective.png used on input line 585.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 586--587
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 585--586
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Basic_Heuristic_Accuracy.png, id=50, 1003.75pt x 702.625pt>
+<Basic_Heuristic_Accuracy.png, id=49, 1003.75pt x 702.625pt>
 File: Basic_Heuristic_Accuracy.png Graphic file (type png)
 
 <use Basic_Heuristic_Accuracy.png>
-Package pdftex.def Info: Basic_Heuristic_Accuracy.png used on input line 599.
+Package pdftex.def Info: Basic_Heuristic_Accuracy.png used on input line 598.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 599--600
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 598--599
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10 <./Basic_Heuristic_Objective.png>]
-<Basic_Accuracy_Summary.png, id=55, 1003.75pt x 702.625pt>
+[10 <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Git/Multi-Target-Tracking/La
+TeX/MTT_Paper/Basic_Heuristic_Objective.png>]
+<Basic_Accuracy_Summary.png, id=54, 1003.75pt x 702.625pt>
 File: Basic_Accuracy_Summary.png Graphic file (type png)
 
 <use Basic_Accuracy_Summary.png>
-Package pdftex.def Info: Basic_Accuracy_Summary.png used on input line 613.
+Package pdftex.def Info: Basic_Accuracy_Summary.png used on input line 612.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 613--614
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 612--613
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<Basic_Delta_Summary.png, id=56, 1003.75pt x 702.625pt>
+<Basic_Delta_Summary.png, id=55, 1003.75pt x 702.625pt>
 File: Basic_Delta_Summary.png Graphic file (type png)
 
 <use Basic_Delta_Summary.png>
-Package pdftex.def Info: Basic_Delta_Summary.png used on input line 625.
+Package pdftex.def Info: Basic_Delta_Summary.png used on input line 624.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 625--626
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 624--625
  [][] 
  []
 
-[11 <./Basic_Heuristic_Accuracy.png> <./Basic_Accuracy_Summary.png> <./Basic_De
-lta_Summary.png>] [12] <4_8_Histogram.png, id=68, 1003.75pt x 702.625pt>
+[11 <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Git/Multi-Target-Tracking/La
+TeX/MTT_Paper/Basic_Heuristic_Accuracy.png> <C:/Users/Shim/Dropbox (MIT)/Resear
+ch/Tracking/Git/Multi-Target-Tracking/LaTeX/MTT_Paper/Basic_Accuracy_Summary.pn
+g> <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Git/Multi-Target-Tracking/LaT
+eX/MTT_Paper/Basic_Delta_Summary.png>]
+<4_8_Histogram.png, id=62, 1003.75pt x 702.625pt>
 File: 4_8_Histogram.png Graphic file (type png)
-
-<use 4_8_Histogram.png>
-Package pdftex.def Info: 4_8_Histogram.png used on input line 695.
+ <use 4_8_Histogram.png>
+Package pdftex.def Info: 4_8_Histogram.png used on input line 692.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 695--696
- [][] 
- []
-
-<8_8_Histogram.png, id=69, 1003.75pt x 702.625pt>
-File: 8_8_Histogram.png Graphic file (type png)
- <use 8_8_Histogram.png>
-Package pdftex.def Info: 8_8_Histogram.png used on input line 702.
-(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
-
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 702--703
- [][] 
- []
-
-<4_8_Accuracy.png, id=70, 1003.75pt x 702.625pt>
-File: 4_8_Accuracy.png Graphic file (type png)
- <use 4_8_Accuracy.png>
-Package pdftex.def Info: 4_8_Accuracy.png used on input line 713.
-(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
-
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 713--714
- [][] 
- []
-
-<8_8_Accuracy.png, id=71, 1003.75pt x 702.625pt>
-File: 8_8_Accuracy.png Graphic file (type png)
- <use 8_8_Accuracy.png>
-Package pdftex.def Info: 8_8_Accuracy.png used on input line 720.
-(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
-
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 720--721
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 692--693
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[13 <./4_8_Histogram.png> <./8_8_Histogram.png> <./4_8_Accuracy.png>]
+<8_8_Histogram.png, id=63, 1003.75pt x 702.625pt>
+File: 8_8_Histogram.png Graphic file (type png)
+ <use 8_8_Histogram.png>
+Package pdftex.def Info: 8_8_Histogram.png used on input line 699.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 699--700
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[12] <4_8_Accuracy.png, id=69, 1003.75pt x 702.625pt>
+File: 4_8_Accuracy.png Graphic file (type png)
+ <use 4_8_Accuracy.png>
+Package pdftex.def Info: 4_8_Accuracy.png used on input line 710.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 710--711
+ [][] 
+ []
+
+<8_8_Accuracy.png, id=70, 1003.75pt x 702.625pt>
+File: 8_8_Accuracy.png Graphic file (type png)
+ <use 8_8_Accuracy.png>
+Package pdftex.def Info: 8_8_Accuracy.png used on input line 717.
+(pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
+
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 717--718
+ [][] 
+ []
+
+[13 <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Git/Multi-Target-Tracking/La
+TeX/MTT_Paper/4_8_Histogram.png> <C:/Users/Shim/Dropbox (MIT)/Research/Tracking
+/Git/Multi-Target-Tracking/LaTeX/MTT_Paper/8_8_Histogram.png> <C:/Users/Shim/Dr
+opbox (MIT)/Research/Tracking/Git/Multi-Target-Tracking/LaTeX/MTT_Paper/4_8_Acc
+uracy.png> <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Git/Multi-Target-Trac
+king/LaTeX/MTT_Paper/8_8_Accuracy.png>]
 <4_8_Delta.png, id=79, 1003.75pt x 702.625pt>
 File: 4_8_Delta.png Graphic file (type png)
  <use 4_8_Delta.png>
-Package pdftex.def Info: 4_8_Delta.png used on input line 736.
+Package pdftex.def Info: 4_8_Delta.png used on input line 733.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 736--737
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 733--734
  [][] 
  []
 
@@ -589,74 +561,80 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <8_8_Delta.png, id=80, 1003.75pt x 702.625pt>
 File: 8_8_Delta.png Graphic file (type png)
  <use 8_8_Delta.png>
-Package pdftex.def Info: 8_8_Delta.png used on input line 743.
+Package pdftex.def Info: 8_8_Delta.png used on input line 740.
 (pdftex.def)             Requested size: 256.06773pt x 199.16736pt.
 
-Overfull \hbox (4.06773pt too wide) in paragraph at lines 743--744
+Overfull \hbox (4.06773pt too wide) in paragraph at lines 740--741
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14 <./8_8_Accuracy.png> <./4_8_Delta.png> <./8_8_Delta.png>]
-Overfull \hbox (6.88985pt too wide) in paragraph at lines 800--800
+
+Underfull \vbox (badness 2600) has occurred while \output is active []
+
+ [14 <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Git/Multi-Target-Tracking/L
+aTeX/MTT_Paper/4_8_Delta.png> <C:/Users/Shim/Dropbox (MIT)/Research/Tracking/Gi
+t/Multi-Target-Tracking/LaTeX/MTT_Paper/8_8_Delta.png>]
+Overfull \hbox (6.88985pt too wide) in paragraph at lines 797--797
 [] 
  []
 
 
-Underfull \hbox (badness 1817) in paragraph at lines 884--885
+Underfull \hbox (badness 1817) in paragraph at lines 881--882
 []\OT1/ptm/m/n/10 CONTRACT AC-KNOWL-EDG-MENT: This ma-te-rial is
  []
 
-[15] (./MTT_Paper.bbl
+
+("C:\Users\Shim\Dropbox (MIT)\Research\Tracking\Git\Multi-Target-Tracking\LaTeX
+\MTT_Paper\MTT_Paper.bbl" [15]
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
 
 Underfull \hbox (badness 10000) in paragraph at lines 123--126
 []\OT1/ptm/m/n/8 G. Nemhauser, ``In-te-ger pro-gram-ming: Global im-pact,'' $ht
-tps :
+tps :$
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 123--126
-\OT1/ptm/m/n/8 / / smartech . gatech . edu / bitstream / handle / 1853 / 49829 
-/ presentation . pdf$,
+$\OT1/ptm/m/n/8 / / smartech . gatech . edu / bitstream / handle / 1853 / 49829
+ / presentation . pdf$,
  []
 
-[16]) [17
-
-] (./MTT_Paper.aux) ) 
+) [16]
+("C:\Users\Shim\Dropbox (MIT)\Research\Tracking\Git\Multi-Target-Tracking\LaTeX
+\MTT_Paper\MTT_Paper.aux") ) 
 Here is how much of TeX's memory you used:
- 5587 strings out of 493117
- 88092 string characters out of 6135433
- 174568 words of memory out of 5000000
- 8921 multiletter control sequences out of 15000+600000
- 46029 words of font info for 97 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 37i,19n,38p,1500b,663s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8
-r.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy1
-0.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10
-.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
-pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
-b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
-usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/loc
-al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/
-texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
-/texlive/2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf
--dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/font
-s/type1/urw/times/utmri8a.pfb>
-Output written on MTT_Paper.pdf (17 pages, 1731562 bytes).
+ 5229 strings out of 493921
+ 82209 string characters out of 3144879
+ 163833 words of memory out of 3000000
+ 8425 multiletter control sequences out of 15000+200000
+ 46029 words of font info for 97 fonts, out of 3000000 for 9000
+ 841 hyphenation exceptions out of 8191
+ 36i,19n,38p,1500b,661s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/
+fontname/8r.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmbsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmex10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+mi5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6
+.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pf
+b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/
+Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Prog
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program 
+Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files
+ (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/M
+iKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/
+fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
+/urw/times/utmri8a.pfb>
+Output written on MTT_Paper.pdf (16 pages, 1748379 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
- 92 compressed objects within 1 object stream
+ 146 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
