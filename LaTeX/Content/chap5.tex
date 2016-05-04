@@ -6,9 +6,6 @@ Specifically, in this case we replace Assumption~\ref{ass:basic_assumptions} by 
 \begin{assumption}\label{ass:robust_assumptions}
 \leavevmode
 \begin{enumerate}[(i)]
-\item The sensor does not generate a detection for any target for any time with probability $P_{d}$ which is constant and independent between targets and scans.
-\item At each point in time the sensor generates false alarms
-	according to a Poisson distribution with rate $\lambda_{FA}$, which are located uniformly in the space.
 \item The number of true targets $P$ satisfies $N_0\leq P \leq N_1$.
 \end{enumerate}
 \end{assumption}
@@ -31,7 +28,7 @@ Specifically, in this case we replace Assumption~\ref{ass:basic_assumptions} by 
 We first show that this problem can be solved by dividing it into a subset of simpler problems. We present a MIO formulation that assumes a fixed number of targets. This formulation allows us to leverage the power of parallelization to solve the problem by solving each subproblem separately. The results can then be gathered and compared to find the globally optimal solution. For completeness we also present a formulation which solves the original problem without the need for multiple parallelized MIOs.
 
 \subsection{Fixed Number of Targets}
-If we first assume that the number of targets is fixed, we can more easily adapt the generalized formulation presented in Section III to handle the addition of false alarms and missed detections. This simple adaptation requires the introduction of two additional variable types and minimal constraint changes. We can then run these formulations for each possible value of fixed number of targets \textit{P} across the range of $N_{0}$ to $N_{1}$ and choose the solution with the best objective overall. Furthermore, this is an advantageous strategy because each independent experiment can be run in parallel. 
+If we first assume that the number of targets is fixed, we can more easily adapt the generalized formulation presented in Section III to handle the addition of false alarms and missed detections. This simple adaptation requires the introduction of two additional variable types and minimal constraint changes. We can then run these formulations for each possible value of fixed number of targets \textit{P} across the range of $N_{0}$ to $N_{1}$ and choose the solution with the best objective overall. Furthermore, this is an advantageous strategy because each independent experiment can run in parallel. 
 
 \subsubsection{Decision Variables}
 We first introduce new binary decision variables $F_{it}$ to indicate whether or not a detection $x_{it}$ is a false alarm. 
@@ -52,7 +49,7 @@ Similarly, we introduce binary decision variables $M_{jt}$ to indicate whether o
 \end{cases}\]
 
 \subsubsection{Constraints}
-All detections must either be assigned to a trajectory \textit{j} or a false alarm. 
+All detections must either be assigned to a trajectory \textit{j} or to a false alarm. 
 \begin{align}\label{eqn: FA Simple}
 \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t
 \end{align}
@@ -73,13 +70,13 @@ The sum of all false alarms is TF, and similarly the sum of all missed detection
 \subsubsection{Objective Function}
 We can easily extend \eqref{eq:generalized_objective} to account for false alarms and missed detections by introducing penalties $\theta$ ($\phi$, respectively) for each missed detection (false alarm, respectively). An objective function of this type would take the form of: 
 \begin{align}
-\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta TF + \phi TM
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM.
 \end{align}
 which can be linearized in the same manner as \eqref{eq:generalized_linear_objective}. A discussion on the insight behind these penalties, and recommendations for tuning them can be found in Appendix~\ref{\myabrv Penalty_Appendix}.
 
 \subsubsection{Formulation 2}
 \begin{align*}
-\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta TF + \phi TM\\
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
 \text{subject to: }	& \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t\\
 				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t\\
 				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF\\
@@ -90,7 +87,7 @@ which can be linearized in the same manner as \eqref{eq:generalized_linear_objec
 				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t\\
 				& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
 				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
-				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t.
 \end{align*}
 
 \subsection{Number of Targets as a Decision Variable}
@@ -108,35 +105,34 @@ Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicat
 \subsubsection{Constraints}
 Most constraints remain similar to their original counterparts, except now we must account for the possibility that some trajectories may not exist. Therefore, where before we summed over \textit{P}, we will now be summing over $N_{1}$. This affects two constraints.
 
-All detections must either be assigned to a trajectory \textit{j} or a false alarm. This can be implemented similarly to \eqref{eqn: FA Simple}, except now we sum over $N_{1}$ because the number of targets is unknown but limited by $N_{1}$.
+All detections must either be assigned to a trajectory \textit{j} or to a false alarm. This can be implemented similarly to \eqref{eqn: FA Simple}, except now we sum over $N_{1}$ because the number of targets is unknown but limited by $N_{1}$.
 \begin{align}
-\sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t
+\sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t.
 \end{align}
 
-Similarly, \eqref{eqn: MD Total} must be adjusted to sum over the maximal number of targets allowed $N_{1}$ . 
+Similarly, \eqref{eqn: MD Total} must be adjusted to sum over the maximal number of targets allowed $N_{1}$. 
 \begin{align}
-\sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM
+\sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM.
 \end{align}
 
 All \textit{existing} trajectories must either be assigned a detection or a missed detection. 
 \begin{align}\label{eqn: Existing Targets}
-\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t
+\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t.
 \end{align}
 
 We restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \textit{j} does not exist. This ensures only existing trajectories are penalized in the objective function. 
 \begin{align}
-|\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j\
+|\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j.
 \end{align}
 
 Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. We simply need the additional constraint
 \begin{align}
-w_{N_0+1}\geq ...\geq w_{N_1}
+w_{N_0+1}\geq ...\geq w_{N_1},
 \end{align}
-which guarantees a unique $w$ solution.
-Furthermore, we can replace \eqref{eqn: Existing Targets} with the following two constraints:
+which reduces the symmetry of the formulation, and thus making it efficiently solvable. Furthermore, we can replace \eqref{eqn: Existing Targets} with the following two constraints:
 \begin{align}
 	\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t\\
-	\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t
+	\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t.
 \end{align}
 
 \subsubsection{Formulation 3}
@@ -157,7 +153,7 @@ Incorporating these additional variables and constraints, we arrive at the follo
 				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t\\
 			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
 				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n,\quad w_{j} \in \mathbb{R}^n \quad \forall j\\
-				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t.
 \end{align*}
 
 \subsection{Robust Extension to Algorithm~\ref{alg:Basic_Heuristic}}

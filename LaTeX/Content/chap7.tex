@@ -11,7 +11,7 @@ In order to evaluate scalability of our algorithms we test our methods across a 
 
 Scans $\mathcal{X}_{t}$ are simulated by randomizing the order of $x_{it}$ for each \textit{t}. Each unique $\boldsymbol{\mathcal{X}}$ generated is referred to as a \textit{simulation}. For each such simulation, we run the heuristic with a range of starting points $N \in \{100\ \ 1,000\ \ 10,000\}$, and use each of these solutions as a warmstart for the MIO. The optimization process is set to terminate after 3T seconds, with solutions collected at intervals of $\{1,T,2T,3T\}$ seconds.
 
-We begin analysis of methodology by discussing the relationship between $\rho$ and $\sigma$ and discuss how this relationship benefits both scenario generation and complexity measuring by allowing each to occur in their own natural domain. Then we frame the performance of the basic heuristic before discussing the performance of the basic MIO model in both the data association and trajectory estimation spheres.
+We begin the analysis of the methodologies by discussing the relationship between $\rho$ and $\sigma$ and discuss how this relationship benefits both scenario generation and complexity measuring by allowing each to occur in their own natural domain. Then we frame the performance of the basic heuristic before discussing the performance of the basic MIO model in both the data association and trajectory estimation spheres.
 
 \subsubsection{Scenario Generation}
 Figure ~\ref{fig:Sigma_vs_Rho} shows the relationship between $\sigma$ and $\rho$ for our scenario generation methods. The plot is broken down by scenario type between crossing and parallel trajectories. 
@@ -235,3 +235,6 @@ We conclude our analysis of the robust approaches with a discussion on their per
 \end{figure}
 
 Again, we measure against the basic approaches by comparing Figure~\ref{fig:Robust_4_8_Delta} with the 4 target and 8 scan element of Figure~\ref{Fig:Basic_Delta_Summary}. We see that the robust approaches do not drastically reduce in performance for the easiest robust scenario of $\gamma = 0.05$ and $\lambda = 0.1$. However, the gap in performance between the ideal solution and the solutions of the robust algorithms grows wider with increases in $\sigma$, something that is expected but was not as sizable in the basic experiment. Therefore, the robust approaches may be less robust to increases in $\sigma$ in scenarios with detection ambiguity. However, it also appears that these methods are more robust to increases in the false alarm rate $\lambda$ when it comes to trajectory estimation than they were when it came to data association, especially in the larger scenario shown in Figure~\ref{fig:Robust_8_8_Delta}. We conclude that our robust methods are fairly robust to both increases in the false alarm rate and decreases in trajectory estimation under detection ambiguity, but increasing the signal noise degrades the performance of our methods more so in scenarios with detection ambiguity than in scenarios without detection ambiguity.
+
+\subsection{Conclusion}
+

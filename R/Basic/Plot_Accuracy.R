@@ -85,9 +85,10 @@ plot_1 = ggplot(data = Sigma_Data,
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
   ylab('% of Correctly Labelled Detections') +
-  scale_color_manual(name = 'Solution Type',
+  scale_color_manual(name = '',
                      values=group.colors[1:5], 
-                     labels=Labels)
+                     labels=Labels) + 
+  theme(legend.position = "bottom") 
 
 Save_str = 'Plots/Accuracy/vs_Sigma_Solution_Type.png'
 png(file=Save_str,width=1000, height=700)
@@ -116,7 +117,8 @@ plot_2 = ggplot(data = Heuristic_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
-  ylab('% of Correctly Labelled Detections')
+  ylab('% of Correctly Labelled Detections') + 
+  theme(legend.position = "bottom")  
 
 Save_str = 'Plots/Accuracy/vs_Sigma_Heuristic_by_N.png'
 png(file=Save_str,width=1000, height=700)
@@ -147,7 +149,8 @@ plot_3 = ggplot(data = MIO_Data,
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
   ylab('% of Correctly Labelled Detections') + 
-  scale_fill_discrete(name = 'Scenario Type')
+  scale_fill_discrete(name = '') + 
+  theme(legend.position = "bottom") 
 
 Save_str = 'Plots/Accuracy/vs_Sigma_MIO_by_Scenario_Type.png'
 png(file=Save_str,width=1000, height=700)
@@ -177,7 +180,8 @@ plot_4 = ggplot(data = MIO_Data2,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
-  ylab('% of Correctly Labelled Detections')
+  ylab('% of Correctly Labelled Detections') +
+  theme(legend.position = "bottom") 
 
 Save_str = 'Plots/Accuracy/vs_Sigma_MIO_by_N.png'
 png(file=Save_str,width=1000, height=700)
@@ -218,9 +222,10 @@ plot_5 = ggplot(data = Rho_Data2,
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
   ylab('% of Correctly Labelled Detections') +
-  scale_color_manual(name = 'Solution Type',
+  scale_color_manual(name = '',
                      values=group.colors[1:5], 
-                     labels=Labels)
+                     labels=Labels) + 
+  theme(legend.position = "bottom") 
   
 Save_str = 'Plots/Accuracy/vs_Rho_Solution_Type.png'
 png(file=Save_str,width=1000, height=700)
@@ -250,7 +255,8 @@ plot_6 = ggplot(data = Heuristic_Data,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
-  ylab('% of Correctly Labelled Detections')
+  ylab('% of Correctly Labelled Detections') + 
+  theme(legend.position = "bottom") 
   
 Save_str = 'Plots/Accuracy/vs_Rho_Heuristic_by_N.png'
 png(file=Save_str,width=1000, height=700)
@@ -281,7 +287,8 @@ plot_7 = ggplot(data = MIO_Data,
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
   ylab('% of Correctly Labelled Detections') + 
-  scale_color_manual(name = 'Scenario Type')
+  scale_color_manual(name = '') + 
+  theme(legend.position = "bottom") 
   
 Save_str = 'Plots/Accuracy/vs_Rho_MIO_by_Scenario_Type.png'
 png(file=Save_str,width=1000, height=700)
@@ -311,7 +318,7 @@ plot_8 = ggplot(data = MIO_Data2,
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) +
     xlab('Rho') +
-  ylab('% of Correctly Labelled Detections')
+  ylab('% of Correctly Labelled Detections') + theme(legend.position = "bottom") 
   
 Save_str = 'Plots/Accuracy/vs_Rho_MIO_by_N.png'
 png(file=Save_str,width=1000, height=700)

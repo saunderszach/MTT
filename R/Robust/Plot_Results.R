@@ -100,7 +100,7 @@ for (P_loop in P_range){
         strip.text.x=element_text(size = 14),
         strip.text.y=element_text(size = 14)) + 
   ylab('Number of Occurences') + 
-  xlab(expression(P[difference])) + scale_fill_discrete("Solution Type",labels=Labels)
+  xlab(expression(P[difference])) + scale_fill_discrete("",labels=Labels) + theme(legend.position = "bottom") 
     
     Save_str = paste('Plots/Histogram/',toString(P_loop),'_', 
                      toString(T_loop),'_Histogram.png', sep='')
@@ -148,10 +148,12 @@ plot = ggplot(data = Data2,
         strip.text.y=element_text(size = 14)) +
   xlab('Rho') +
   ylab('% of Correctly Labelled Detections') +
-  scale_color_manual(name = 'Solution Type',
+  scale_color_manual(name = '',
                      values=group.colors, 
                      labels=Labels) + 
-  scale_y_continuous(limits = c(0, 1.0))
+  scale_y_continuous(limits = c(0, 1.0)) + 
+  theme(legend.position = "bottom") + 
+  guides(colour = guide_legend(override.aes = list(size=4)))
 
 Save_str = paste('Plots/Accuracy/',toString(P_loop),'_', 
                  toString(T_loop),'_Accuracy.png', sep='')
@@ -200,9 +202,11 @@ plot_2 = ggplot(data = Sigma_Data,
         strip.text.y=element_text(size = 14)) +
   xlab('Sigma') +
   ylab('Delta') +
-  scale_color_manual(name = 'Solution Type', 
+  scale_color_manual(name = '', 
                      values=group.colors, 
-                     labels=Labels)
+                     labels=Labels) + 
+  theme(legend.position = "bottom") + 
+  guides(colour = guide_legend(override.aes = list(size=4)))
 
 Save_str = paste('Plots/Delta/',toString(P_loop),'_', 
                  toString(T_loop),'_Delta.png', sep='')
