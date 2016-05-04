@@ -98,12 +98,12 @@ The resulting objective function for the case of the $\ell_1$ norm would then be
 
 \subsection{Constraints}
 For each scan, each detection $x_{it}$ must be assigned to exactly one target \textit{j}:
-\begin{align}
+\begin{align}\label{eq:all_detections}
 \sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t
 \end{align}
 
 Similarly, for each scan, each target must be assigned exactly one detection:
-\begin{align}
+\begin{align}\label{eq:all_targets}
 \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t
 \end{align}
 

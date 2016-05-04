@@ -1,5 +1,6 @@
 In this section, we present a detailed description of a heuristic that finds good feasible solutions. These solutions can be used as a warm start to the MIO, providing a performance boost to the MIO. The heuristic leverages the power of randomized local search methods to find locally optimal solutions. Although the heuristic takes a local search approach, we hypothesize that it will discover near optimal solutions, provided that it is initialized with enough random starting points. 
 
+<<<<<<< Updated upstream
 The framework of our heuristic is very simple. We begin be generating a randomized assignment which will serve as the starting point for the heuristic. These assignments are then changed at random until a stopping condition is met and the heuristic is terminated. 
 
 We now begin elaborating on the details of our proposed heuristic with a comment on objective functions, in particular the choice between the L1 norm and L2 norm. The goal of any heuristic is to find good feasible solutions in an efficient manner. We have noted before the L1 norm is more robust to outliers than the L2 norm, but this does not mean the L1 norm cannot still find good feasible solutions. 
@@ -12,6 +13,10 @@ In swap $k$ for scan $t$ choose $i,l\in \{1,\ldots,P\}$ detections and $j,m\in\{
 
 As we will see in the computational results section, this heuristic runs very efficiently, providing high quality global solutions very quickly. Furthermore, this algorithm can be parallelized by running partitions of the $N$ starting points on separate cores, leading to even greater performance advantages. A proposed pseudocode for the heuristic is provided below in Algorithm~\ref{alg:Basic_Heuristic}. 
 
+=======
+The framework of our proposed heuristic is quite simple. The heuristic initializes with a \textit{starting point} by randomizing a solution that satisfies the assignment equations \eqref{eq:all_detections} and \eqref{eq:all_targets}. The initial objective score of this starting point is calculated. The heuristic then  randomly selects two detections from the first scan and exchanges the assignments of these two detections. This random exchanged is referred to as a \textit{swap}. The objective score of the new solution is calculated. If the objective score improves, the swap is kept, otherwise it is rejected. The heuristic then advances to the next scan where the same process is repeated, until it reaches the last scan. This completes a single \textit{sweep}, or a single pass through all scans. The heuristic continues sweeping through all scans, randomly swapping detections and only keeping the swap if the solution improves, until it makes a single pass through all scans without accepting a single swap. At this point the heuristic terminates and the final assignments are obtained. Pseudocode for this proposed heuristic is detailed below in Algorithm~\ref{alg:Basic_Heuristic}.
+
+>>>>>>> Stashed changes
 %\begin{figure}
 \begin{algorithm}
  \caption{Randomized local search with heuristic swaps}
@@ -20,10 +25,10 @@ As we will see in the computational results section, this heuristic runs very ef
   \renewcommand{\algorithmicrequire}{\textbf{Input:}}
   \renewcommand{\algorithmicensure}{\textbf{Output:}}
  \REQUIRE $\boldsymbol{\mathcal{X}}$, P, T
- \ENSURE  $RSS$, $y_{itj}$
+ \ENSURE  $F$, $y_{itj}$
  \\ \textit{Initialization} : Assign random initial assignments for $y^{0}_{itj}$
   \STATE Calculate $\alpha_{j}, \beta_{j} \quad \forall j $
-  \STATE Calculate $RSS^{0}$
+  \STATE Calculate $F^{0}$
   \STATE swapped $\leftarrow true$
   \STATE $k\leftarrow1$
   \WHILE{swapped}
@@ -32,8 +37,8 @@ As we will see in the computational results section, this heuristic runs very ef
   \STATE Randomly choose $j,m\in\{1,\ldots,P\}$
   \STATE Find $i,l$ such that $y^{k-1}_{itm}\leftarrow1$ and $y^{k-1}_{ltj}\leftarrow1$
   \STATE Swap such that $y^{k}_{itj}\leftarrow1$ and $y^{k}_{ltm}\leftarrow1$
-  \STATE Calculate $RSS^{k}, \alpha_{j}, \beta_{j}, \alpha_{m}, \beta_{m}$
-  \IF {($RSS^{k} \geq RSS^{k-1}$)}
+  \STATE Calculate $F^{k}, \alpha_{j}, \beta_{j}, \alpha_{m}, \beta_{m}$
+  \IF {($F^{k} \geq F^{k-1}$)}
   \STATE $y^{k} \leftarrow y^{k-1}$
   \ELSE 
   \STATE swapped $\leftarrow true$
@@ -41,8 +46,21 @@ As we will see in the computational results section, this heuristic runs very ef
   \ENDFOR
   \STATE $ k \leftarrow k + 1 $
   \ENDWHILE
- \RETURN $RSS^{k}, y^{k}_{itj}$ 
+ \RETURN $F^{k}, y^{k}_{itj}$ 
  \end{algorithmic} 
  \end{algorithm}
+<<<<<<< Updated upstream
  %\caption{Pseudocode for suggested implementation of basic heuristic.}\label{Algorithm}
  %\end{figure}
+=======
+% \caption{Pseudocode for suggested implementation of basic heuristic.}\label{Algorithm}
+% \end{figure}
+
+The goal of any heuristic is to find good feasible solutions in an efficient manner. In the previous \mysection we discussed our choice to use the $ell_1$ norm over the $ell_2$ norm for use in the objective of our MIO models. We now turn to discuss why the $ell_2$ is the preferred choice for use in this heuristic. The two main ares of concern are 1) efficiency of the algorithm and 2) quality of the solution.
+
+In regards to efficiency, the choice of objective is clear. In the case of the MIO, the preferred objective function was the  $ell_1$ norm because it lent itself easily to linear optimization solvers which have known performance advantages over quadratic optimization solvers. However in the case of the heuristic, the $ell_2$ norm squared, or residual sum of squares, is the preferred choice because it can be calculated quickly using matrix algebra, as seen in  \cite{RSS-Matrix}. Computing an objective with the $ell_1$ norm would require solving a integer optimization problem with each swap. Although this can be done quickly in the realm of optimization solvers, linear algebra can be computed even more quickly by several orders of magnitude. 
+
+The choice of objective is less clear in regards to quality of the solution. We noted previously that the $ell_1$ norm is more robust to outliers than the $ell_2$ norm, but this does not mean the L1 norm cannot still find good feasible solutions. In fact, both norms represent measures of distance and are highly correlated. Therefore, it follows that a high quality solution as measured by the $ell_2$ norm is also a high quality solution as measured by the $ell_1$ norm, although their optimal solution may differ. It is important to remember that the goal of the heuristic is merely to find high quality solutions and let the power of optimization do the rest. 
+
+A final note on the heuristic is that it can be parallelized by running partitions of the $N$ starting points on separate cores, leading to even greater performance advantages. This concept, along with its performance advantages, will be discussed at length in \mysection~\ref{\myabrv Results}. 
+>>>>>>> Stashed changes
