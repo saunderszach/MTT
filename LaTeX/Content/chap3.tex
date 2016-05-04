@@ -26,7 +26,7 @@ i.e., no false alarms.
 We begin constructing our MIO model by introducing decision variables that define data associations as well as estimated trajectories. Using these decision variables, we then develop an objective function that  mathematically quantifies the value of the model decisions. Finally, we restrict these variables using constraints that force the model to find solutions that are feasible for the MTT problem as we have defined it. A simple model is first developed step by step in the coming sections before generalized formulation is presented. 
 
 \subsection{Decision Variables}
-The data association and trajectory estimation problems require unique decision variables. Because these two problems lie in different domains, the variables we use to represent these decisions also differ. First, we introduce \textit{continuous} decision variables $\alpha_{j} \in \mathbb{R}^n$ and $\beta_{j} \in \mathbb{R}^n$ to represent the estimated initial position and velocity, respectively, of each trajectory \textit{j}. In our interpretation of the MTT problem we allow the trajectory parameters to lie anywhere in the real-continuous domain. For the data estimation problem, we wish to assign detections to trajectories, a naturally discrete problem. Therefore, we introduce binary decision variables $y_{itj}$ to indicate whether detection $x_{it}$ is assigned to trajectory \textit{j} or not:
+The data association and trajectory estimation problems require unique decision variables. Because these two problems lie in different domains, the variables we use to represent these decisions also differ. First, we introduce \textit{continuous} decision variables $\alpha_{j} \in \mathbb{R}^n$ and $\beta_{j} \in \mathbb{R}^n$ to represent the estimated initial position and velocity, respectively, of each trajectory \textit{j}. In our interpretation of the MTT problem we allow the trajectory parameters to lie anywhere in the real-continuous domain. For the data association problem, we wish to assign detections to trajectories, a naturally discrete problem. Therefore, we introduce binary decision variables $y_{itj}$ to indicate whether detection $x_{it}$ is assigned to trajectory \textit{j} or not:
 
 \begin{align}
 y_{itj} =
@@ -57,11 +57,11 @@ Thus, an estimated trajectory can analogically be defined by  $\alpha_{j}$ and $
 \begin{align}
 	\hat{x}_{jt} =  \alpha_{j} + \beta_{j}t.
 \end{align}
-Therefore, given association $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory which has the best estimation error is actually the one which solves the problem
+Therefore, given a full assignment  $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory which has the best estimation error is actually the one which solves the problem
 \begin{align}\label{eq:objective_mintraj}
 \underset{\alpha_{j}, \beta_{j}}{\text{minimize: }}\sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - (\alpha_{j} + \beta_{j}t)\right\|,
 \end{align} 
-Notice that under the current assumptions, in which there is no detection ambiguity, \eqref{eq:objective_mintraj} is the cost of association $\mathcal{A}$. 
+Notice that under the current assumptions, in which there is no detection ambiguity, \eqref{eq:objective_mintraj} is the cost of assignment $\mathcal{A}$. 
 
 Now we turn to the problem of choosing the assignment, based on this measure. To this end we formulate the assignment cost \eqref{eq:objective_mintraj} in terms of our decision variables. Note that $(i,j)\in\mathcal{A}_t$ if and only if $y_{itj}=1$, and because all detections will be assigned to a trajectory and vice versa, the following equivalence holds:
 
@@ -151,14 +151,14 @@ x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j
 \end{align}
 
 Combining all of these elements together, we arrive at the following generalized MIO model:
-\begin{align*}
-\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} \\
-\text{subject to: }	& \sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t\\
-				& \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t\\
-				& x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
-				& x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
-				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall i,j,t\\
-				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \geq \psi_{jt} \qquad \forall i,j,t\\
-			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
-				& \alpha_{j} \in \mathbb{R}^n \quad \forall j,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j, \quad z_{jt} \in \mathbb{R}^n \quad \forall j,t
-\end{align*}
+\begin{align}
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} \label{eq:Basic_Problem}\\
+\text{subject to: }	& \sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t\nonumber\\
+				& \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t\nonumber\\
+				& x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\nonumber\\
+				& x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\nonumber\\
+				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall i,j,t\nonumber\\
+				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \geq \psi_{jt} \qquad \forall i,j,t\nonumber\\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\nonumber\\
+				& \alpha_{j} \in \mathbb{R}^n \quad \forall j,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j, \quad z_{jt} \in \mathbb{R}^n \quad \forall j,t\nonumber
+\end{align}
