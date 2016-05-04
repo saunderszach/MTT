@@ -39,81 +39,62 @@ y_{itj} =
 Next, we use these decision variables to develop an objective function to score the solutions found by the model. 
 
 \subsection{Objective Function}
-Here, we would like to develop a function that quantifies the quality of a feasible solution. Our goal in this work is to develop a single model that solves in a single iteration. Thus, this function must produce a single measure of goodness for both the data association and trajectory estimation problems. Such a function should take into account the cost of assigning detections in addition to the cost of the estimated trajectory determined by those assignments. 
-
-The goal of the trajectory estimation problem is to minimize the distance between the positions of the true trajectories and the positions of the estimated trajectories. We do not know the position of the true trajectories but we do have detections $x_{it}$. So our goal is to minimize the distance between the detections and the positions of the estimated trajectories. For ease of notation we denote the estimated position of trajectory \textit{j} at scan \textit{t} as $\hat{x}_{jt}$. Using this notation, the \textit{cost} of the trajectory estimation problem defined as the distance between the detections $x_{it}$ and the estimated positions $\hat{x}_{jt}$. 
-
-Under the current assumptions, in which there is no detection ambiguity, the cost of making a data association is exactly equivalent to the cost of trajectory estimation for a given solution. This is because all detections will be assigned to a trajectory, and in the case of no detection ambiguity all such assignments are weighted evenly. 
-
-In words, we wish to develop a function which returns a cost of $\|x_{it} - \hat{x}_{jt}\|$ when a detection is assigned and 0 otherwise:
-
-\begin{align}
-\text{cost} = 
-\begin{cases}
-\|x_{it} - \hat{x}_{jt}\|, & \text{if detection $x_{it}$ is assigned}\\
-				& \text{to trajectory \textit{j},} \\
-0, & \text{otherwise.}
-\end{cases}
-\end{align}
-
-Moving toward a more mathematical representation of this function, we let $\mathcal{A}_{t}$ be the set of pairs that indicate the assignment of detection \textit{i} to trajectory \textit{j} of scan \textit{t}. Then the cost of assigning each detection $x_{it}$ to trajectory $j$, can be written as
-
-\begin{align}
-\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - \hat{x}_{jt}\| 
+Here, we would like to develop a function that quantifies the quality of a feasible solution. Our goal is to produce a single measure for both the data association and the trajectory estimation problems. For a given assignment and a given estimated trajectories we define the quality of the estimation as the distance of each detection from the estimated position of its associated trajectory. That is, if at scan $t$ detection $x_{it}$ is associated with trajectory $j$ then, the distance 
+$$\|x_{it}-\hat{x}_{jt}\|,$$
+is the measure of the quality of estimation for trajectory $j$ at scan $t$, and the total estimation quality for a given association will be given as 
+\begin{align}\label{eq:objective_base}
+\sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - \hat{x}_{jt}\right\|,
 \end{align} 
+where $\mathcal{A}_t$ is pairs of detection-trajectory associations made for scan $t$. 
 
-To get a single measure for the total cost of assigning all detections, we simply sum over all targets and all scans and we arrive at
+We can now separate the problem into two parts: given an assignment finding the estimated trajectories which minimizes \eqref{eq:objective_base}, and finding the assignment which results in the best estimated trajectories.
+
+Recall that each trajectory is defined by two parameters, $\alpha^{\text{true}}_{j}$ and $\beta^{\text{true}}_{j}t$ such that the true location is given as 
 \begin{align}
-\sum_{j=1}^{P} \sum_{t=1}^{T}  \left \|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - \hat{x}_{jt}\right \|. 
+	\bar{x}_{jt} = \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t.
 \end{align}
+Thus, an estimated trajectory can analogically be defined by  $\alpha_{j}$ and $\beta_{j}$ such that its estimated location at the time of scan $t$ is given by
+\begin{align}
+	\hat{x}_{jt} =  \alpha_{j} + \beta_{j}t.
+\end{align}
+Therefore, given association $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory which has the best estimation error is actually the one which solves the problem
+\begin{align}\label{eq:objective_mintraj}
+\underset{\alpha_{j}, \beta_{j}}{\text{minimize: }}\sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - (\alpha_{j} + \beta_{j}t)\right\|,
+\end{align} 
+Notice that under the current assumptions, in which there is no detection ambiguity, \eqref{eq:objective_mintraj} is the cost of association $\mathcal{A}$. 
 
-However, we desire a function in terms of our decision variables. Note that because all detections will be assigned to a trajectory and vice versa, the following equivalence holds:
+Now we turn to the problem of choosing the assignment, based on this measure. To this end we formulate the assignment cost \eqref{eq:objective_mintraj} in terms of our decision variables. Note that $(i,j)\in\mathcal{A}_t$ if and only if $y_{itj}=1$, and because all detections will be assigned to a trajectory and vice versa, the following equivalence holds:
 
 \begin{align}
 \sum_{(i,j)\in \mathcal{A}_{t}} x_{it} = \sum_{i=1}^{P}y_{itj}x_{it}.
 \end{align}
 
-Making the appropriate substitutions, we now have:
-\begin{align}
- \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} x_{it} - \hat{x}_{jt} \right \|. 
+Making the appropriate substitutions, the cost of an assignment described by variables $y_{itj}$ is given as
+\begin{align}\label{eq:assignemnt_cost}
+ \underset{\alpha_{j}, \beta_{j}}{\text{minimize: }} \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} x_{it} - \hat{x}_{jt} \right \|,
 \end{align}
-
-In terms of our decision variables we also have:
-\begin{align}
-	\hat{x}_{jt} =  \alpha_{j} + \beta_{j}t.
-\end{align}
-
-So we can substitute further to get the following function:
-\begin{align}\label{eq:final_function}
-\sum_{j=1}^{P} \sum_{t=1}^{T}  \left\| \sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t\right\| 
-\end{align}
-
-Finally, in order to fully develop an objective function, in which we wish to find the highest quality solution, we will minimize over \eqref{eq:final_function} to get:
-
+Therefore, in order to find the assignment with the lowest cost, we are left to minimize cost \eqref{eq:assignemnt_cost} over all assignments, and obtain the following final objective 
 \begin{align}\label{eq:full_objective}
-\underset{Y_{itj}, \alpha_{j}, \beta_{j}}{\text{minimize: }} &  \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} -  \alpha_{j} - \beta_{j}t \right \|. 
+ \underset{y_{itj}, \alpha_{j}, \beta_{j}}{\text{minimize: }} \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} x_{it} - \hat{x}_{jt} \right \|,
 \end{align}
 
-which finds the lowest cost or highest quality feasible solution of detection assignments.
 
-At this point it is necessary to discuss the advantages and disadvantages of the two natural norms that will be considered, the L1 and L2 norms. The L1 norm has the advantage that it can be reformulated using linear optimization (through the addition of continuous variables and constraints), and it is well known to be more robust to outliers. Furthermore, existing algorithms for MIO are more well developed for linear rather than quadratic optimization. However, the L2 norm square form, which is equivalent to the residual sum of squares (RSS), has the advantage that it can be quickly computed using a matrix formulation, making it more amenable to a heuristic. This concept will be discussed further in \mysection~\ref{\myabrv Heuristic}.
+At this point it is necessary to discuss the advantages and disadvantages of the two natural distance measures (norms) that will be considered: the $\ell_1$ and the $\ell_2$ norms. The $\ell_1$ norm has the advantage that it can be reformulated using linear optimization (through the addition of continuous variables and constraints), and it is well known to be more robust to outliers. Furthermore, existing algorithms for MIO are more well developed for linear rather than quadratic optimization. However, the $\ell_2$ norm squared form, which is equivalent to the residual sum of squares (RSS), has the advantage that it can be quickly computed using simple linear algebra, making it more amenable to a heuristic. This concept will be discussed further in \mysection~\ref{\myabrv Heuristic}.
 
-Because of the computational benefits of linear optimization over quadratic optimization, we choose the L1 norm for use in our models. Therefore, we now show how \eqref{eq:full_objective} can be reformulated using linear optimization in the case of the L1 norm by introducing continuous variables $\psi_{jt} \in \mathbb{R}^n$ and the following constraints. 
-
+Because of the computational benefits of linear optimization over quadratic optimization, we choose to formulate the objective using the $\ell_1$ norm. Therefore, we now show how \eqref{eq:full_objective} can be reformulated using linear optimization in the case of the $\ell_1$ norm by introducing continuous variables $\psi_{jt} \in \mathbb{R}^n$ and the following constraints,
 \begin{align}
-\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall j,t\\
--\left(\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t\right) \geq \psi_{jt} \qquad \forall j,t
+\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t \leq \psi_{jt}, \qquad \forall j,t,\\
+-\left(\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t\right), \geq \psi_{jt} \qquad \forall j,t.
+\end{align}
+The resulting objective function for the case of the $\ell_1$ norm would then be:
+\begin{align}
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt}.
 \end{align}
 
-The resulting objective function for the case of the L1 norm would then be:
-\begin{align}
-\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt}
-\end{align}
-
-For the case of the L2 norm, the objective function would be:
-\begin{align}
-\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} {\|\psi_{jt}\|}^{2}_{2}
-\end{align}
+%For the case of the L2 norm, the objective function would be:
+%\begin{align}
+%\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} {\|\psi_{jt}\|}^{2}_{2}
+%\end{align}
 
 \subsection{Constraints}
 For each scan, each detection $x_{it}$ must be assigned to exactly one target \textit{j}:
@@ -138,7 +119,7 @@ Combining all of these elements together, we arrive at the following MIO model:
 				& \alpha_{j} \in \mathbb{R}^n \quad \forall j,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j, \quad z_{jt} \in \mathbb{R}^n \quad \forall j,t
 \end{align*}
 
-This formulation is simple in the sense that it involves few variables and constraints, making it highly interpretable and easily implementable. However, it has the disadvantage of being ill suited for extensions to detection ambiguity because it heavily relies on the fact that exactly one of the detections at each scan is associated to a target. This forces the interaction terms of $\sum_{i=1}^{P}y_{itj}x_{it}$ to always be nonzero. However, would be incorrect in the case of detection ambiguity. Therefore, there is a need to generalize this formulation to one that is amenable to scenarios with detection ambiguity, and this is presented next.
+This formulation is simple in the sense that it involves few variables and constraints, making it highly interpretable and easily implementable. However, it has the disadvantage of being ill suited for extensions to detection ambiguity because it heavily relies on the fact that exactly one of the detections at each scan is associated to a target. This forces the term $\sum_{i=1}^{P}y_{itj}x_{it}$ to always be equal to one of the detections. However, in the case of detection ambiguity, this no longer holds true, since there might be trajectories which are not associated with a detection in a given scan, resulting in an unintended cost to the assignment. Therefore, in the following section we present a more generalized formulation, which is amenable to scenarios with detection ambiguity.
 
 \subsection{Generalized Formulation}
 We desire a formulation that can more easily extend to detection ambiguity. To this end, we introduce a new variable $z_{jt}$ which takes on the value $x_{it}$ when $y_{ijt}=1$ and some arbitrary number when $y_{itj}=0$. Using this method we must adjust \label{eq:simple_objective} as follows:

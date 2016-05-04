@@ -33,8 +33,4 @@ Throughout the paper we make the following assumptions:
 %\end{assumption}
 
 {\bf Notation:}
-We observe $P$ targets over a fixed time window in which $T$ scans are collected. Scans occur at a fixed rate of 1Hz, such that the set of scans can be time stamped by $\{t_{1}, t_{2},...,T\}. $ The $i^{th}$ detection of the $t^{th}$ scan is indicated by $x_{it}$, such that a scan of data at time \textit{t} is the unordered set of detections $\mathcal{X}_{t} = \{x_{1t}, x_{2,t},...,x_{P,t}\}$. The data for the problem is the ordered set of scans $\boldsymbol{\mathcal{X}}=\{\mathcal{X}_{1},\mathcal{X}_{2},...,\mathcal{X}_{T}\}$. The state space of target trajectories is paramaterized by a true initial position $\alpha^{\text{true}}_{j}$ and a true constant velocity $\beta^{\text{true}}_{j}$. Therefore, the true position $\bar{x}_{jt}$ of trajectory $j$ at scan $t$ is given by: 
-
-\begin{align}
-	\bar{x}_{jt} = \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t.
-\end{align}
+We observe $P$ targets over a fixed time window in which $T$ scans are collected. Scans occur at a fixed rate of 1Hz, such that the set of scans can be time stamped by $\{t_{1}, t_{2},...,T\}. $ The $i^{th}$ detection of the $t^{th}$ scan is indicated by $x_{it}$, such that a scan of data at time \textit{t} is the unordered set of detections $\mathcal{X}_{t} = \{x_{1t}, x_{2,t},...,x_{P,t}\}$. The data for the problem is the ordered set of scans $\boldsymbol{\mathcal{X}}=\{\mathcal{X}_{1},\mathcal{X}_{2},...,\mathcal{X}_{T}\}$. The state space of target trajectories is paramaterized by a true initial position $\alpha^{\text{true}}_{j}$ and a true constant velocity $\beta^{\text{true}}_{j}$. 
