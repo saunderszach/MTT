@@ -1,6 +1,6 @@
 In this section, we present a detailed description of a heuristic that finds good feasible solutions. These solutions can be used as a warm start to the MIO, providing a performance boost to the MIO. The heuristic leverages the power of randomized local search methods to find locally optimal solutions. Although the heuristic takes a local search approach, we hypothesize that it will discover near optimal solutions, provided that it is initialized with enough random starting points. 
 
-The framework of our heuristic is very simple. We begin with an initial solution of completely randomized assignments. This solution is feasible, meaning that it satisfies the assignment constraints requiring that exactly one detection be assigned to one trajectory for each scan. These assignments are then changed at random until a stopping condition is met and the heuristic is terminated. 
+The framework of our heuristic is very simple. We begin be generating a randomized assignment which will serve as the starting point for the heuristic. These assignments are then changed at random until a stopping condition is met and the heuristic is terminated. 
 
 We now begin elaborating on the details of our proposed heuristic with a comment on objective functions, in particular the choice between the L1 norm and L2 norm. The goal of any heuristic is to find good feasible solutions in an efficient manner. We have noted before the L1 norm is more robust to outliers than the L2 norm, but this does not mean the L1 norm cannot still find good feasible solutions. 
 
@@ -12,7 +12,7 @@ In swap $k$ for scan $t$ choose $i,l\in \{1,\ldots,P\}$ detections and $j,m\in\{
 
 As we will see in the computational results section, this heuristic runs very efficiently, providing high quality global solutions very quickly. Furthermore, this algorithm can be parallelized by running partitions of the $N$ starting points on separate cores, leading to even greater performance advantages. A proposed pseudocode for the heuristic is provided below in Algorithm~\ref{alg:Basic_Heuristic}. 
 
-\begin{figure}
+%\begin{figure}
 \begin{algorithm}
  \caption{Randomized local search with heuristic swaps}
  \label{alg:Basic_Heuristic}
@@ -44,5 +44,5 @@ As we will see in the computational results section, this heuristic runs very ef
  \RETURN $RSS^{k}, y^{k}_{itj}$ 
  \end{algorithmic} 
  \end{algorithm}
- \caption{Pseudocode for suggested implementation of basic heuristic.}\label{Algorithm}
- \end{figure}
+ %\caption{Pseudocode for suggested implementation of basic heuristic.}\label{Algorithm}
+ %\end{figure}
