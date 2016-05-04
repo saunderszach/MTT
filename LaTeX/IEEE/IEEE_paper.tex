@@ -1,0 +1,152 @@
+
+%% bare_jrnl.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% see http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+\documentclass[journal]{IEEEtran}
+
+% *** PACKAGES ***
+\usepackage{algorithm, algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{assumption}{Assumption}
+\usepackage{booktabs}
+\usepackage[noadjust]{cite}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{longtable}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{url}
+
+\newcommand{\mysection}{Section}
+\newcommand{\myabrv}{sec:}
+\newcommand{\mysubsection}[1]{\subsection{#1}}	       
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+\usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+ \graphicspath{{../Figures/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+  \else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+% correct bad hyphenation here
+%\hyphenation{op-tical net-works semi-conduc-tor}
+
+\newtheoremstyle{break}%
+{}{}%
+{\itshape}{}%
+{\bfseries}{}% % Note that final punctuation is omitted.
+{\newline}{}
+
+\begin{document}
+% Do not put math or special symbols in the title.
+\title{Multi-Target Tracking\\ via Mixed Integer Optimization}
+
+
+% author names and IEEE memberships
+\author{Dimitris~Bertsimas,~Zachary~Saunders, and Shimrit~Shtern}
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\begin{abstract}
+\input{../Content/abstract.tex}
+\end{abstract}
+
+% Note that keywords are not normally used for peer review papers.
+\begin{IEEEkeywords}
+optimization; multi-target tracking; data association; trajectory estimation; mixed integer optimization 
+\end{IEEEkeywords}
+
+\section{Introduction}\label{sec: Intro}
+\input{../Content/chap1}
+
+\section{Problem Description}\label{sec:Problem Description}
+\input{../Content/chap2}
+
+\section{Basic MIO Model}\label{sec:Basic MIO Model}
+\input{../Content/chap3}
+
+\section{Heuristic} \label{sec:Heuristic}
+\input{../Content/chap4}
+
+\section{Robust MIO Model}\label{sec:Robust MIO Model}
+\input{../Content/chap5}
+
+\section{Scenario Complexity \& Performance Metrics} \label{sec:Scenario-Performance}
+\input{../Content/chap6}
+ 
+\section{Experimental Simulations \& Computational Results}\label{sec:Results}
+\input{../Content/chap7}
+
+\section{Conclusion and Future Work}\label{sec:Conclusion}
+\input{../Content/chap8}
+
+\appendices
+
+\section{Estimated Trajectory Assignments}\label{sec:Assignment_Appendix}
+\input{../Content/appa}
+
+\section{Experiment 2 Penalty Values}\label{sec:Penalty_Appendix}
+\input{../Content/appb}
+
+\section*{Acknowledgments}
+The authors would like to thank Sung-Hyun Son, Ph.D. and Steven Relyea at Lincoln Laboratories for introducing us to the MTT problem and for their ongoing guidance throughout this work. Additionally, we would like to thank Lincoln Laboratories and the LLGrid team for their continual support in running our experiments. 
+
+CONTRACT ACKNOWLEDGMENT: This material is based upon work supported by the Air Force under Air Force Contract No. FA8721-05-C-0002 and/or FA8702-15-D-0001. Any opinions, findings, conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the U.S. Air Force. 
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\nocite{*}
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{Bibliography}
+%
+
+%\printbibliography
+
+\end{document}

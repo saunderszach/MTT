@@ -1,0 +1,40 @@
+In this paper, we restrict our exploration of the MTT problem to the automatic tracking of multiple, independent point targets using a single sensor. A \textit{target} is the object of interest. A point target's only identifiable attributes are its state space, which we restrict to position and velocity. The state space fully defines the field of \textit{trajectories}, or paths along which targets travel. A \textit{detection} is collected from each target at sequential scans. Detections are subject to noise. We treat two general scenarios: with and without detection ambiguity. 
+
+When there is no detection ambiguity, the sensor produces exactly one detection for each target in each scan, and there is no other source of detections. Therefore, the number of detections in each scan exactly equals the number of targets in existence. Under these conditions, the data association problem reduces to a one-to-one assignment problem. Our basic optimization model, presented in \mysection~\ref{\myabrv Basic MIO Model} aims to model this variant of the MTT problem.
+
+Detection ambiguity refers to a more complex case where the sensor generates both false alarms and missed detections. A \textit{false alarm} occurs when a detection is collected when in fact no target exists. This could be the result of measurement error or difficulties in signal processing. A \textit{missed detection} occurs when a data point is not collected in a given scan where a target does in fact actually exist. Now, the number of detections in each scan could be higher or lower than the actual number of existing targets. Under these conditions, each detection can now be assigned to a target in the same manner as before, or the detection can be classified as a false alarm. Furthermore, we wish to identify the location (scan and target ID) of a missed detection. In \mysection~\ref{\myabrv Robust MIO Model} we make extensions of the formulation of our basic optimization model to a robust formulation that deals with this detection ambiguity, and we will refer to this formulation as the robust MIO model.
+
+Throughout the paper we make the following assumptions:
+%%% IEEE %%%
+\begin{assumption}\label{ass:general_assumption}
+\leavevmode
+\begin{enumerate}[(i)]
+\item All targets have constant velocity. \textit{i.e.}, targets do not maneuver and no outside forces act on them.
+\item Each target's dynamics are independent of one another.
+\item The number of targets remains constant throughout the window of observation, \textit{i.e.}, there is no birth/death of targets.
+\item Each target produces at most one detection per scan.
+\item The detection errors are independent of one another.
+\end{enumerate}
+\end{assumption}
+
+%%% Thesis %%%
+%\begin{assumption}\label{ass:general_assumption}
+%\begin{minipage}[t]{\columnwidth}
+%\begin{enumerate}[(i)]
+%\item All targets have constant velocity. \textit{i.e.}, Targets do not \\
+%	maneuver and no outside forces act on them.
+%\item Each target's dynamics are independent of one another.
+%\item The number of targets remains constant throughout the \\
+%	window of observation, \textit{i.e.}, there is no birth/death of targets.
+%\item Each target produces at most one detection per scan.
+%\item The detection errors are independent of one another.
+%\end{enumerate}
+%\end{minipage}
+%\end{assumption}
+
+{\bf Notation:}
+We observe $P$ targets over a fixed time window in which $T$ scans are collected. Scans occur at a fixed rate of 1Hz, such that the set of scans can be time stamped by $\{t_{1}, t_{2},...,T\}. $ The $i^{th}$ detection of the $t^{th}$ scan is indicated by $x_{it}$, such that a scan of data at time \textit{t} is the unordered set of detections $\mathcal{X}_{t} = \{x_{1t}, x_{2,t},...,x_{P,t}\}$. The data for the problem is the ordered set of scans $\boldsymbol{\mathcal{X}}=\{\mathcal{X}_{1},\mathcal{X}_{2},...,\mathcal{X}_{T}\}$. The state space of target trajectories is paramaterized by a true initial position $\alpha^{\text{true}}_{j}$ and a true constant velocity $\beta^{\text{true}}_{j}$. Therefore, the true position $\bar{x}_{jt}$ of trajectory $j$ at scan $t$ is given by: 
+
+\begin{align}
+	\bar{x}_{jt} = \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t.
+\end{align}

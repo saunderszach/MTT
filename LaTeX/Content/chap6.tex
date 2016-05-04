@@ -1,0 +1,44 @@
+There does not exist a unified approach for measuring scenario complexity as stated by \cite{MTT-Taxonomy} nor does there exist clear measures of performance for each of the trajectory estimation and data association problems. In this paper, we argue that the data association problem has a natural performance metric but lacks a measure of complexity, while the trajectory estimation problem has a natural measure of complexity but lacks a clear performance metric. 
+
+In the case of the data association problem, the preferred performance metric often used in practice is \% accuracy \textit{i.e.}, the number of correct detection assignments out of the number of possible correct assignments. For the case without sensor ambiguity, the number of possible assignments is simply the total number of detections, or equivalently, the number of targets multiplied by the number of scans. 
+
+\begin{align}
+Accuracy =  \frac{\text{\# correct assignments}}{\text{Total \# of detections}}= \frac{\text{\# correct assignments}}{PT}
+\end{align}
+
+In the case of sensor ambiguity, however, the number of possible correct assignments requires a deeper explanation. To develop a better understanding, we consider our goal, which is to correctly assign detections to targets and identify both false alarms and missed detections. With this in mind, we define the number of possible correct assignments as the number of targets multiplied by the number of scans plus the number of false alarms
+
+\begin{align}
+Accuracy =  \frac{\text{\# correct assignments}}{PT + \text{\# False Alarms}}.
+\end{align}
+
+Whereas accuracy serves as a good measure of performance for data association, there does not exist a corresponding measure of complexity which comparatively measures the difficulty of the data association problem. We argue that $\sigma$ alone is not the best measure of difficulty for the data association problem. For example, a scenario with very close target trajectories may not actually be difficult to ascertain data associations even for small $\sigma$ values, and similarly with high enough $\sigma$ values even widely spaced targets could be difficult to differentiate. Therefore, we introduce a metric $\rho$ to quantify this complexity. For ease of notation in developing this metric we first define $D_{ijt}$ as the distance between one true trajectory \textit{i} and another true trajectory \textit{j}.
+
+\begin{align}
+D_{ijt} = \| \alpha^{\text{true}}_{i} + \beta^{\text{true}}_{i}t - \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t \|
+\end{align}
+
+Additionally, we define a variable $c_{ijt}$ that will take the value of 1 if the distance between trajectory \textit{i} and trajectory \textit{j} is greater than some constant. We propose the use of $2\sigma$, since it is hard to distinguish detections which lie between target trajectories closer that. 
+\[c_{ijt} = 
+\begin{cases}
+1, & \text{if $D_{ijt} > 2\sigma$,}\\
+0, & \text{otherwise.}
+\end{cases}\]
+
+Then the difficulty of a scenario in the sphere of the data association problem is quantified by the complexity measure $\rho$, which is the proportion of detection pairs that fall within a closely defined proximity to each other. 
+\begin{align}
+\rho =  \frac{\sum\limits_{t=1}^{T}\sum\limits_{i<j}c_{ijt}}{\binom{P}{2} T}
+\end{align}
+
+This metric has several desirable attributes. First and foremost, it falls within the range of $[0,1]$, identical to the range of accuracy, making it easily comparable. Secondly, it is easy to understand and interpret. Higher values of $\rho$ indicate easier scenarios because fewer targets are within close proximity for a shorter amount of time, and vice versa. Finally, as we have defined it, $\rho$ has an inverse relationship with $\sigma$, which means that it serves as a connection between scenario generation and performance measuring processes. While $\sigma$ can be used more naturally for scenario generation, where it is useful as a parameter for signal noise, $\rho$ can be calculated after the fact and used to quantify the difficulty of the scenario as it pertains to the data association problem. 
+
+In the case of the trajectory estimation problem, the preferred complexity metric often used in practice is $\sigma$. Increasing the signal noise may often lead to stronger bias in the trajectory estimation, especially in scenarios with fewer scans, and results in a deteriorated quality of the estimation. Therefore, we believe that $\sigma$ is the correct metric for use in measuring the difficulty of the trajectory estimation problem. 
+
+However, establishing a performance metric for the trajectory estimation problem is necessary. We choose to implement a metric which captures the core goal of the trajectory estimation problem, that is to estimate a trajectory as close as possible to the true ground track. 
+\begin{align}
+	\delta = \frac{\sum\limits_{t=1}^{T}\sum\limits_{j=1}^{P}\| \bar{x}_{jt} - \hat{x}_{jt} \|}{PT}
+\end{align}
+
+We match the true trajectories to the estimated trajectories using a one-to-one assignment problem which can be formulated using linear optimization. See Appendix~\ref{\myabrv Assignment_Appendix} for more details. Lower values of $\delta$ correspond to higher performance because the distance between the estimated and true ground trajectories is smaller. 
+
+In the next section, we will see how these measures of complexity and performance are useful in quantifying the strengths and weaknesses of our methods.

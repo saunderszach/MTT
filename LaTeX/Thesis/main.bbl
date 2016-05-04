@@ -1,0 +1,160 @@
+\begin{thebibliography}{10}
+
+\bibitem{Discrete-Continuous_energy}
+A.~Andriyenko, K.~Schindler, and S.~Roth.
+\newblock Discrete-continuous optimization for multi-target tracking.
+\newblock In {\em Computer Vision and Pattern Recognition (CVPR), 2012 IEEE
+  Conference on}, pages 1926--1933, June 2012.
+
+\bibitem{Continuous_energy}
+Anton Andriyenko and Konrad Schindler.
+\newblock Multi-target tracking by continuous energy minimization.
+\newblock In {\em CVPR}, 2011.
+
+\bibitem{Bar-Shalom_MTT}
+Y.~Bar-Shalom and X.R. Li.
+\newblock {\em Multitarget-multisensor Tracking: Principles and Techniques}.
+\newblock Yaakov Bar-Shalom, 1995.
+
+\bibitem{Bar-Shalom_Estimation}
+Yaakov Bar-Shalom and Xiao-Rong Li.
+\newblock {\em Estimation with Applications to Tracking and Navigation}.
+\newblock John Wiley \& Sons, Inc., New York, NY, USA, 2001.
+
+\bibitem{Gurobi-MIP}
+Robert~E. Bixby.
+\newblock Mixed-integer programming: It works better than you may think.
+\newblock
+  \url{http://www.ferc.gov/CalendarFiles/20100609110044-Bixby,%20Gurobi%20Optimization.pdf},
+  2010.
+\newblock Accessed 4 April 2016s.
+
+\bibitem{GNN}
+S.S. Blackman.
+\newblock {\em Multiple-target Tracking with Radar Applications}.
+\newblock Radar Library. Artech House, 1986.
+
+\bibitem{MHT-Overview}
+S.S. Blackman.
+\newblock Multiple hypothesis tracking for multiple target tracking.
+\newblock {\em Aerospace and Electronic Systems Magazine, IEEE}, 19(1):5--18,
+  {Jan} 2004.
+
+\bibitem{LLGrid}
+Nadya Bliss, Robert Bond, Jeremy Kepner, Hahn Kim, and Albert Reuther.
+\newblock Interactive grid computing at lincoln laboratory.
+\newblock {\em MIT Lincoln Laboratory Journal}, 16(1), 2006.
+
+\bibitem{MHT-LP}
+Craig Carthel and Stefano Coraluppi.
+\newblock Multi-hypothesis sonar tracking.
+\newblock In {\em Fusion 2004: Seventh International Conference on Information
+  Fusion}, 2004.
+
+\bibitem{Viterbi-2}
+D.~Castanon.
+\newblock Efficient algorithms for finding the k best paths through a trellis.
+\newblock {\em IEEE Transactions on Aerospace and Electronic Systems},
+  26(2):405--410, Mar 1990.
+
+\bibitem{Gurobi-Benchmark}
+Inc. Gurobi~Optimization.
+\newblock Gurobi 6.5 performance benchmarks.
+\newblock \url{http://www.gurobi.com/pdfs/benchmarks.pdf}, 2015.
+\newblock Accessed 4 April 2016s.
+
+\bibitem{gurobi}
+Inc. Gurobi~Optimization.
+\newblock Gurobi optimizer reference manual, 2015.
+
+\bibitem{RSS-Matrix}
+C.~Heij, P.~de~Boer, P.H. Franses, T.~Kloek, H.K. van Dijk, and A.E.U.
+  Rotterdam.
+\newblock {\em Econometric Methods with Applications in Business and
+  Economics}.
+\newblock OUP Oxford, 2004.
+
+\bibitem{Kalman}
+Rudolph~Emil Kalman.
+\newblock A new approach to linear filtering and prediction problems.
+\newblock {\em Transactions of the ASME--Journal of Basic Engineering},
+  82(Series D):35--45, 1960.
+
+\bibitem{Computation}
+Andrea Lodi.
+\newblock {\em 50 Years of Integer Programming 1958-2008.From the Early Years
+  to the State-of-the-Art}.
+\newblock Springer Berlin Heidelberg, 2010.
+
+\bibitem{JuMP}
+Miles Lubin and Iain Dunning.
+\newblock Computing in operations research using julia.
+\newblock {\em INFORMS Journal on Computing}, 27(2):238--248, 2015.
+
+\bibitem{MHT-IP}
+C.L. Morefield.
+\newblock Application of 0-1 integer programming to multitarget tracking
+  problems.
+\newblock {\em Automatic Control, IEEE Transactions on}, 22(3):302--312, Jun
+  1977.
+
+\bibitem{CPLEX-Benchmark}
+George Nemhauser.
+\newblock Integer programming: Global impact.
+\newblock
+  \url{https://smartech.gatech.edu/bitstream/handle/1853/49829/presentation.pdf},
+  2013.
+\newblock Accessed 4 April 2016s.
+
+\bibitem{Viterbi-3}
+R.~Perry, A.~Vaddiraju, and K.~Buckley.
+\newblock Multitarget list viterbi tracking algorithm.
+\newblock In {\em Signals, Systems amp; Computers, 1998. Conference Record of
+  the Thirty-Second Asilomar Conference on}, volume~1, pages 436--440 vol.1,
+  Nov 1998.
+
+\bibitem{Lagrangian}
+Aubrey~P. Poore and Nenad Rijavec.
+\newblock A lagrangian relaxation algorithm for multidimensional assignment
+  problems arising from multitarget tracking.
+\newblock {\em SIAM Journal on Optimization}, 3(3):544--563, 1993.
+
+\bibitem{MTT-Taxonomy}
+G.W. Pulford.
+\newblock Taxonomy of multiple target tracking methods.
+\newblock {\em Radar, Sonar and Navigation, IEE Proceedings -},
+  152(5):291--304, October 2005.
+
+\bibitem{MHT-Seminal}
+D.B. Reid.
+\newblock An algorithm for tracking multiple targets.
+\newblock {\em Automatic Control, IEEE Transactions on}, 24(6):843--854, Dec
+  1979.
+
+\bibitem{MTT-Performance}
+B.~Ristic, B.~N. Vo, D.~Clark, and B.~T. Vo.
+\newblock A metric for performance evaluation of multi-target tracking
+  algorithms.
+\newblock {\em IEEE Transactions on Signal Processing}, 59(7):3452--3457, July
+  2011.
+
+\bibitem{julia}
+N.~Jakovcevic Stor, I.~Slapnicar, and J.~L. Barlow.
+\newblock Accurate eigenvalue decomposition of real symmetric arrowhead
+  matrices and applications.
+\newblock {\em Linear Algebra and Its Applications}, 464:62--89, 2015.
+
+\bibitem{Supercomputer}
+Top500{\ }Supercomputer{\ }Sites.
+\newblock Performance development.
+\newblock \url{http://www.top500.org/statistics/perfdevel/}, 2015.
+\newblock Accessed 4 April 2016s.
+
+\bibitem{Viterbi-1}
+J.~K. Wolf, A.~M. Viterbi, and G.~S. Dixon.
+\newblock Finding the best set of k paths through a trellis with application to
+  multitarget tracking.
+\newblock {\em IEEE Transactions on Aerospace and Electronic Systems},
+  25(2):287--296, Mar 1989.
+
+\end{thebibliography}

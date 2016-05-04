@@ -1,0 +1,37 @@
+Next, we present a detailed description of a heuristic which finds good feasible solutions. These solutions can be used as a warm start to the MIO, providing a performance boost to the MIO. The heuristic leverages the power of randomization local search methods to find locally optimal solutions. Although the heuristic takes a local search approach, we hypothesize that it will discover near optimal solutions, provide that it is initialized with enough random starting points.
+
+An important distinction to discuss here is the difference in objective functions. As discussed before the two natural choices are the L1 and L2 norms. For the heuristic, we desire an objective which can be calculated efficiently. Therefore, in this case the L2 norm square (RSS) is the preferred choice because it can be calculated quickly using matrix algebra. \cite{RSS-Matrix} shows how RSS can be quickly computed using linear algebra.
+
+The algorithm initializes by randomizing a solution which satisfies equations 6 and 7. The initial  parameters $\alpha_{j}$ and $\beta_{j}$ are calculated as well as the objective score, $RSS^{0}$. In swap $k$ for scan $t$ choose $i,l\in \{1,\ldots,P\}$ detections and $j,m\in\{1,\ldots,P\}$ targets such that $y^k_{itj}=1$ and $y^k_{ltm}=1$. Switch the detection association so that $y^{k+1}_{ltj}=1$ and $y^{k+1}_{itm}=1$. Compute $\alpha_{j}, \beta_{j}, \alpha_{m}$, $\beta_{m}$, and $RSS^{k}$. If the objective score improves, the swap is kept, otherwise it is rejected. The algorithm then advances to the next scan where the same process is repeated, and it terminates once it makes a single pass through all scans without accepting a single switch. As we will see in the computational results section, Algorithm~\ref{alg:Basic_Heuristic} runs very efficiently, providing high quality global solutions very quickly. Furthermore, this algorithm can be parallelized by running partitions of the $N$ starting points on separate cores, leading to even greater performance advantages. A proposed pseudocode for the heuristic is provided below in Algorithm~\ref{alg:Basic_Heuristic}. 
+
+\begin{algorithm}
+ \caption{Randomized local search with heuristic swaps}
+ \label{alg:Basic_Heuristic}
+ \begin{algorithmic}[1]
+  \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+  \renewcommand{\algorithmicensure}{\textbf{Output:}}
+ \REQUIRE $\boldsymbol{\mathcal{X}}$, P, T
+ \ENSURE  $RSS$, $y_{itj}$
+ \\ \textit{Initialization} : Assign random initial assignments for $y^{0}_{itj}$
+  \STATE Calculate $\alpha_{j}, \beta_{j} \quad \forall j $
+  \STATE Calculate $RSS^{0}$
+  \STATE swapped $\leftarrow true$
+  \STATE $k\leftarrow1$
+  \WHILE{swapped}
+  \STATE swapped $\leftarrow false$
+  \FOR{$t$ in $\{t_{1},t_{2},...,T\}$}
+  \STATE Randomly choose $j,m\in\{1,\ldots,P\}$
+  \STATE Find $i,l$ such that $y^{k-1}_{itm}\leftarrow1$ and $y^{k-1}_{ltj}\leftarrow1$
+  \STATE Swap such that $y^{k}_{itj}\leftarrow1$ and $y^{k}_{ltm}\leftarrow1$
+  \STATE Calculate $RSS^{k}, \alpha_{j}, \beta_{j}, \alpha_{m}, \beta_{m}$
+  \IF {($RSS^{k} \geq RSS^{k-1}$)}
+  \STATE $y^{k} \leftarrow y^{k-1}$
+  \ELSE 
+  \STATE swapped $\leftarrow true$
+  \ENDIF
+  \ENDFOR
+  \STATE $ k \leftarrow k + 1 $
+  \ENDWHILE
+ \RETURN $RSS^{k}, y^{k}_{itj}$ 
+ \end{algorithmic} 
+ \end{algorithm}
