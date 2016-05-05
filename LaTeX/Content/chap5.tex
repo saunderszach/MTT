@@ -139,7 +139,7 @@ which reduces the symmetry of the formulation, and thus making it efficiently so
 Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
 
 \begin{align*}
-\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta TF + \phi TM\\
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
 \text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t\\
 				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t\\
 				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t\\
