@@ -1,31 +1,26 @@
 There does not exist a unified approach for measuring scenario complexity as stated by \cite{MTT-Taxonomy} nor does there exist clear measures of performance for each of the trajectory estimation and data association problems. In this paper, we argue that the data association problem has a natural performance metric but lacks a measure of complexity, while the trajectory estimation problem has a natural measure of complexity but lacks a clear performance metric. 
 
-In the case of the data association problem, the preferred performance metric often used in practice is \% accuracy, \textit{i.e.}, the number of correct detection assignments out of the number of possible correct assignments. For the case without sensor ambiguity, the number of possible assignments is simply the total number of detections, or equivalently, the number of targets multiplied by the number of scans. 
-
+In the case of the data association problem, the preferred performance metric often used in practice is \% accuracy, \textit{i.e.}, the number of correct detection assignments out of the number of possible correct assignments. For the case without sensor ambiguity, the number of possible assignments is simply the total number of detections, or equivalently, the number of targets multiplied by the number of scans: 
 \begin{align}
-Accuracy =  \frac{\text{\# correct assignments}}{\text{Total \# of detections}}= \frac{\text{\# correct assignments}}{PT}
+Accuracy =  \frac{\text{\# correct assignments}}{\text{Total \# of detections}}= \frac{\text{\# correct assignments}}{PT}.
 \end{align}
 
-In the case of sensor ambiguity, however, the number of possible correct assignments requires a deeper explanation. To develop a better understanding, we consider our goal, which is to correctly assign detections to targets and identify both false alarms and missed detections. With this in mind, we define the number of possible correct assignments as the number of targets multiplied by the number of scans plus the number of false alarms
-
+In the case of sensor ambiguity, however, the number of possible correct assignments requires a deeper explanation. To develop a better understanding, we consider our goal, which is to correctly assign detections to targets and identify both false alarms and missed detections. With this in mind, we define the number of possible correct assignments as the number of targets multiplied by the number of scans plus the number of false alarms:
 \begin{align}
 Accuracy =  \frac{\text{\# correct assignments}}{PT + \text{\# False Alarms}}.
 \end{align}
 
-Whereas accuracy serves as a good measure of performance for data association, there does not exist a corresponding measure of complexity which comparatively measures the difficulty of the data association problem. We argue that $\sigma$ alone is not the best measure of difficulty for the data association problem. For example, a scenario with very close target trajectories may not actually be difficult to ascertain data associations even for small $\sigma$ values, and similarly with high enough $\sigma$ values even widely spaced targets could be difficult to differentiate. Therefore, we introduce a metric $\rho$ to quantify this complexity. For ease of notation in developing this metric we first define $D_{ijt}$ as the distance between one true trajectory \textit{i} and another true trajectory \textit{j}.
-
+Whereas accuracy serves as a good measure of performance for data association, there does not exist a corresponding measure of complexity which comparatively measures the difficulty of the data association problem. We argue that $\sigma$ alone is not the best measure of difficulty for the data association problem. For example, a scenario with very close target trajectories may not actually be difficult to ascertain data associations even for small $\sigma$ values, and similarly with high enough $\sigma$ values even widely spaced targets could be difficult to differentiate. Therefore, we introduce a metric $\rho$ to quantify this complexity. For ease of notation in developing this metric we first define $D_{ijt}$ as the distance between one true trajectory \textit{i} and another true trajectory \textit{j}:
 \begin{align}
 D_{ijt} = \| \alpha^{\text{true}}_{i} + \beta^{\text{true}}_{i}t - \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t \|.
 \end{align}
-
-Additionally, we define a variable $c_{ijt}$ that will take the value of 1 if the distance between trajectory \textit{i} and trajectory \textit{j} is greater than some constant. We propose the use of $2\sigma$, since it is hard to distinguish detections which lie between target trajectories closer that. 
+Additionally, we define a variable $c_{ijt}$ that will take the value of 1 if the distance between trajectory \textit{i} and trajectory \textit{j} is greater than some constant. We propose the use of $2\sigma$, since it is difficult to distinguish detections which lie between target trajectories that are closer. 
 \[c_{ijt} = 
 \begin{cases}
 1, & \text{if $D_{ijt} > 2\sigma$,}\\
 0, & \text{otherwise.}
 \end{cases}\]
-
-Then the difficulty of a scenario in the sphere of the data association problem is quantified by the complexity measure $\rho$, which is the proportion of detection pairs that fall within a closely defined proximity to each other. 
+Then the difficulty of a scenario in the sphere of the data association problem is quantified by the complexity measure $\rho$, which is the proportion of detection pairs that fall within a closely defined proximity to each other:
 \begin{align}
 \rho =  \frac{\sum\limits_{t=1}^{T}\sum\limits_{i<j}c_{ijt}}{\binom{P}{2} T}.
 \end{align}

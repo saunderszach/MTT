@@ -1,9 +1,4 @@
-We now transition to treat the case of detection ambiguity. Specifically we now allow for false alarms, or the case where a detection is triggered when no target exists, and missed detections, or the case where a target exists but no detection is generated. As a result, the number of detections at each scan varies, and the number of targets we wish to track is now ambiguous. 
-
-
-and this becomes a third problem which we wish to solve in addition to the data association and trajectory estimation problems which remain once the number of targets has been determined. Since in this case both missed detections and false alarms are present the number of targets is unknown and we may no longer have the same number of detections at each scan. 
-
-To aid in our discussion, we introduce additional notation for the case of detection ambiguity. Let $n_{t}$ be the number of detections at scan \textit{t}. We then denote 
+We now transition to treat the case of detection ambiguity. Specifically we now allow for false alarms, or the case where a detection is triggered when no target exists, and missed detections, or the case where a target exists but no detection is generated. As a result, the number of detections at each scan varies, and the number of targets we wish to track is now ambiguous. To state this more explicitly, we introduce additional notation for the case of detection ambiguity. Let $n_{t}$ be the number of detections at scan \textit{t}. We then denote 
 \begin{align}
 N_{0} = \underset{t}{\text{min }} n_{t}
 \end{align}
@@ -16,19 +11,19 @@ as the largest number of detections across all scans. Then the only assumption w
 \item The number of true targets $P$ satisfies $N_0\leq P \leq N_1$.
 \end{assumption}
 
-We formulate two MIO models to solve this problem. In the first, We first show that this new problem can be solved by dividing it into a subset of simpler problems. We present a MIO formulation that assumes a fixed number of targets. This formulation allows us to leverage the power of parallelization to solve the problem by solving each subproblem separately. The results can then be gathered and compared to find the globally optimal solution. For completeness we also present a formulation which solves the original problem without the need for multiple parallelized MIOs.
-
+Several new challenges emerge in the case of detection ambiguity. First, we now need to estimate the number of targets. Second, in addition to assigning detections to a targets, we now have the alternate choice to classify detections as a false alarm. More specifically, each detection must either be assigned to a target or classified as a false alarm, but it cannot be both. Finally, for each trajectory we want to identify scans in which a missed detection has occurred. Next, we outline an approach to combine the power of optimization with the power of parallelization to solve each element of this problem.
+ 
 \subsection{Fixed Number of Targets}
-If we first assume that the number of targets is fixed, we can more easily adapt the generalized formulation presented in Section III to handle the addition of false alarms and missed detections. This simple adaptation requires the introduction of two additional variable types and minimal constraint changes. We can then run these formulations for each possible value of fixed number of targets \textit{P} across the range of $N_{0}$ to $N_{1}$ and choose the solution with the best objective overall. Furthermore, this is an advantageous strategy because each independent experiment can run in parallel. 
+Although we do not know the number of targets, one approach is to formulate an MIO model that assume a fixed number of targets and then use the power of parallelization to run that model with all possible numbers of targets. Explicitly, we can run these models with each fixed number of targets in the range of $N_{0}$ to $N_{1}$, as accorded by Assumption~\ref{ass:robust_assumptions}. Following completion of the solving process, we can select the model whose solution has the lowest overall objective value. The number of estimated target is simply the fixed number of targets in the winning model. With this methodology in mind, we now extend \eqref{eq:generalized_problem} to account for missed detections and false alarms. 
 
 \subsubsection{Decision Variables}
-We first introduce new binary decision variables $F_{it}$ to indicate whether or not a detection $x_{it}$ is a false alarm. 
+The number of decisions needed to model the scenario reduces when we fix the number of targets. We only have two additional decisions to make from \eqref{eq:generalized_model} First, we need to either assign detections to trajectories or classify the detection as a false alarm. We already have decision variables $y_{itj}$ to handle assignments if the detection is to be assigned. To identify false alarms, we introduce new binary decision variables $F_{it}$ to indicate whether or not a detection $x_{it}$ is a false alarm. 
 \[F_{it} = 
 \begin{cases}
 1, & \text{if detection \textit{i} at time \textit{t} is a False Alarm,}\\
 0, & \text{otherwise.}
 \end{cases}\]
-Similarly, we introduce binary decision variables $M_{jt}$ to indicate whether or not an \textit{existing} trajectory \textit{j} has a missed detection at time \textit{t}.
+Secondly, we introduce binary decision variables $M_{jt}$ to indicate whether or not an \textit{existing} trajectory \textit{j} has a missed detection at time \textit{t}.
 \[M_{jt} =
 \begin{cases}
 1, & \text{if detection for trajectory \textit{j}}\\
@@ -77,7 +72,7 @@ which can be linearized in the same manner as \eqref{eq:generalized_linear_objec
 \end{align}
 
 \subsection{Number of Targets as a Decision Variable}
-In the previous section, we assumed we knew the number of targets. In this section, the number of targets is determined via optimization. 
+For completeness we also present an MIO model that incorporates the target estimation as a decision element within the formulation. In the previous section, we assumed we knew the number of targets. In this section, the number of targets is determined via optimization. 
 
 \subsubsection{Decision Variables}
 Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target.
