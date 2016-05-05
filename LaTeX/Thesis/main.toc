@@ -4,31 +4,32 @@
 \contentsline {subsection}{\numberline {3.0.1}Decision Variables}{21}
 \contentsline {subsection}{\numberline {3.0.2}Objective Function}{22}
 \contentsline {subsection}{\numberline {3.0.3}Constraints}{24}
-\contentsline {subsection}{\numberline {3.0.4}Simple Formulation}{24}
-\contentsline {subsection}{\numberline {3.0.5}Generalized Formulation}{25}
-\contentsline {chapter}{\numberline {4}Heuristic}{27}
-\contentsline {chapter}{\numberline {5}Robust MIO Model}{29}
-\contentsline {subsection}{\numberline {5.0.6}Fixed Number of Targets}{30}
-\contentsline {subsubsection}{Decision Variables}{30}
-\contentsline {subsubsection}{Constraints}{31}
-\contentsline {subsubsection}{Objective Function}{31}
-\contentsline {subsubsection}{Formulation 2}{32}
-\contentsline {subsection}{\numberline {5.0.7}Number of Targets as a Decision Variable}{32}
-\contentsline {subsubsection}{Decision Variables}{32}
-\contentsline {subsubsection}{Constraints}{33}
-\contentsline {subsubsection}{Formulation 3}{34}
-\contentsline {subsection}{\numberline {5.0.8}Robust Extension to Algorithm\nobreakspace {}1\hbox {}}{35}
-\contentsline {chapter}{\numberline {6}Scenario Complexity \& Performance Metrics}{37}
-\contentsline {chapter}{\numberline {7}Experimental Simulations \& Computational Results}{41}
-\contentsline {subsection}{\numberline {7.0.9}Basic Scenario}{42}
-\contentsline {subsubsection}{Scenario Generation}{43}
-\contentsline {subsubsection}{Basic Heuristic}{44}
-\contentsline {subsubsection}{Basic MIO}{48}
-\contentsline {subsection}{\numberline {7.0.10}Robust Scenario}{51}
-\contentsline {subsubsection}{Robust Heuristic Run Times}{52}
-\contentsline {subsubsection}{Evaluating the Number of Targets}{53}
-\contentsline {subsubsection}{Data Association}{55}
-\contentsline {subsubsection}{Trajectory Estimation}{58}
-\contentsline {chapter}{\numberline {8}Conclusion and Future Work}{61}
-\contentsline {chapter}{\numberline {A}Estimated Trajectory Assignments}{63}
-\contentsline {chapter}{\numberline {B}Experiment 2 Penalty Values}{67}
+\contentsline {subsection}{\numberline {3.0.4}Simple Formulation}{25}
+\contentsline {subsection}{\numberline {3.0.5}Generalized Formulation}{26}
+\contentsline {chapter}{\numberline {4}Heuristic}{29}
+\contentsline {chapter}{\numberline {5}Robust MIO Model}{33}
+\contentsline {subsection}{\numberline {5.0.6}Fixed Number of Targets}{34}
+\contentsline {subsubsection}{Decision Variables}{34}
+\contentsline {subsubsection}{Constraints}{34}
+\contentsline {subsubsection}{Objective Function}{35}
+\contentsline {subsubsection}{Formulation 2}{36}
+\contentsline {subsection}{\numberline {5.0.7}Number of Targets as a Decision Variable}{36}
+\contentsline {subsubsection}{Decision Variables}{37}
+\contentsline {subsubsection}{Constraints}{37}
+\contentsline {subsubsection}{Formulation 3}{39}
+\contentsline {subsection}{\numberline {5.0.8}Robust Extension to Algorithm\nobreakspace {}1\hbox {}}{39}
+\contentsline {chapter}{\numberline {6}Scenario Complexity \& Performance Metrics}{41}
+\contentsline {chapter}{\numberline {7}Experimental Simulations \& Computational Results}{45}
+\contentsline {subsection}{\numberline {7.0.9}Basic Scenario}{46}
+\contentsline {subsubsection}{Scenario Generation}{47}
+\contentsline {subsubsection}{Basic Heuristic}{48}
+\contentsline {subsubsection}{Basic MIO}{52}
+\contentsline {subsection}{\numberline {7.0.10}Robust Scenario}{55}
+\contentsline {subsubsection}{Robust Heuristic Run Times}{56}
+\contentsline {subsubsection}{Evaluating the Number of Targets}{58}
+\contentsline {subsubsection}{Data Association}{59}
+\contentsline {subsubsection}{Trajectory Estimation}{63}
+\contentsline {subsection}{\numberline {7.0.11}Conclusion}{65}
+\contentsline {chapter}{\numberline {8}Summary and Future Work}{67}
+\contentsline {chapter}{\numberline {A}Estimated Trajectory Assignments}{69}
+\contentsline {chapter}{\numberline {B}Experiment 2 Penalty Values}{73}

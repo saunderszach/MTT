@@ -1,46 +1,34 @@
-In this section we treat the case of detection ambiguity. The key difference is that now the number of targets is unknown, and this becomes a third problem which we wish to solve in addition to the data association and trajectory estimation problems which remain once the number of targets has been determined. Since in this case both missed detections and false alarms are present the number of targets is unknown and we may no longer have the same number of detections at each scan. Therefore, we must introduce additional notation for this scenario. We let $n_{t}$ represent  the number of detections at time \textit{t}. We can then identify the fewest and largest number of detections in a scan with $N_{0} = \underset{t}{\text{min }} n_{t}$ and $N_{1} = \underset{t}{\text{max }}  n_{t}$, respectively. 
+We now transition to treat the case of detection ambiguity. Specifically we now allow for false alarms, or the case where a detection is triggered when no target exists, and missed detections, or the case where a target exists but no detection is generated. As a result, the number of detections at each scan varies, and the number of targets we wish to track is now ambiguous. 
 
-Specifically, in this case we replace Assumption~\ref{ass:basic_assumptions} by the following less restrictive assumptions.
 
-%%% IEEE %%%
+and this becomes a third problem which we wish to solve in addition to the data association and trajectory estimation problems which remain once the number of targets has been determined. Since in this case both missed detections and false alarms are present the number of targets is unknown and we may no longer have the same number of detections at each scan. 
+
+To aid in our discussion, we introduce additional notation for the case of detection ambiguity. Let $n_{t}$ be the number of detections at scan \textit{t}. We then denote 
+\begin{align}
+N_{0} = \underset{t}{\text{min }} n_{t}
+\end{align}
+as the largest number of detections across all scans, and similarly, we denote
+\begin{align}
+N_{1} = \underset{t}{\text{max }}  n_{t}
+\end{align}
+as the largest number of detections across all scans. Then the only assumption we will make for the case of detection ambiguity will be that the true number of targets falls somewhere within the range of the number detections. Specifically, we replace Assumption~\ref{ass:basic_assumptions} with the following less restrictive assumption.
 \begin{assumption}\label{ass:robust_assumptions}
-\leavevmode
-\begin{enumerate}[(i)]
 \item The number of true targets $P$ satisfies $N_0\leq P \leq N_1$.
-\end{enumerate}
 \end{assumption}
 
-%%% Thesis %%%
-%\begin{assumption}\label{ass:robust_assumptions}
-%\begin{minipage}[t]{\columnwidth}
-%\begin{enumerate}[(i)]
-%\item The sensor does not generate a detection for any target for\\
-%	 any time with probability $P_{d}$ which is constant and\\
-%	 independent between targets and scans.
-%\item At each point in time the sensor generates false alarms\\
-%	according to a Poisson distribution with rate $\lambda_{FA}$,\\
-%	which are located uniformally in the space.
-%\item The number of true targets $P$ satisfies $N_0\leq P \leq N_1$.
-%\end{enumerate}
-%\end{minipage}
-%\end{assumption}
-
-We first show that this problem can be solved by dividing it into a subset of simpler problems. We present a MIO formulation that assumes a fixed number of targets. This formulation allows us to leverage the power of parallelization to solve the problem by solving each subproblem separately. The results can then be gathered and compared to find the globally optimal solution. For completeness we also present a formulation which solves the original problem without the need for multiple parallelized MIOs.
+We formulate two MIO models to solve this problem. In the first, We first show that this new problem can be solved by dividing it into a subset of simpler problems. We present a MIO formulation that assumes a fixed number of targets. This formulation allows us to leverage the power of parallelization to solve the problem by solving each subproblem separately. The results can then be gathered and compared to find the globally optimal solution. For completeness we also present a formulation which solves the original problem without the need for multiple parallelized MIOs.
 
 \subsection{Fixed Number of Targets}
 If we first assume that the number of targets is fixed, we can more easily adapt the generalized formulation presented in Section III to handle the addition of false alarms and missed detections. This simple adaptation requires the introduction of two additional variable types and minimal constraint changes. We can then run these formulations for each possible value of fixed number of targets \textit{P} across the range of $N_{0}$ to $N_{1}$ and choose the solution with the best objective overall. Furthermore, this is an advantageous strategy because each independent experiment can run in parallel. 
 
 \subsubsection{Decision Variables}
 We first introduce new binary decision variables $F_{it}$ to indicate whether or not a detection $x_{it}$ is a false alarm. 
-
 \[F_{it} = 
 \begin{cases}
 1, & \text{if detection \textit{i} at time \textit{t} is a False Alarm,}\\
 0, & \text{otherwise.}
 \end{cases}\]
-
 Similarly, we introduce binary decision variables $M_{jt}$ to indicate whether or not an \textit{existing} trajectory \textit{j} has a missed detection at time \textit{t}.
-
 \[M_{jt} =
 \begin{cases}
 1, & \text{if detection for trajectory \textit{j}}\\
@@ -53,12 +41,10 @@ All detections must either be assigned to a trajectory \textit{j} or to a false 
 \begin{align}\label{eqn: FA Simple}
 \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t
 \end{align}
-
 All trajectories \textit{j} must either be assigned a detection or a missed detection. 
 \begin{align}
 \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t
 \end{align}
-
 The sum of all false alarms is TF, and similarly the sum of all missed detections is TM. 
 \begin{align}
 \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF
@@ -75,27 +61,26 @@ We can easily extend \eqref{eq:generalized_objective} to account for false alarm
 which can be linearized in the same manner as \eqref{eq:generalized_linear_objective}. A discussion on the insight behind these penalties, and recommendations for tuning them can be found in Appendix~\ref{\myabrv Penalty_Appendix}.
 
 \subsubsection{Formulation 2}
-\begin{align*}
+\begin{align}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
-\text{subject to: }	& \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t\\
-				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t\\
-				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF\\
-				& \sum_{j=1}^{P} \sum_{t=1}^{T} M_{jt} = TM\\
-				& x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
-				& x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
-				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall j,t\\
-				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t\\
-				& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
-				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j\\
-				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t.
-\end{align*}
+\text{subject to: }	& \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t \nonumber \\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t \nonumber\\
+				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF \nonumber \\
+				& \sum_{j=1}^{P} \sum_{t=1}^{T} M_{jt} = TM \nonumber \\
+				& x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j \nonumber \\
+				& x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j \nonumber \\
+				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall j,t \nonumber \\
+				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t \nonumber \\
+				& y_{itj} \in \{0,1\} \quad \forall i,t,j \nonumber \\
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j \nonumber\\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t. \nonumber
+\end{align}
 
 \subsection{Number of Targets as a Decision Variable}
 In the previous section, we assumed we knew the number of targets. In this section, the number of targets is determined via optimization. 
 
 \subsubsection{Decision Variables}
 Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target.
-
 \[w_{j} = 
 \begin{cases}
 1, & \text{if trajectory \textit{j} exists,}\\
@@ -137,24 +122,23 @@ which reduces the symmetry of the formulation, and thus making it efficiently so
 
 \subsubsection{Formulation 3}
 Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
-
-\begin{align*}
+\begin{align}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
-\text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t\\
-				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t\\
-				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t\\
-				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF\\
-				& \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM\\
-				& w_{N_0+1}\geq ...\geq w_{N_1}\\
-				& |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j\\
-				& x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j\\
-				& x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j\\
-				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall j,t\\
-				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t\\
-			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j\\
-				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n,\quad w_{j} \in \mathbb{R}^n \quad \forall j\\
-				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t.
-\end{align*}
+\text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t \nonumber\\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t \nonumber \\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t \nonumber \\
+				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF \nonumber \\
+				& \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM \nonumber \\
+				& w_{N_0+1}\geq ...\geq w_{N_1} \nonumber \\
+				& |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j \nonumber \\
+				& x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j \nonumber \\
+				& x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j \nonumber \\
+				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall j,t \nonumber \\
+				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t \nonumber \\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j \nonumber \\
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n,\quad w_{j} \in \mathbb{R}^n \quad \forall j \nonumber \\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t. \nonumber
+\end{align}
 
 \subsection{Robust Extension to Algorithm~\ref{alg:Basic_Heuristic}}
 The heuristic for the scenario with ambiguity follows similarly from the heuristic developed under the scenario without ambiguity. The main difference is that now the options for making switches must include false alarms and missed detections. Therefore, the framework of the new algorithm is the same as for Algorithm~\ref{alg:Basic_Heuristic}, but the new variant of the heuristic randomly chooses from the following options: 

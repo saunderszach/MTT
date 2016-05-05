@@ -62,6 +62,9 @@ Labels = c('Random',
 
 Data_new = Data %>% group_by(P, T, Scenario_num, Sigma, Gamma, Lambda, Sim_num, Theta, Phi, Solution_Type) %>% filter(min_rank(Objective) <= 1) %>% ungroup()
 
+P_range = c(4, 8)
+T_range = c(8)
+
 ###########################################
 ###                                     ###
 ###  TEST P HISTOGRAM BY SOLUTION TYPE  ###
@@ -78,8 +81,8 @@ Temp2= Temp%>% group_by(T,P,Gamma,Lambda,Diff_P,Solution_Type) %>% summarize(cou
 
 Labels = c('Random', 'Heuristic', 'MIO')
 
-P_range = c(4, 6, 8, 10)
-T_range = c(4, 6, 8, 10)
+#P_range = c(4, 6, 8, 10)
+#T_range = c(4, 6, 8, 10)
 
 for (P_loop in P_range){
   for (T_loop in T_range){
@@ -91,20 +94,19 @@ for (P_loop in P_range){
     
     Data3=rbind(Data3,cbind(expand.grid(P=levels(Data3$P),T=levels(Data3$T),Gamma=levels(Data3$Gamma),Lambda=levels(Data3$Lambda),Diff_P=levels(Data3$Diff_P),Solution_Type=levels(Data3$Solution_Type)),count=NA))
   
-    plot = ggplot(data = Data3, aes(x=Diff_P, y=count, fill=Solution_Type)) + geom_bar(stat = "Identity",position="dodge",colour='black') + facet_grid(Gamma~Lambda, labeller=label_both) + ggtitle(expression(paste('Frequency of ', P[difference]))) +
-  theme(axis.text=element_text(size=16),
-        axis.title=element_text(size=18,face='bold'),
-        plot.title=element_text(size = rel(2)),
-        legend.text=element_text(size=14),
-        legend.title=element_text(size=14),
-        strip.text.x=element_text(size = 14),
-        strip.text.y=element_text(size = 14)) + 
+    plot = ggplot(data = Data3, aes(x=Diff_P, y=count, fill=Solution_Type)) + geom_bar(stat = "Identity",position="dodge") + facet_grid(Gamma~Lambda, labeller=label_both) + ggtitle(expression(bold(paste('Frequency of ', P[difference])))) +
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=rel(3),face='bold'),
+        plot.title=element_text(size = rel(3),face='bold'),
+        legend.text=element_text(size=rel(3)),
+        strip.text.x=element_text(size = rel(2)),
+        strip.text.y=element_text(size = rel(2))) + 
   ylab('Number of Occurences') + 
-  xlab(expression(P[difference])) + scale_fill_discrete("",labels=Labels) + theme(legend.position = "bottom") 
+  xlab(expression(bold(P[difference]))) + scale_fill_discrete("",labels=Labels) + theme(legend.position = "bottom") 
     
     Save_str = paste('Plots/Histogram/',toString(P_loop),'_', 
-                     toString(T_loop),'_Histogram.png', sep='')
-    png(file=Save_str,width=1000, height=700)
+                     toString(T_loop),'_Histogram.pdf', sep='')
+    pdf(file=Save_str, width = 14, height = 12)
     print(plot)
     dev.off()
   }
@@ -122,8 +124,8 @@ Labels = c('Random',
            'MIO (T sec)',
            'MIO (2T sec)')
 
-P_range = c(4, 6, 8, 10)
-T_range = c(4, 6, 8, 10)
+#P_range = c(4, 6, 8, 10)
+#T_range = c(4, 6, 8, 10)
 
 for (P_loop in P_range){
   for (T_loop in T_range){
@@ -139,25 +141,27 @@ plot = ggplot(data = Data2,
   geom_line(size = 0.9) +
   facet_grid(Gamma~Lambda, labeller=label_both) +
   ggtitle(paste('Mean Accuracy vs Rho by Solution Type')) +
-  theme(axis.text=element_text(size=16),
-        axis.title=element_text(size=18,face='bold'),
-        plot.title=element_text(size = rel(2)),
-        legend.text=element_text(size=14),
-        legend.title=element_text(size=14),
-        strip.text.x=element_text(size = 14),
-        strip.text.y=element_text(size = 14)) +
+  theme(axis.text=element_text(size=rel(2)),
+        axis.title=element_text(size=rel(3),face='bold'),
+        plot.title=element_text(size = rel(3),face='bold'),
+        legend.text=element_text(size=rel(3)),
+        legend.key.height=unit(2,"line"),
+        strip.text.x=element_text(size = rel(2)),
+        strip.text.y=element_text(size = rel(2))) + 
   xlab('Rho') +
   ylab('% of Correctly Labelled Detections') +
   scale_color_manual(name = '',
                      values=group.colors, 
                      labels=Labels) + 
-  scale_y_continuous(limits = c(0, 1.0)) + 
+  scale_y_continuous(breaks = c(0.25,0.50,0.75,1.0),
+                     limits = c(0, 1.0)) + 
+  scale_x_continuous(breaks = c(0.3,0.5,0.7,0.9)) +
   theme(legend.position = "bottom") + 
   guides(colour = guide_legend(override.aes = list(size=4)))
 
 Save_str = paste('Plots/Accuracy/',toString(P_loop),'_', 
-                 toString(T_loop),'_Accuracy.png', sep='')
-png(file=Save_str,width=1000, height=700)
+                 toString(T_loop),'_Accuracy.pdf', sep='')
+pdf(file=Save_str, width = 14, height = 12)
 print(plot)
 dev.off()
   }
@@ -176,8 +180,8 @@ Labels = c('Random',
            'MIO (2T sec)',
            'Ideal')
 
-P_range = c(4, 6, 8, 10)
-T_range = c(4, 6, 8, 10)
+#P_range = c(4, 6, 8, 10)
+#T_range = c(4, 6, 8, 10)
 
 for (P_loop in P_range){
   for (T_loop in T_range){
@@ -193,24 +197,25 @@ plot_2 = ggplot(data = Sigma_Data,
   geom_line(size = 0.9) +
   facet_grid(Gamma~Lambda, labeller=label_both) +
   ggtitle(paste('Mean Delta vs Sigma by Solution Type')) +
-  theme(axis.text=element_text(size=16),
-        axis.title=element_text(size=18,face='bold'),
-        plot.title=element_text(size = rel(2)),
-        legend.text=element_text(size=14),
-        legend.title=element_text(size=14),
-        strip.text.x=element_text(size = 14),
-        strip.text.y=element_text(size = 14)) +
+  theme(axis.text=element_text(size=rel(2)),
+        axis.title=element_text(size=rel(3),face='bold'),
+        plot.title=element_text(size = rel(3),face='bold'),
+        legend.text=element_text(size=rel(3)),
+        legend.key.height=unit(2,"line"),
+        strip.text.x=element_text(size = rel(2)),
+        strip.text.y=element_text(size = rel(2))) + 
   xlab('Sigma') +
   ylab('Delta') +
   scale_color_manual(name = '', 
                      values=group.colors, 
                      labels=Labels) + 
+  scale_y_continuous(breaks = 1:3, limits = c(0,3.0)) +
   theme(legend.position = "bottom") + 
   guides(colour = guide_legend(override.aes = list(size=4)))
 
 Save_str = paste('Plots/Delta/',toString(P_loop),'_', 
-                 toString(T_loop),'_Delta.png', sep='')
-png(file=Save_str,width=1000, height=700)
+                 toString(T_loop),'_Delta.pdf', sep='')
+pdf(file=Save_str, width = 14, height = 12)
 print(plot_2)
 dev.off()
   }

@@ -21,17 +21,20 @@ plot = ggplot(data=Data,
   geom_boxplot() +
   facet_grid(P~T, labeller=label_both) +
   ggtitle(paste("Sigma vs Rho for",toString(Num_scenarios),"Scenarios by Scenario Type")) +
-  theme(axis.text=element_text(size=16),
-        axis.title=element_text(size=18,face="bold"),
-        plot.title=element_text(size=rel(2)),
-        legend.text=element_text(size=14),
-        legend.title=element_text(size=14),
-        strip.text.x=element_text(size=14),
-        strip.text.y=element_text(size=14)) +
+  theme(axis.text=element_text(size=rel(2)),
+        axis.title=element_text(size=rel(3),face='bold'),
+        plot.title=element_text(size = rel(3),face='bold'),
+        legend.text=element_text(size=rel(3)),
+        strip.text.x=element_text(size = rel(3)),
+        strip.text.y=element_text(size = rel(3))) +
+  scale_y_continuous(breaks = c(0.25,0.50,0.75,1.0),
+                     limits = c(0, 1.0)) +  
   xlab("Sigma") +
-  ylab("Rho") + guides(color=guide_legend(title='Scenario Type')) 
-Save_str = paste("Plots/State_Space/State_Space.png", sep="")
-png(file=Save_str,width=1000, height=700)
+  ylab("Rho") + guides(color=guide_legend(title='')) +
+  theme(legend.position = "bottom")  
+
+Save_str = paste("Plots/State_Space/Sigma_vs_Rho.pdf", sep="")
+pdf(file=Save_str, width = 14, height = 12)
 print(plot)
 dev.off()
 

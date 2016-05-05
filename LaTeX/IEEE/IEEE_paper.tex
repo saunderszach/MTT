@@ -33,6 +33,7 @@
 \usepackage{mathtools}
 \usepackage{multirow}
 \usepackage{url}
+\usepackage[caption=false, ...]{subfig}
 
 \newcommand{\mysection}{Section}
 \newcommand{\myabrv}{sec:}
@@ -68,6 +69,10 @@
 {\bfseries}{}% % Note that final punctuation is omitted.
 {\newline}{}
 
+\makeatletter
+\newcommand{\removelatexerror}{\let\@latex@error\@gobble}
+\makeatother
+
 \begin{document}
 % Do not put math or special symbols in the title.
 \title{Multi-Target Tracking\\ via Mixed Integer Optimization}
@@ -102,7 +107,7 @@ optimization; multi-target tracking; data association; trajectory estimation; mi
 \section{Heuristic} \label{sec:Heuristic}
 \input{../Content/chap4}
 
-\section{Robust MIO Model}\label{sec:Robust MIO Model}
+\section{Extensions to Detection Ambiguity}\label{sec:Robust MIO Model}
 \input{../Content/chap5}
 
 \section{Scenario Complexity \& Performance Metrics} \label{sec:Scenario-Performance}

@@ -33,7 +33,7 @@
 \usepackage[T1]{fontenc}
 \pagestyle{plain}
 
-% *** PACKAGES ***
+% *** MY PACKAGES ***
 \usepackage{algorithm, algorithmic}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -50,8 +50,14 @@
 \usepackage{multirow}
 \usepackage{url}
 
+
+% *** MY COMMANDS ***
 \newcommand{\mysection}{Chapter}
 \newcommand{\myabrv}{ch:}
+
+\makeatletter
+\newcommand{\removelatexerror}{\let\@latex@error\@gobble}
+\makeatother
 
 \typein [\files]{Enter file names to process, (chap1,chap2 ...), or `all' to
 process all files:}
@@ -76,7 +82,7 @@ process all files:}
 \chapter{Heuristic} \label{ch:Heuristic}
 \input{../Content/chap4}
 
-\chapter{Robust MIO Model}\label{ch:Robust MIO Model}
+\section{Extensions to Detection Ambiguity}\label{sec:Robust MIO Model}
 \input{../Content/chap5}
 
 \chapter{Scenario Complexity \& Performance Metrics} \label{ch:Scenario-Performance}
@@ -85,7 +91,7 @@ process all files:}
 \chapter{Experimental Simulations \& Computational Results}\label{ch:Results}
 \input{../Content/chap7}
 
-\chapter{Conclusion and Future Work}\label{ch:Conclusion}
+\chapter{Summary and Future Work}\label{ch:Conclusion}
 \input{../Content/chap8}
 
 \appendix
