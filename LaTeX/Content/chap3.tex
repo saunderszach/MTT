@@ -9,7 +9,7 @@ In this section, we deal with the case of no detection ambiguity. Therefore, we 
 i.e., no false alarms.
 \end{enumerate}
 \end{assumption}
-A consequence of Assumption~\ref{ass:basic_assumptions} is that the number of detections at each scan will be constant. As a result, we know the number of targets we intend to track, and it is exactly equal to the number of detections. This seemingly simple point is critical to developing models in the case of no detection ambiguity. We begin constructing our MIO model by introducing decision variables that define data associations as well as estimated trajectories. Using these decision variables, we then develop an objective function that  mathematically quantifies the value of the model decisions. Finally, we restrict these variables using constraints that force the model to find solutions that are feasible for the MTT problem as we have defined it. A simple model is first developed step by step in the coming sections before generalized formulation is presented. 
+A consequence of Assumption~\ref{ass:basic_assumptions} is that the number of detections at each scan will be constant and equal to the number of targets. This seemingly simple point is critical to developing models in the case of no detection ambiguity. We begin constructing our MIO model by introducing decision variables that define data associations as well as estimated trajectories. Using these decision variables, we then develop an objective function that  mathematically quantifies the value of the model decisions. Finally, we restrict these variables using constraints that force the model to find solutions that are feasible for the MTT problem as we have defined it. A simple model is first developed step by step in the coming sections before generalized formulation is presented. 
 
 \subsection{Decision Variables}
 The data association and trajectory estimation problems require unique decision variables. Because these two problems lie in different domains, the variables we use to represent these decisions also differ. First, we introduce \textit{continuous} decision variables $\alpha_{j} \in \mathbb{R}^n$ and $\beta_{j} \in \mathbb{R}^n$ to represent the estimated initial position and velocity, respectively, of each trajectory \textit{j}. In our interpretation of the MTT problem we allow the trajectory parameters to lie anywhere in the real-continuous domain. For the data association problem, we wish to assign detections to trajectories, a naturally discrete problem. Therefore, we introduce binary decision variables $y_{itj}$ to indicate whether detection $x_{it}$ is assigned to trajectory \textit{j} or not:
@@ -23,13 +23,13 @@ y_{itj} =
 Next, we use these decision variables to develop an objective function to score the solutions found by the model. 
 
 \subsection{Objective Function}
-Here, we would like to develop a function that quantifies the quality of a feasible solution. Our goal is to produce a single measure for both the data association and the trajectory estimation problems. For a given assignment and a given estimated trajectories we define the quality of the estimation as the distance of each detection from the estimated position of its associated trajectory. That is, if at scan $t$ detection $x_{it}$ is associated with trajectory $j$ then, the distance 
+Here, we would like to develop a function that quantifies the quality of a feasible solution. Our goal is to produce a single measure for both the data association and the trajectory estimation problems. For a given assignment and a given estimated trajectories we define the quality of the estimation as the distance of each detection from the estimated position of its associated trajectory. Let $\hat{x}_{jt}$ denote the estimated location of target $j$ at time $t$, then, if at scan $t$ detection $x_{it}$ is associated with trajectory $j$ then, the distance 
 $$\|x_{it}-\hat{x}_{jt}\|,$$
 is the measure of the quality of estimation for trajectory $j$ at scan $t$, and the total estimation quality for a given association will be given as 
 \begin{align}\label{eq:objective_base}
 \sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - \hat{x}_{jt}\right\|,
 \end{align} 
-where $\mathcal{A}_t$ is pairs of detection-trajectory associations made for scan $t$. 
+where $\mathcal{A}_t$ is pairs of detection-trajectory assignments made for scan $t$. 
 
 We can now separate the problem into two parts: given an assignment finding the estimated trajectories which minimizes \eqref{eq:objective_base}, and finding the assignment which results in the best estimated trajectories. Recall that each trajectory is defined by two parameters, $\alpha^{\text{true}}_{j}$ and $\beta^{\text{true}}_{j}t$ such that the true location is given as 
 \begin{align}
@@ -39,19 +39,19 @@ Thus, an estimated trajectory can analogically be defined by  $\alpha_{j}$ and $
 \begin{align}
 	\hat{x}_{jt} =  \alpha_{j} + \beta_{j}t.
 \end{align}
-Therefore, given a full assignment  $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory which has the best estimation error is actually the one which solves the problem
+Therefore, given a full assignment  $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory which has the best estimation error is given by the solution of the following optimization problem
 \begin{align}\label{eq:objective_mintraj}
-\underset{\alpha_{j}, \beta_{j}}{\text{minimize: }}\sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - (\alpha_{j} + \beta_{j}t)\right\|,
+\underset{\alpha_{j}, \beta_{j}}{\text{minimize: }}\sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - (\alpha_{j} + \beta_{j}t)\right\|.
 \end{align} 
 Notice that under the current assumptions, in which there is no detection ambiguity, \eqref{eq:objective_mintraj} is the cost of assignment $\mathcal{A}$. 
 
-Now we turn to the problem of choosing the assignment, based on this measure. To this end we formulate the assignment cost \eqref{eq:objective_mintraj} in terms of our decision variables. Note that $(i,j)\in\mathcal{A}_t$ if and only if $y_{itj}=1$, and because all detections will be assigned to a trajectory and vice versa, the following equivalence holds:
+Now we turn to the problem of choosing the assignment, based on this measure. To this end we formulate the assignment cost \eqref{eq:objective_mintraj} in terms of our decision variables. Note that $(i,j)\in\mathcal{A}_t$ if and only if $y_{itj}=1$, and because all detections will be assigned to a trajectory and vice versa, the following equivalence holds
 \begin{align}
 \sum_{(i,j)\in \mathcal{A}_{t}} x_{it} = \sum_{i=1}^{P}y_{itj}x_{it}.
 \end{align}
-Making the appropriate substitutions, the cost of an assignment described by variables $y_{itj}$ is given as:
+Making the appropriate substitutions, the cost of an assignment described by variables $y_{itj}$ is given as
 \begin{align}\label{eq:assignment_cost}
- \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} - (\alpha_{j} + \beta_{j}t)\right \|.
+ \underset{\alpha_{j}, \beta_{j}}{\text{minimize: }} \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} - (\alpha_{j} + \beta_{j}t)\right \|.
 \end{align}
 Therefore, in order to find the assignment with the lowest cost, we are left to minimize cost \eqref{eq:assignment_cost} over all assignments, and obtain the following final objective: 
 \begin{align}\label{eq:full_objective}
@@ -94,7 +94,7 @@ Integrating all of these elements together, we arrive at the following MIO model
 This formulation is simple in the sense that it involves few variables and constraints, making it highly interpretable and easily implementable. However, it has the disadvantage of being ill suited for extensions to detection ambiguity because it heavily relies on the fact that exactly one of the detections at each scan is associated to a target. This forces the term $\sum_{i=1}^{P}y_{itj}x_{it}$ to always be equal to one of the detections. However, in the case of detection ambiguity, this no longer holds true, since there might be trajectories which are not associated with a detection in a given scan, resulting in an unintended cost to the assignment. Therefore, in the following section we present a more generalized formulation, which is amenable to scenarios with detection ambiguity.
 
 \subsection{Generalized Formulation}
-Here we modify \eqref{eq:simple_problem} so that it can be easily extended to handle false alarms and missed detections that occur in scenarios with detection ambiguity. We previously identified that the main issue with \eqref{eq:simple_problem} arises from the fact that $\sum_{i=1}^{P}y_{itj}x_{it}$ will always incur a cost in the objective function. However, we only wish to account for this assignment cost when a target has actually been assigned. To this end, we introduce a new variable $z_{jt}$ to substitute for this term. We will then force this variable to take the value $x_{it}$ when $\sum_{j=1}^{P}y_{itj}=1$ and some arbitrary number when $\sum_{j=1}^{P}y_{itj}y_{itj}=0$. 
+Here we modify \eqref{eq:simple_problem} so that it can be easily extended to handle false alarms and missed detections that occur in scenarios with detection ambiguity. We previously identified that the main issue with \eqref{eq:simple_problem} arises from the fact that $\sum_{i=1}^{P}y_{itj}x_{it}$ will always incur a cost in the objective function. However, we only wish to account for this assignment cost when a target has actually been assigned. To this end, we introduce a new variable $z_{jt}$ to substitute for this term. We will then force this variable to take the value $x_{it}$ when $\sum_{j=1}^{P}y_{itj}=1$ and some arbitrary number when $\sum_{j=1}^{P}y_{itj}=0$. 
 \begin{align}
 z_{jt} =
 \begin{cases}

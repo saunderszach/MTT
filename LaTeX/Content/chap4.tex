@@ -2,7 +2,7 @@ In this section, we present a detailed description of a heuristic that finds hig
 
 The fundamental concept behind randomized local search methods is to begin with a randomized starting point and through local improvements converge to a locally optimal solution. By applying this scheme to a growing number of randomized starting points, the probability of reaching high quality solutions, or even the globally optimal solution, increases.
 
-We now detail the heuristic mechanism for a single starting point. The heuristic \textit{starting point} is a randomized solution to the assignment problem, that satisfies the assignment equations \eqref{eq:all_detections} and \eqref{eq:all_targets}. This is done for each scan, by choosing a permutation over the detections uniformly at random, and associating to trajectories by the order of the permutation, i.e., if in the random permutation detection $i$ is at location $j$ than it will be assigned to trajectory $j$. The assignment cost, temporarily denoted by $F$, of this starting point is then calculated by solving \eqref{eq:assignment_cost}. After initializing the heuristic starts a \textit{sweep} through the scans, i.e., a single pass through the scans. At each stage of the sweep two detections are randomly selected from the current scan and they exchange assignments, an operation we call a \textit{swap}, generating a new feasible solution. The assignment cost of this new solution is calculated, and if it improves the current cost it is kept and otherwise it is rejected. The heuristic will continue to conduct sweeps, until a full sweep is completed without accepting a single swap, in which point it terminates. The full description of the heuristic algorithm for a single starting point is given in Figure~\ref{fig:Basic_Heuristic}, which is also referred to as the \textit{basic} heuristic throughout the course of this paper. 
+We now detail the heuristic mechanism for a single starting point. The heuristic \textit{starting point} is a randomized solution to the assignment problem, that satisfies the assignment equations \eqref{eq:all_detections} and \eqref{eq:all_targets}. This is done for each scan, by choosing a permutation over the detections uniformly at random, and associating to trajectories by the order of the permutation, i.e., if in the random permutation detection $i$ is at location $j$ than it will be assigned to trajectory $j$. The assignment cost, temporarily denoted by $f$, of this starting point is then calculated by solving \eqref{eq:assignment_cost}. After initializing the heuristic starts a \textit{sweep} through the scans, i.e., a single pass through the scans. At each stage of the sweep two detections are randomly selected from the current scan and they exchange assignments, an operation we call a \textit{swap}, generating a new feasible solution. The assignment cost of this new solution is calculated, and if it improves the current cost it is kept and otherwise it is rejected. The heuristic will continue to conduct sweeps, until a full sweep is completed without accepting a single swap, in which point it terminates. The full description of the heuristic algorithm for a single starting point is given in Figure~\ref{fig:Basic_Heuristic}, which is also referred to as the \textit{basic} heuristic throughout the course of this paper. 
 \begin{figure}[ht] 
  \removelatexerror
 \begin{algorithm}[H]
@@ -12,20 +12,20 @@ We now detail the heuristic mechanism for a single starting point. The heuristic
   \renewcommand{\algorithmicrequire}{\textbf{Input:}}
   \renewcommand{\algorithmicensure}{\textbf{Output:}}
  \REQUIRE $\boldsymbol{\mathcal{X}}$, P, T
- \ENSURE  $F$, $y_{itj}$
- \\ \textit{Initialization} : Assign random initial assignments for $y^{0}_{itj}$
+ \ENSURE  $f$, $y_{itj}$
+ \\ \textit{Initialization} : Assign random initial assignment to $y^{0}$
   \STATE Calculate $\alpha_{j}, \beta_{j} \quad \forall j $
-  \STATE Calculate $F^{0}$
+  \STATE Calculate $f^{0}$ - the cost of assignment $y^{0}$
   \STATE swapped $\leftarrow true$
   \STATE $k\leftarrow1$
   \WHILE{swapped}
   \STATE swapped $\leftarrow false$
   \FOR{$t$ in $\{t_{1},t_{2},...,T\}$}
   \STATE Randomly choose $j,m\in\{1,\ldots,P\}$
-  \STATE Find $i,l$ such that $y^{k-1}_{itm}\leftarrow1$ and $y^{k-1}_{ltj}\leftarrow1$
-  \STATE Swap such that $y^{k}_{itj}\leftarrow1$ and $y^{k}_{ltm}\leftarrow1$
-  \STATE Calculate $F^{k}, \alpha_{j}, \beta_{j}, \alpha_{m}, \beta_{m}$
-  \IF {($F^{k} \geq F^{k-1}$)}
+  \STATE Find $i,l$ such that $y^{k-1}_{itm}=1$ and $y^{k-1}_{ltj}=1$
+  \STATE Swap such that $y^{k}_{itj}\leftarrow1$, $y^{k-1}_{itm}\leftarrow 0$, $y^{k}_{ltm}\leftarrow1$ and $y^{k}_{ltj}\leftarrow0$
+  \STATE Calculate $f^{k}$ the cost of assignment $y^k$ as well as $\alpha_{j}, \beta_{j}, \alpha_{m}, \beta_{m}$
+  \IF {($f^{k} \geq f^{k-1}$)}
   \STATE $y^{k} \leftarrow y^{k-1}$
   \ELSE 
   \STATE swapped $\leftarrow true$
@@ -33,17 +33,19 @@ We now detail the heuristic mechanism for a single starting point. The heuristic
   \ENDFOR
   \STATE $ k \leftarrow k + 1 $
   \ENDWHILE
- \RETURN $F^{k}, y^{k}_{itj}$ 
+ \RETURN $f^{k}, y^{k}$ 
  \end{algorithmic} 
  \end{algorithm}
   \caption{Pseudocode for heuristic for a single starting point.}
   \label{fig:Basic_Heuristic}
  \end{figure}
 
-The goal of any heuristic is to find good feasible solutions in an efficient manner. In particular, the goal of our heuristic is to find good feasible solution for the MIO formulation, which can serve as a warm start for the MIO. In \mysection~\ref{\myabrv Basic MIO Model} we discussed our choice to use the $\ell_1$ norm over the $\ell_2$ norm for use in the objective of our MIO models. We now turn to discuss why the $\ell_2$ is the preferred choice for use in this heuristic. The two main ares of concern are 1) efficiency of the algorithm and 2) quality of the solution.
+The goal of any heuristic is to find good feasible solutions in an efficient manner. In particular, the goal of our heuristic is to find good feasible solution for the MIO formulation, which can serve as a warm start for the MIO. In \mysection~\ref{\myabrv Basic MIO Model} we discussed our choice to use the $\ell_1$ norm over the $\ell_2$ norm for use in the objective of our MIO models. We now turn to discuss why the $\ell_2$ is the preferred choice for use in this heuristic. The two main areas of concern are 1) efficiency of the algorithm and 2) quality of the solution.
 
 In the case of the MIO, the preferred objective function was the  $\ell_1$ norm because it lent itself easily to linear optimization solvers which have known performance advantages over quadratic optimization solvers. However, in the case of the heuristic, the objective function is computed given an assignment, i.e., we need to solve problem \eqref{eq:assignment_cost}, to obtain the specific assignment's cost, rather than the more difficult problem \eqref{eq:full_objective}. Furthermore, this objective needs to be recomputed after each swap, even if it is eventually rejected, and hundreds to thousands of swaps may be carried out for a single starting point. This fact makes the computational cost of this calculation critical to the scalability of the heuristic.  Computing the $\ell_1$ norm objective would require solving an linear optimization problem. Even though this linear optimization problem can be computed quite quickly by state of the art optimization solvers, the $\ell_2$ norm squared, or RSS, can be computed by simple linear algebra in a fraction of the time, as shown in \cite{RSS-Matrix}. Therefore, with respect to efficiency, the $\ell_2$ norm is the clear choice for use in the heuristic.
 
 When judging the quality of the heuristic solution, we must look at its purpose. Since it will serve as a warm start for the MIO, which uses the $\ell_1$ norm in its objective, we would assume that better solutions will be obtained by using the same norm for the heuristic objective. However, the heuristic will converge to high quality solutions, and since both norms represent measures of distance, and hence are correlated, we assume that a high quality solution as measured by the $\ell_2$ norm is also a high quality solution as measured by the $\ell_1$ norm. Thus, the choice of the $\ell_2$ over the $\ell_1$ norm might not significantly degrade the solution quality.
 
-Although the $\ell_2$ norm runs the risk of searching for lower quality solutions, due to its susceptibility to outliers, the potential loss in solution quality is far outweighed by the guaranteed efficiency improvements afforded by the $\ell_1$ norm. Furthermore, this risk can be mitigated through the use of parallelization. To elaborate, the heuristic described above can be parallelized by running partitions of the starting points on separate cores, meaning that a large number of starting points can run in a relatively short amount of time. Increasing the number of starting points greatly reduces the potential for the heuristic to get stuck at a poor quality solution. Therefore, we make the choice to use the $\ell_2$ norm in the objective function of the heuristic. 
+%Although the $\ell_2$ norm runs the risk of searching for lower quality solutions, due to its susceptibility to outliers, 
+Therefore, although the use of $\ell_2$ norm runs the risk of obtaining solutions which are not necessarily extremely good solutions for the $\ell_1$ norm objective the potential loss in solution quality is far outweighed by the guaranteed efficiency improvements afforded by the $\ell_2$ norm. 
+Finally, the heuristic described above can be parallelized by running partitions of the starting points on separate cores, meaning that a large number of starting points can run in a relatively short amount of time. Increasing the number of starting points greatly reduces the potential for the heuristic to get stuck at a poor quality solution. Therefore, we make the choice to use the $\ell_2$ norm in the objective function of the heuristic. 
