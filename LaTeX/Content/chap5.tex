@@ -8,14 +8,21 @@ N_{1} = \underset{t}{\text{max }}  n_{t}
 \end{align*}
 as the smallest number of detections across all scans. The only assumption we make in the case of detection ambiguity is that the true number of targets falls somewhere in the range of $[N_{0},N_{1}]$. Particularly, we replace Assumption~\ref{ass:basic_assumptions} with the following less restrictive assumption.
 \begin{assumption}\label{ass:robust_assumptions}
+\leavevmode
+\begin{enumerate}[(i)]
+\item The sensor generates at most one detection for each target
+ at each scan i.e., there can be missed detections.
+\item The sensor can generate detections which do not originate from any target
+i.e., there can be false alarms.
 \item The number of true targets $P$ satisfies $N_0\leq P \leq N_1$.
+\end{enumerate}
 \end{assumption}
 
-Several new challenges emerge in the case of detection ambiguity. First, we now need to estimate the number of targets. We denote the number of estimated targets as $P_{\text{estimated}}$ Second, in addition to assigning detections to a targets, we now have the alternate choice to classify detections as a false alarms \textit{i.e.}, each detection must either be assigned to a target or classified as a false alarm, but it cannot be both. Finally, we want to identify scans in which a missed detection has occurred for an estimated trajectory. 
+Several new challenges emerge in the case of detection ambiguity. First, we now need to estimate the number of targets. We denote the number of estimated targets as $P_{\text{est}}$ Second, now each detection must either be assigned to a target, as before, or classified as a false alarm, not both. Finally, for each target we want to identify the scans in which it was not detected. 
 
-In this section, we develop an approach that reduces the difficulty of estimating the number of targets inherent to this new problem by assuming a fixed number of targets and using the power of parallelization in combination with the power of optimization to solves smaller, more tractable model. Alternatively, the number of targets can be determined via optimization through the use of additional decision variables and constraints. However, as it turns out, such a formulation is not tractable for practical use, so we defer the interested reader to Appendix~\ref{sec:Robust_Appendix} for a complete discussion of this approach. 
+In this section, we develop an approach that reduces the difficulty of estimating the number of targets inherent to this new problem by assuming a fixed number of targets and using the power of parallelization in combination with the power of optimization to solves smaller, more tractable models. Alternatively, the number of targets can be determined via optimization through the use of additional decision variables and constraints. However, as it turns out, such a formulation is not tractable for practical use, so we defer the interested reader to Appendix~\ref{sec:Penalty_Appendix} for a complete discussion of this approach. 
  
-Although we do not know the number of targets, one approach is to formulate an MIO model that assumes a fixed number of targets $P$ and then use the power of parallelization to run that model with all possible values of $P$. Explicitly, we run these models for all values of $P$ that satisfy Assumption~\ref{ass:robust_assumptions}. After the models have been solved, we select the model that found the solution with the lowest overall objective value. The number of estimated targets $P_{\text{estimated}}$ is simply the value of $P$ corresponding to the winning model. With this methodology in mind, we now extend \eqref{eq:generalized_problem} to account for missed detections and false alarms. 
+Although we do not know the number of targets, one approach is to formulate an MIO model that assumes a fixed number of targets $P$ and then use the power of parallelization to run that model with all possible values of $P$. Explicitly, we run these models for all values of $P$ that satisfy Assumption~\ref{ass:robust_assumptions}. After the models have been solved, we select the model that found the solution with the lowest overall objective value. The number of estimated targets $P_{\text{est}}$ is simply the value of $P$ corresponding to the winning model. With this methodology in mind, we now extend \eqref{eq:generalized_problem} to account for missed detections and false alarms. 
 
 \subsection{Decision Variables}
 Because we will assume a fixed number of targets $P$ for a given run of the the MIO, we only require two additional decision variables, one for identifying false alarms and another for identifying missed detections. Toward this goal, we introduce new binary decision variables $F_{it}$ to indicate whether or not a detection $x_{it}$ is a false alarm. 
