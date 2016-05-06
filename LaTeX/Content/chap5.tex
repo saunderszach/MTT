@@ -53,7 +53,7 @@ Finally, we must restrict the set of feasible solutions to satisfy the assumptio
 \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t.
 \end{align}
 All trajectories \textit{j} must either be assigned a detection or a missed detection:
-\begin{align}
+\begin{align}\label{eqn: MD Simple}
 \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t
 \end{align}
 Lastly, the sum of all false alarms must equal $TF$, and the sum of all missed detections must equal $TM$. 

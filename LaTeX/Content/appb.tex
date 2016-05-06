@@ -7,6 +7,7 @@ Because we do not assume a fixed number of targets, this decision must now be ma
 1, & \text{if trajectory \textit{j} exists,}\\
 0, & \text{otherwise.}
 \end{cases}\]
+Since we by Assumption~\ref{ass:robust_assumptions} the number of targets will be at most $N_1$, the number of needed variables will be $N_1$.
 
 \subsection{Constraints}
 Most constraints remain similar to their original counterparts in \eqref{eq:simple_robust}, except for slight adjustments needed to account for the possibility that some trajectories may not exist. Explicitly, the number of possible trajectories is now $N_{1}$ so all instances of summing over \textit{j} must be changed accordingly. For example, we adjust \eqref{eqn: FA Simple} and \eqref{eqn: MD Total} as follows: 
@@ -15,7 +16,7 @@ Most constraints remain similar to their original counterparts in \eqref{eq:simp
 \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM.
 \end{align*}
 
-By the same accord \eqref{eq: } no longer equates to 1 because some trajectories may not exist. Therefore we say all \textit{existing} trajectories must either be assigned a detection or a missed detection,
+By the same accord the RHS of \eqref{eqn: MD Simple} no longer equals to 1 because some trajectories may not exist. Therefore we say all \textit{existing} trajectories must either be assigned a detection or a missed detection, which implies the following constraints
 \begin{align}\label{eqn: Existing Targets}
 \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t.
 \end{align}
@@ -25,11 +26,11 @@ Moreover, we restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \tex
 |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j.
 \end{align*}
 
-We can actually reduce the symmetry that is inherent to this formulation. Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. We simply need the additional constraint
+This model is symmetric between various $w_j$ variables. Such symmetry in models is an undesirable quality since the multiple optimal solutions cause solving such problems to be less efficient. We can actually reduce the symmetry that is inherent to this formulation. Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. Adding the constraints
 \begin{align*}
 w_{N_0+1}\geq ...\geq w_{N_1},
 \end{align*}
-which reduces the symmetry of the formulation, and thus making it efficiently solvable. 
+further reduces the number of equivalent solution and increases the efficient resolvability of the model. 
 
 \subsection{MIO with Number of Targets as a Decision Variable}
 Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
@@ -52,4 +53,4 @@ Incorporating these additional variables and constraints, we arrive at the follo
 \end{align*}
 
 \subsection{Extension of Robust Heuristic}
-Insert brief discussion about how this heuristic would be identical to the one proposed previously, except a number of estimated targets would be randomly selected during the initialization process and then the heuristic would progress identically to the robust heuristic already proposed.
+In order to initialize the above MIO we need to explore the entire state space which include specifying the number of targets. Such a heuritic will be identical to that proposed in \mysection~\ref{sec:Robust MIO Model}, except the number of target used will also be randomly  selected during the initialization process. As in all previous cases, the warm start will be chosen among the different heuristic solutions based on the objective function value.
