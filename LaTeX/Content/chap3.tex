@@ -13,13 +13,11 @@ A consequence of Assumption~\ref{ass:basic_assumptions} is that the number of de
 
 \subsection{Decision Variables}
 The data association and trajectory estimation problems require unique decision variables. Because these two problems lie in different domains, the variables we use to represent these decisions also differ. First, we introduce \textit{continuous} decision variables $\alpha_{j} \in \mathbb{R}^n$ and $\beta_{j} \in \mathbb{R}^n$ to represent the estimated initial position and velocity, respectively, of each trajectory \textit{j}. In our interpretation of the MTT problem we allow the trajectory parameters to lie anywhere in the real-continuous domain. For the data association problem, we wish to assign detections to trajectories, a naturally discrete problem. Therefore, we introduce binary decision variables $y_{itj}$ to indicate whether detection $x_{it}$ is assigned to trajectory \textit{j} or not:
-\begin{align}
-y_{itj} =
+\[y_{itj} =
 \begin{cases}
 1, & \text{if detection $x_{it}$ is assigned to trajectory \textit{j},} \\
 0, & \text{otherwise.}
-\end{cases}
-\end{align}
+\end{cases}\]
 Next, we use these decision variables to develop an objective function to score the solutions found by the model. 
 
 \subsection{Objective Function}
@@ -32,13 +30,13 @@ is the measure of the quality of estimation for trajectory $j$ at scan $t$, and 
 where $\mathcal{A}_t$ is pairs of detection-trajectory assignments made for scan $t$. 
 
 We can now separate the problem into two parts: given an assignment finding the estimated trajectories which minimizes \eqref{eq:objective_base}, and finding the assignment which results in the best estimated trajectories. Recall that each trajectory is defined by two parameters, $\alpha^{\text{true}}_{j}$ and $\beta^{\text{true}}_{j}t$ such that the true location is given as 
-\begin{align}
+\begin{align*}
 	\bar{x}_{jt} = \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t.
-\end{align}
+\end{align*}
 Thus, an estimated trajectory can analogically be defined by  $\alpha_{j}$ and $\beta_{j}$ such that its estimated location at the time of scan $t$ is given by
-\begin{align}
+\begin{align*}
 	\hat{x}_{jt} =  \alpha_{j} + \beta_{j}t.
-\end{align}
+\end{align*}
 Therefore, given a full assignment  $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory which has the best estimation error is given by the solution of the following optimization problem
 \begin{align}\label{eq:objective_mintraj}
 \underset{\alpha_{j}, \beta_{j}}{\text{minimize: }}\sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - (\alpha_{j} + \beta_{j}t)\right\|.
@@ -46,9 +44,9 @@ Therefore, given a full assignment  $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{
 Notice that under the current assumptions, in which there is no detection ambiguity, \eqref{eq:objective_mintraj} is the cost of assignment $\mathcal{A}$. 
 
 Now we turn to the problem of choosing the assignment, based on this measure. To this end we formulate the assignment cost \eqref{eq:objective_mintraj} in terms of our decision variables. Note that $(i,j)\in\mathcal{A}_t$ if and only if $y_{itj}=1$, and because all detections will be assigned to a trajectory and vice versa, the following equivalence holds
-\begin{align}
+\begin{align*}
 \sum_{(i,j)\in \mathcal{A}_{t}} x_{it} = \sum_{i=1}^{P}y_{itj}x_{it}.
-\end{align}
+\end{align*}
 Making the appropriate substitutions, the cost of an assignment described by variables $y_{itj}$ is given as
 \begin{align}\label{eq:assignment_cost}
  \underset{\alpha_{j}, \beta_{j}}{\text{minimize: }} \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} - (\alpha_{j} + \beta_{j}t)\right \|.
@@ -61,14 +59,14 @@ Therefore, in order to find the assignment with the lowest cost, we are left to 
 At this point it is necessary to discuss the advantages and disadvantages of the two natural distance measures (norms) that will be considered: the $\ell_1$ and the $\ell_2$ norms. The $\ell_1$ norm has the advantage that it can be reformulated using linear optimization (through the addition of continuous variables and constraints), and it is well known to be more robust to outliers. Furthermore, existing algorithms for MIO are more well developed for linear rather than quadratic optimization. However, the $\ell_2$ norm squared form, which is equivalent to the residual sum of squares (RSS), has the advantage that it can be quickly computed using simple linear algebra, making it more amenable to a heuristic. This concept will be discussed further in \mysection~\ref{\myabrv Heuristic}.
 
 Because of the computational benefits of linear optimization over quadratic optimization, we choose to formulate the objective using the $\ell_1$ norm. Therefore, we now show how \eqref{eq:full_objective} can be reformulated using linear optimization in the case of the $\ell_1$ norm by introducing continuous variables $\psi_{jt} \in \mathbb{R}^n$ and the following constraints:
-\begin{align}
+\begin{align*}
 \sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t \leq \psi_{jt}, \qquad \forall j,t,\\
 -\left(\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t\right), \geq \psi_{jt} \qquad \forall j,t.
-\end{align}
+\end{align*}
 The resulting objective function for the case of the $\ell_1$ norm would then be:
-\begin{align}
+\begin{align*}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt}.
-\end{align}
+\end{align*}
 
 \subsection{Constraints}
 In addition to the constraints used to linearize the objective function, we also require standard assignment constraints to ensure that only one detection is assigned to a target and vice versa. Specifically, for each scan, each detection $x_{it}$ must be assigned to exactly one target \textit{j}:
@@ -95,35 +93,33 @@ This formulation is simple in the sense that it involves few variables and const
 
 \subsection{Generalized Formulation}
 Here we modify \eqref{eq:simple_problem} so that it can be easily extended to handle false alarms and missed detections that occur in scenarios with detection ambiguity. We previously identified that the main issue with \eqref{eq:simple_problem} arises from the fact that $\sum_{i=1}^{P}y_{itj}x_{it}$ will always incur a cost in the objective function. However, we only wish to account for this assignment cost when a target has actually been assigned. To this end, we introduce a new variable $z_{jt}$ to substitute for this term. We will then force this variable to take the value $x_{it}$ when $\sum_{j=1}^{P}y_{itj}=1$ and some arbitrary number when $\sum_{j=1}^{P}y_{itj}=0$. 
-\begin{align}
-z_{jt} =
+\[z_{jt} =
 \begin{cases}
 x_{it}, & \text{if $\sum_{j=1}^{P} y_{itj} = 1$,} \\
 \textit{free}, & \text{otherwise.}
-\end{cases}
-\end{align}
+\end{cases}\]
 This logical condition can be translated to a model constraint through the following constraint:
-\begin{align}
+\begin{align*}
 M_{t}(1-y_{itj}) \geq |z_{jt} - x_{it}y_{itj}| \qquad \forall i,t,j.
-\end{align}
+\end{align*}
 where $M_{t} = \underset{j}{\text{max}}|x_{it}|$ for each scan. Furthermore, we can linearize this constraint by substituting it for the following two linear constraints:
-\begin{align}
+\begin{align*}
 x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j,\\
 x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j.
-\end{align}
+\end{align*}
 We must also adjust \eqref{eq:full_objective} to account for this change as follows:
 \begin{align}\label{eq:generalized_objective}
 \underset{z_{jt}, \alpha_{j}, \beta_{j}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \|z_{jt} - \alpha_{j} - \beta_{j}t\|.
 \end{align}
-
-This objective can be linearized in the same fashion as before by again introducing continuous variables $\psi_{jt}$ and additional constraints as follows:
+This objective can be linearized in the same fashion as before by again introducing continuous variables $\psi_{jt}$,
 \begin{align}\label{eq:generalized_linear_objective}
-\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt}
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt},
 \end{align}
-\begin{align}
+and additional constraints,
+\begin{align*}
 z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall i,j,t,\\
 -(z_{jt} - \alpha_{j} - \beta_{j}t) \geq \psi_{jt} \qquad \forall i,j,t.
-\end{align}
+\end{align*}
 Again, we consolidate these elements together and arrive at the following generalized MIO model:
 \begin{align}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} \label{eq:generalized_problem}\\

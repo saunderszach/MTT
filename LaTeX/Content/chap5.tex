@@ -1,11 +1,11 @@
 We transition to treat the case of detection ambiguity. Specifically, we now allow for false alarms, the instance in which a detection is triggered when no target exists, and missed detections, the instance in which a target exists but no detection is generated. Consequently, the number of detections at each scan varies, and the number of targets we wish to track is now ambiguous. To state this explicitly, we introduce additional notation for the case of detection ambiguity. Let $n_{t}$ be the number of detections at scan \textit{t}. We denote 
-\begin{align}
+\begin{align*}
 N_{0} = \underset{t}{\text{min }} n_{t}
-\end{align}
+\end{align*}
 as the largest number of detections across all scans, and similarly, we denote
-\begin{align}
+\begin{align*}
 N_{1} = \underset{t}{\text{max }}  n_{t}
-\end{align}
+\end{align*}
 as the smallest number of detections across all scans. The only assumption we make in the case of detection ambiguity is that the true number of targets falls somewhere in the range of $[N_{0},N_{1}]$. Particularly, we replace Assumption~\ref{ass:basic_assumptions} with the following less restrictive assumption.
 \begin{assumption}\label{ass:robust_assumptions}
 \item The number of true targets $P$ satisfies $N_0\leq P \leq N_1$.
@@ -34,9 +34,9 @@ Likewise, we introduce binary decision variables $M_{jt}$ to indicate whether or
 
 \subsection{Objective Function}
 We can easily extend \eqref{eq:generalized_objective} to account for false alarms and missed detections by introducing penalties $\theta$ ($\phi$, respectively) for each missed detection (false alarm, respectively). This implies a linear penalty function, meaning that every missed detection (false alarm) is penalized exactly the same in equal increments. Therefore, we simply need to penalize the total number of false alarms and missed detections in the objective function. If we denote the total number of false alarms $TF$ and total number of missed detections $TM$, the resulting objective function takes the form:
-\begin{align}
+\begin{align*}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM.
-\end{align}
+\end{align*}
 which can be linearized in the same manner as \eqref{eq:generalized_linear_objective}. As a general rule of them we would expect to increase $\theta$ ($\phi$, respectively) as the number of expected false alarms (missed detections, respectively) decreases. A more exhaustive discussion on the insight behind these penalties, in addition to recommendations for tuning them can be found in Appendix~\ref{\myabrv Penalty_Appendix}.
 
 \subsection{Constraints}
@@ -49,9 +49,9 @@ All trajectories \textit{j} must either be assigned a detection or a missed dete
 \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t
 \end{align}
 Lastly, the sum of all false alarms must equal $TF$, and the sum of all missed detections must equal $TM$. 
-\begin{align}
+\begin{align*}
 \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF
-\end{align}
+\end{align*}
 \begin{align}\label{eqn: MD Total}
 \sum_{j=1}^{P} \sum_{t=1}^{T} M_{jt} = TM 
 \end{align}

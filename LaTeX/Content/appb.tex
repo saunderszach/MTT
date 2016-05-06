@@ -1,5 +1,4 @@
-
-For completeness we also present an MIO model that determines the number of targets via optimization by incorporating this element into the framework of the formulation, specifically through the introduction of decision variables. 
+For completeness we also present an MIO model that determines the number of targets via optimization by incorporating this element into the framework of the formulation, specifically through the introduction of decision variables. Here we extend \eqref{eq:generalized_problem} in this way. 
 
 \subsection{Decision Variables}
 Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target.
@@ -11,10 +10,10 @@ Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicat
 
 \subsection{Constraints}
 Most constraints remain similar to their original counterparts, except for slight adjust needed to account for the possibility that some trajectories may not exist. Explicitly, the number of possible trajectories is now $N_{1}$ so all instances of summing over \textit{j} must be changed accordingly. For example, we adjust \eqref{eq:} as follows: 
-\begin{align}
+\begin{align*}
 \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t,\\
 \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM.
-\end{align}
+\end{align*}
 
 All \textit{existing} trajectories must either be assigned a detection or a missed detection. 
 \begin{align}\label{eqn: Existing Targets}
@@ -22,23 +21,23 @@ All \textit{existing} trajectories must either be assigned a detection or a miss
 \end{align}
 
 We restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \textit{j} does not exist. This ensures only existing trajectories are penalized in the objective function. 
-\begin{align}
+\begin{align*}
 |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j.
-\end{align}
+\end{align*}
 
 Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. We simply need the additional constraint
-\begin{align}
+\begin{align*}
 w_{N_0+1}\geq ...\geq w_{N_1},
-\end{align}
+\end{align*}
 which reduces the symmetry of the formulation, and thus making it efficiently solvable. Furthermore, we can replace \eqref{eqn: Existing Targets} with the following two constraints:
-\begin{align}
+\begin{align*}
 	\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t\\
 	\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t.
-\end{align}
+\end{align*}
 
 \subsection{MIO with Number of Targets as a Decision Variable}
 Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
-\begin{align}
+\begin{align*}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
 \text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t \nonumber\\
 				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t \nonumber \\
@@ -54,7 +53,7 @@ Incorporating these additional variables and constraints, we arrive at the follo
 			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j \nonumber \\
 				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n,\quad w_{j} \in \mathbb{R}^n \quad \forall j \nonumber \\
 				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t. \nonumber
-\end{align}
+\end{align*}
 
 Next, we continue with approach to solving problems under detection ambiguity with a discussion on an extension to the heuristic outline in \mysection~\ref{\myabrv Heuristic}. 
 
