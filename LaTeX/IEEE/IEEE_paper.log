@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  6 MAY 2016 11:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  6 MAY 2016 11:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -598,13 +598,11 @@ Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 233.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 ) (../Content/chap8.tex [15 <../Figures/4_8_Delta.pdf> <../Figures/8_8_Delta.pd
 f>]) (../Content/appa.tex) (../Content/appb.tex
+[16]
 
-LaTeX Warning: Reference `eq:' on page 16 undefined on input line 13.
+LaTeX Warning: Reference `eq: ' on page 17 undefined on input line 18.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 )
@@ -613,10 +611,10 @@ Underfull \hbox (badness 1817) in paragraph at lines 136--137
 []\OT1/ptm/m/n/10 CONTRACT AC-KNOWL-EDG-MENT: This ma-te-rial is
  []
 
-(./IEEE_paper.bbl
+(./IEEE_paper.bbl [18]
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
- [18]
+
 Underfull \hbox (badness 10000) in paragraph at lines 123--126
 []\OT1/ptm/m/n/8 G. Nemhauser, ``In-te-ger pro-gram-ming: Global im-pact,'' $ht
 tps :
@@ -637,7 +635,7 @@ LaTeX Warning: There were undefined references.
  ) 
 Here is how much of TeX's memory you used:
  5890 strings out of 493117
- 93079 string characters out of 6135433
+ 93080 string characters out of 6135433
  174235 words of memory out of 5000000
  9189 multiletter control sequences out of 15000+600000
  46547 words of font info for 97 fonts, out of 8000000 for 9000
@@ -660,7 +658,7 @@ mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on IEEE_paper.pdf (19 pages, 419448 bytes).
+Output written on IEEE_paper.pdf (19 pages, 419948 bytes).
 PDF statistics:
  210 PDF objects out of 1000 (max. 8388607)
  149 compressed objects within 2 object streams
