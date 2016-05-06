@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  6 MAY 2016 11:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  6 MAY 2016 17:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -499,42 +499,41 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ))
-(../Content/chap2.tex) (../Content/chap3.tex [3] [4]) [5] (../Content/chap4.tex
-)
-Underfull \vbox (badness 1221) has occurred while \output is active []
+(../Content/chap2.tex) (../Content/chap3.tex [3] [4]
+Underfull \vbox (badness 4060) has occurred while \output is active []
 
- [6]
-(../Content/chap5.tex [7]) (../Content/chap6.tex
+ [5])
+(../Content/chap4.tex [6]) (../Content/chap5.tex [7] [8]) (../Content/chap6.tex
+
 Overfull \hbox (1.08632pt too wide) in paragraph at lines 7--7
 [] 
  []
 
-[8]) (../Content/chap7.tex [9]
-<../Figures//Sigma_vs_Rho.pdf, id=45, 1011.78pt x 867.24pt>
+) (../Content/chap7.tex [9]
+<../Figures//Sigma_vs_Rho.pdf, id=46, 1011.78pt x 867.24pt>
 File: ../Figures//Sigma_vs_Rho.pdf Graphic file (type pdf)
 
 <use ../Figures//Sigma_vs_Rho.pdf>
 Package pdftex.def Info: ../Figures//Sigma_vs_Rho.pdf used on input line 20.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
  [10 <../Figures//Sigma_vs_Rho.pdf>]
-<../Figures/Basic_Heuristic_Objective.pdf, id=56, 1011.78pt x 867.24pt>
+<../Figures/Basic_Heuristic_Objective.pdf, id=57, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Heuristic_Objective.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Heuristic_Objective.pdf>
 Package pdftex.def Info: ../Figures/Basic_Heuristic_Objective.pdf used on input
  line 72.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
-
-<../Figures/Basic_Heuristic_Accuracy.pdf, id=57, 1011.78pt x 867.24pt>
+ [11 <../Figures/Basic_Heuristic_Objective.pdf>]
+<../Figures/Basic_Heuristic_Accuracy.pdf, id=67, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Heuristic_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Heuristic_Accuracy.pdf>
 Package pdftex.def Info: ../Figures/Basic_Heuristic_Accuracy.pdf used on input 
 line 85.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
- [11 <../Figures/Basic_Heuristic_Objective.pdf> <../Figures/Basic_Heuristic_Acc
-uracy.pdf>]
-<../Figures/Basic_Accuracy_Summary.pdf, id=73, 1011.78pt x 867.24pt>
+
+<../Figures/Basic_Accuracy_Summary.pdf, id=68, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Accuracy_Summary.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Accuracy_Summary.pdf>
@@ -542,76 +541,63 @@ Package pdftex.def Info: ../Figures/Basic_Accuracy_Summary.pdf used on input li
 ne 99.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
-<../Figures/Basic_Delta_Summary.pdf, id=74, 1011.78pt x 867.24pt>
+<../Figures/Basic_Delta_Summary.pdf, id=69, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Delta_Summary.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Delta_Summary.pdf>
 Package pdftex.def Info: ../Figures/Basic_Delta_Summary.pdf used on input line 
 111.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
- [12 <../Figures/Basic_Accuracy_Summary.pdf> <../Figures/Basic_Delta_Summary.pd
-f>]
-<../Figures/4_8_Histogram.pdf, id=90, 1011.78pt x 867.24pt>
+ [12 <../Figures/Basic_Heuristic_Accuracy.pdf> <../Figures/Basic_Accuracy_Summa
+ry.pdf>] [13 <../Figures/Basic_Delta_Summary.pdf>] <../Figures/4_8_Histogram.pd
+f, id=96, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Histogram.pdf>
 Package pdftex.def Info: ../Figures/4_8_Histogram.pdf used on input line 185.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
-<../Figures/8_8_Histogram.pdf, id=91, 1011.78pt x 867.24pt>
+<../Figures/8_8_Histogram.pdf, id=97, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Histogram.pdf>
 Package pdftex.def Info: ../Figures/8_8_Histogram.pdf used on input line 192.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
- [13]
-Underfull \vbox (badness 1558) has occurred while \output is active []
 
-
-<../Figures/4_8_Accuracy.pdf, id=97, 1011.78pt x 867.24pt>
+<../Figures/4_8_Accuracy.pdf, id=98, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Accuracy.pdf>
 Package pdftex.def Info: ../Figures/4_8_Accuracy.pdf used on input line 203.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
-<../Figures/8_8_Accuracy.pdf, id=98, 1011.78pt x 867.24pt>
+<../Figures/8_8_Accuracy.pdf, id=99, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Accuracy.pdf>
 Package pdftex.def Info: ../Figures/8_8_Accuracy.pdf used on input line 210.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
- [14 <../Figures/4_8_Histogram.pdf> <../Figures/8_8_Histogram.pdf> <../Figures/
-4_8_Accuracy.pdf> <../Figures/8_8_Accuracy.pdf>] <../Figures/4_8_Delta.pdf, id=
-126, 1011.78pt x 867.24pt>
+ [14 <../Figures/4_8_Histogram.pdf> <../Figures/8_8_Histogram.pdf>] <../Figures
+/4_8_Delta.pdf, id=115, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Delta.pdf>
 Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 226.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
-<../Figures/8_8_Delta.pdf, id=127, 1011.78pt x 867.24pt>
+<../Figures/8_8_Delta.pdf, id=116, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Delta.pdf>
 Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 233.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
-) (../Content/chap8.tex [15 <../Figures/4_8_Delta.pdf> <../Figures/8_8_Delta.pd
-f>]) (../Content/appa.tex) (../Content/appb.tex
-[16]
-
-LaTeX Warning: Reference `eq: ' on page 17 undefined on input line 18.
-
-
+ [15 <../Figures/4_8_Accuracy.pdf> <../Figures/8_8_Accuracy.pdf> <../Figures/4_
+8_Delta.pdf>]) (../Content/chap8.tex)
+(../Content/appa.tex) (../Content/appb.tex [16 <../Figures/8_8_Delta.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-)
-(../Content/appc.tex [17])
-Underfull \hbox (badness 1817) in paragraph at lines 136--137
-[]\OT1/ptm/m/n/10 CONTRACT AC-KNOWL-EDG-MENT: This ma-te-rial is
- []
-
-(./IEEE_paper.bbl [18]
+) [17]
+(../Content/appc.tex) (./IEEE_paper.bbl [18]
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
 
@@ -628,37 +614,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--126
 
 ) [19
 
-] (./IEEE_paper.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+] (./IEEE_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 5890 strings out of 493117
- 93080 string characters out of 6135433
- 174235 words of memory out of 5000000
- 9189 multiletter control sequences out of 15000+600000
+ 5891 strings out of 493117
+ 93111 string characters out of 6135433
+ 178259 words of memory out of 5000000
+ 9190 multiletter control sequences out of 15000+600000
  46547 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,13n,38p,1808b,771s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
-/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2014/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2014/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
-/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times
-/utmri8a.pfb>
-Output written on IEEE_paper.pdf (19 pages, 419948 bytes).
+ 37i,19n,38p,1808b,771s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/
+8r.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy
+10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex1
+0.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10
+.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.p
+fb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
+></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/
+local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loc
+al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/
+texlive/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/lo
+cal/texlive/2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texliv
+e/2014/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/f
+onts/type1/urw/times/utmri8a.pfb>
+Output written on IEEE_paper.pdf (19 pages, 424559 bytes).
 PDF statistics:
  210 PDF objects out of 1000 (max. 8388607)
  149 compressed objects within 2 object streams

@@ -12,12 +12,12 @@ Remember that we denote the true position of trajectory \textit{i} at scan \text
 \begin{align*}
 	c_{ij} = \sum_{t=1}^{T} \|\bar{x}_{it} - \hat{x}_{jt}\|
 \end{align*}
-If we denote the true number of targets as $P_{\text{true}}$ and the estimated number of targets as $P_{\text{estimated}}$ then the objective of the integer optimization model would be:
+If we denote the true number of targets as $P_{\text{true}}$ and the estimated number of targets as $P_{\text{est}}$ then the objective of the integer optimization model would be:
 \begin{align*}
-\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{estimated}}} c_{ij}y_{ij}
+\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{est}}} c_{ij}y_{ij}
 \end{align*}
 
-When the number of true targets is equal to the number of estimated targets ($P_{\text{true}} = P_{\text{estimated}} = P$), we simply require two equality constraints to ensure that each true trajectory \textit{i} is assigned to exactly one estimated trajectory \textit{j} and vice versa. 
+When the number of true targets is equal to the number of estimated targets ($P_{\text{true}} = P_{\text{est}} = P$), we simply require two equality constraints to ensure that each true trajectory \textit{i} is assigned to exactly one estimated trajectory \textit{j} and vice versa. 
 \begin{align}\label{eqn:assignment_1}
 \sum_{i=1}^{P} y_{ij} = 1 \qquad \forall j = 1,...,P
 \end{align}
@@ -25,22 +25,22 @@ When the number of true targets is equal to the number of estimated targets ($P_
 \sum_{j=1}^{P} y_{ij} = 1 \qquad \forall i = 1,...,P
 \end{align}
 
-However, when the number of estimated trajectories differs from the number of true trajectories, these constraints must be modified slightly. In the case where the number of true targets exceeds the estimated number of targets ($P_{\text{true}}\geq P_{\text{estimated}}$), we restrict each true trajectory \textit{i} to the assignment of \textit{at most} one estimated trajectory \textit{j}, and Equation~\ref{eqn:assignment_1} is modified to:
+However, when the number of estimated trajectories differs from the number of true trajectories, these constraints must be modified slightly. In the case where the number of true targets exceeds the estimated number of targets ($P_{\text{true}}\geq P_{\text{est}}$), we restrict each true trajectory \textit{i} to the assignment of \textit{at most} one estimated trajectory \textit{j}, and Equation~\ref{eqn:assignment_1} is modified to:
 \begin{align*}
-\sum_{i=1}^{P_{\text{true}}} y_{ij} \leq 1 \qquad \forall  j = 1,...,P_{\text{estimated}}.
+\sum_{i=1}^{P_{\text{true}}} y_{ij} \leq 1 \qquad \forall  j = 1,...,P_{\text{est}}.
 \end{align*}
 
-On the contrary, when the number of estimated targets exceeds the true number of targets ($P_{\text{true}}\leq P_{\text{estimated}}$), then we restrict each estimated trajectory \textit{j} to the assignment of \textit{at most} one true trajectory \textit{i}, and Equation~\ref{eqn:assignment_2} is modified to:
+On the contrary, when the number of estimated targets exceeds the true number of targets ($P_{\text{true}}\leq P_{\text{est}}$), then we restrict each estimated trajectory \textit{j} to the assignment of \textit{at most} one true trajectory \textit{i}, and Equation~\ref{eqn:assignment_2} is modified to:
 \begin{align*}
-\sum_{j=1}^{P_{\text{estimated}}} y_{ij} \leq 1 \qquad \forall i = 1,...,P_{\text{true}}.
+\sum_{j=1}^{P_{\text{est}}} y_{ij} \leq 1 \qquad \forall i = 1,...,P_{\text{true}}.
 \end{align*}
 
 In summary, the generalized integer optimization assignment model is presented below.  
 \begin{align*}
-\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{estimated}}} c_{ij}y_{ij}\\
-\text{subject to: }	& \sum_{i=1}^{P_{\text{true}}} y_{ij} = 1 \qquad \forall j = 1,...,P_{\text{estimated}} \nonumber \\
-				& \sum_{j=1}^{P_{\text{estimated}}} y_{ij} = 1 \qquad \forall i = 1,...,P_{\text{true}} \nonumber \\
-				& y_{ij} \in \{0,1\} \quad \forall i = 1,...,P_{\text{true}},j = 1,...,P_{\text{estimated}} \nonumber
+\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{est}}} c_{ij}y_{ij}\\
+\text{subject to: }	& \sum_{i=1}^{P_{\text{true}}} y_{ij} = 1 \qquad \forall j = 1,...,P_{\text{est}} \nonumber \\
+				& \sum_{j=1}^{P_{\text{est}}} y_{ij} = 1 \qquad \forall i = 1,...,P_{\text{true}} \nonumber \\
+				& y_{ij} \in \{0,1\} \quad \forall i = 1,...,P_{\text{true}},j = 1,...,P_{\text{est}} \nonumber
 \end{align*}
 This model is vital to scoring the performance of an MTT algorithm's solution because it ensures the globally optimal pairing of true and estimated trajectories.
 

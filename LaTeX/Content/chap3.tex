@@ -94,23 +94,23 @@ Integrating all of these elements together, we arrive at the following MIO model
 This formulation is simple in the sense that it involves few variables and constraints, making it highly interpretable and easily implementable. However, it has the disadvantage of being ill suited for extensions to detection ambiguity because it heavily relies on the fact that exactly one of the detections at each scan is associated to a target. This forces the term $\sum_{i=1}^{P}y_{itj}x_{it}$ to always be equal to one of the detections. However, in the case of detection ambiguity, this no longer holds true, since there might be trajectories which are not associated with a detection in a given scan, resulting in an unintended cost to the assignment. Therefore, in the following section we present a more generalized formulation, which is amenable to scenarios with detection ambiguity.
 
 \subsection{Generalized Formulation}
-Here we modify \eqref{eq:simple_problem} so that it can be easily extended to handle false alarms and missed detections that occur in scenarios with detection ambiguity. We previously identified that the main issue with \eqref{eq:simple_problem} arises from the fact that $\sum_{i=1}^{P}y_{itj}x_{it}$ will always incur a cost in the objective function. However, we only wish to account for this assignment cost when a target has actually been assigned. To this end, we introduce a new variable $z_{jt}$ to substitute for this term. We will then force this variable to take the value $x_{it}$ when $\sum_{j=1}^{P}y_{itj}=1$ and some arbitrary number when $\sum_{j=1}^{P}y_{itj}=0$. 
-\begin{align}
-z_{jt} =
+Here we modify \eqref{eq:simple_problem} so that it can be easily extended to handle false alarms and missed detections that occur in scenarios with detection ambiguity. We previously identified that the main issue with \eqref{eq:simple_problem} arises from the fact that $\sum_{i=1}^{P}y_{itj}x_{it}$ will always incur a cost in the objective function. However, we only wish to account for this assignment cost when a target has actually been assigned. To this end, we introduce a new variable $z_{jt}$ to substitute for this term. We force this variable to take the value $x_{it}$ when $y_{itj}=1$ and some arbitrary number when $y_{itj}=0$. 
+\[z_{jt} =
 \begin{cases}
-x_{it}, & \text{if $\sum_{j=1}^{P} y_{itj} = 1$,} \\
+x_{it}, & \text{if $y_{itj} = 1$,} \\
 \textit{free}, & \text{otherwise.}
-\end{cases}
-\end{align}
-This logical condition can be translated to a model constraint through the following constraint:
-\begin{align}
+\end{cases}\]
+In the case of no detection ambiguity, $\sum_{i=1}^{P} y_{itj} = 1$ will always hold true as forced by \eqref{eq:all_targets}. As a result, we recover the original objective function exactly because $z_{jt}$ will always take on the value of exactly one of the $x_{it}$.
+
+Additionally, this logical condition can be translated to a model constraint through the following constraint:
+\begin{align}\label{eq:objective_forcer}
 M_{t}(1-y_{itj}) \geq |z_{jt} - x_{it}y_{itj}| \qquad \forall i,t,j.
 \end{align}
-where $M_{t} = \underset{j}{\text{max}}|x_{it}|$ for each scan. Furthermore, we can linearize this constraint by substituting it for the following two linear constraints:
-\begin{align}
+where $M_{t} = \underset{j}{\text{max}}|x_{it}|$ for each scan. Furthermore, we can linearize \eqref{eq:objective_forcer} by substituting it for the following two linear constraints:
+\begin{align*}
 x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j,\\
 x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j.
-\end{align}
+\end{align*}
 We must also adjust \eqref{eq:full_objective} to account for this change as follows:
 \begin{align}\label{eq:generalized_objective}
 \underset{z_{jt}, \alpha_{j}, \beta_{j}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \|z_{jt} - \alpha_{j} - \beta_{j}t\|.
