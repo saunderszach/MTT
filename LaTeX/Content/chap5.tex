@@ -26,7 +26,7 @@ Alternatively, the second approach  we formulate an MIO model that assumes a fix
 However, as it turns out, the first approach leads to a model which is not tractable for practical use, while the second results in smaller more tractable models, which as we stated can be solved in parallel.
 Therefore, we turn our focus to discuss the second approach and defer the interested reader to Appendix~\ref{sec:Penalty_Appendix} for a complete discussion of the first approach. We begin by extending our basic MIO model to the case of detection ambiguity before discussing necessary adaptations to the basic heuristic, which will also assume a fixed number of targets and provide good quality warm start solutions to its corresponding MIO. 
 
-\subsection{MIO with Fixed Number of Targets}
+\subsection{Robust MIO with Fixed Number of Targets}
 In this section, we extend \eqref{eq:generalized_problem} to account for missed detections and false alarms through the addition of decision variables and constraints. The objective function is also updated to reflect the necessary additions. 
 
 \subsubsection{Decision Variables}
@@ -60,7 +60,7 @@ All trajectories \textit{j} must either be assigned a detection or a missed dete
 \begin{align}\label{eqn: MD Simple}
 \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j,t
 \end{align}
-Here we see why it was necessary to generalize the simple model to \eqref{eq:generalized_problem}. When $F_{it} = 1$, we have $\sum_{j=1}^{P} y_{itj} = 0$ by \eqref{eqn: FA Simple}. \eqref{eq:objective_forcer} forces $z_{jt}$ to take the value of $\alpha_{j} - \beta_{j}t$ when this occurs, resulting in no change to the objective score, which is precisely the desired effect. To state this explicitly, we have: 
+Here we see why it was necessary to generalize the simple model to \eqref{eq:generalized_problem}. When $M_{jt} = 1$, we have $\sum_{i=1}^{n_t} y_{itj} = 0$ by \eqref{eqn: MD Simple}. Therefore \eqref{eq:objective_forcer} does not restrict $z_{jt}$ at all and it is obvious, from the structure of the objective function, that in this case $z_{jt}=\alpha_{j} - \beta_{j}t$ is the optimal solution, since it results in no change to the objective score (no estimation penalty), which is precisely the desired effect. To state this explicitly, we have: 
 \[z_{jt} =
 \begin{cases}
 x_{it}, & \text{if $y_{itj} = 1$,} \\
