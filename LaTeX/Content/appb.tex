@@ -1,97 +1,61 @@
-Here we provide recommendations for the tuning of penalty parameters $\theta$ and $\phi$. We begin with an explanation of grounded in logic. It can be shown that as the false alarm rate $\lambda$ increases, the number of expected false alarms also increases. Therefore, it stands to reason that as a general rule of thumb the false alarm penalty $\theta$ should decrease as $\lambda$ increases. Similarly, the number of expected missed detections increases as the missed detection probability $\gamma$ increases, and so too the missed detection penalty should decrease. Then it follows logically that the missed detection penalty $\phi$ should increase as $\gamma$ decreases. Furthermore, it is convenient to reason that the value of both of these penalties should somehow be tied to the value of $\sigma$, though this is a more difficult sequence of logic to justify. Through examination we found these logical concepts to hold true across a variety of scenario sizes and difficulties. Using this insight as well as the results of a mini experiment, we arrived at the penalty values summarized in Table~\ref{tab:Penalties}.
 
+For completeness we also present an MIO model that determines the number of targets via optimization by incorporating this element into the framework of the formulation, specifically through the introduction of decision variables. 
 
-%%% IEEE Paper %%%
-\begin{table}[ht]
-\centering
-\begin{tabular}{c|c|c|c|c}
-\hline
-$\sigma$ & $\gamma$ & $\lambda$ & $\theta$ & $\phi$\\
-\hline
+\subsection{Decision Variables}
+Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target.
+\[w_{j} = 
+\begin{cases}
+1, & \text{if trajectory \textit{j} exists,}\\
+0, & \text{otherwise.}
+\end{cases}\]
 
-%%% Thesis %%%
-%\begin{longtable}{c|c|c|c|c}
-%\hline
-%$\sigma$ & $\gamma$ & $\lambda$ & $\theta$ & $\phi$\\
-%\hline
-%\endhead
+\subsection{Constraints}
+Most constraints remain similar to their original counterparts, except for slight adjust needed to account for the possibility that some trajectories may not exist. Explicitly, the number of possible trajectories is now $N_{1}$ so all instances of summing over \textit{j} must be changed accordingly. For example, we adjust \eqref{eq:} as follows: 
+\begin{align}
+\sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t,\\
+\sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM.
+\end{align}
 
-0.1 & 0.2 & 0.1 & 0.4 & 0.1 \\
-0.1 & 0.2 & 0.5 & 0.2 & 0.1 \\
-0.1 & 0.2 & 1.0 & 0.3 & 0.2 \\
-0.1 & 0.2 & 2.0 & 0.1 & 0.2 \\
-0.1 & 0.15 & 0.1 & 0.4 & 0.1 \\
-0.1 & 0.15 & 0.5 & 0.4 & 0.1 \\
-0.1 & 0.15 & 1.0 & 0.4 & 0.3 \\
-0.1 & 0.15 & 2.0 & 0.1 & 0.3 \\
-0.1 & 0.1 & 0.1 & 0.3 & 0.1 \\
-0.1 & 0.1 & 0.5 & 0.3 & 0.2 \\
-0.1 & 0.1 & 1.0 & 0.2 & 0.2 \\
-0.1 & 0.1 & 2.0 & 0.1 & 0.3 \\
-0.1 & 0.05 & 0.1 & 0.3 & 0.2 \\
-0.1 & 0.05 & 0.5 & 0.2 & 0.2 \\
-0.1 & 0.05 & 1.0 & 0.1 & 0.4 \\
-0.1 & 0.05 & 2.0 & 0.1 & 0.4 \\
-0.5 & 0.2 & 0.1 & 0.5 & 0.1 \\
-0.5 & 0.2 & 0.5 & 0.4 & 0.2 \\
-0.5 & 0.2 & 1.0 & 0.4 & 0.2 \\
-0.5 & 0.2 & 2.0 & 0.3 & 0.3 \\
-0.5 & 0.15 & 0.1 & 0.5 & 0.1 \\
-0.5 & 0.15 & 0.5 & 0.4 & 0.2 \\
-0.5 & 0.15 & 1.0 & 0.4 & 0.3 \\
-0.5 & 0.15 & 2.0 & 0.3 & 0.4 \\
-0.5 & 0.1 & 0.1 & 0.4 & 0.3 \\
-0.5 & 0.1 & 0.5 & 0.4 & 0.3 \\
-0.5 & 0.1 & 1.0 & 0.3 & 0.3 \\
-0.5 & 0.1 & 2.0 & 0.2 & 0.4 \\
-0.5 & 0.05 & 0.1 & 0.4 & 0.4 \\
-0.5 & 0.05 & 0.5 & 0.4 & 0.4 \\
-0.5 & 0.05 & 1.0 & 0.3 & 0.5 \\
-0.5 & 0.05 & 2.0 & 0.3 & 0.5 \\
-1.0 & 0.2 & 0.1 & 0.5 & 0.1 \\
-1.0 & 0.2 & 0.5 & 0.5 & 0.2 \\
-1.0 & 0.2 & 1.0 & 0.5 & 0.1 \\
-1.0 & 0.2 & 2.0 & 0.5 & 0.4 \\
-1.0 & 0.15 & 0.1 & 0.5 & 0.1 \\
-1.0 & 0.15 & 0.5 & 0.5 & 0.3 \\
-1.0 & 0.15 & 1.0 & 0.5 & 0.2 \\
-1.0 & 0.15 & 2.0 & 0.5 & 0.4 \\
-1.0 & 0.1 & 0.1 & 0.5 & 0.5 \\
-1.0 & 0.1 & 0.5 & 0.5 & 0.4 \\
-1.0 & 0.1 & 1.0 & 0.4 & 0.4 \\
-1.0 & 0.1 & 2.0 & 0.4 & 0.5 \\
-1.0 & 0.05 & 0.1 & 0.5 & 0.5 \\
-1.0 & 0.05 & 0.5 & 0.5 & 0.5 \\
-1.0 & 0.05 & 1.0 & 0.5 & 0.5 \\
-1.0 & 0.05 & 2.0 & 0.5 & 0.5 \\
-2.0 & 0.2 & 0.1 & 0.5 & 0.1 \\
-2.0 & 0.2 & 0.5 & 0.5 & 0.2 \\
-2.0 & 0.2 & 1.0 & 0.5 & 0.1 \\
-2.0 & 0.2 & 2.0 & 0.5 & 0.5 \\
-2.0 & 0.15 & 0.1 & 0.5 & 0.1 \\
-2.0 & 0.15 & 0.5 & 0.5 & 0.3 \\
-2.0 & 0.15 & 1.0 & 0.5 & 0.2 \\
-2.0 & 0.15 & 2.0 & 0.5 & 0.5 \\
-2.0 & 0.1 & 0.1 & 0.5 & 0.5 \\
-2.0 & 0.1 & 0.5 & 0.5 & 0.5 \\
-2.0 & 0.1 & 1.0 & 0.5 & 0.5 \\
-2.0 & 0.1 & 2.0 & 0.5 & 0.5 \\
-2.0 & 0.05 & 0.1 & 0.5 & 0.5 \\
-2.0 & 0.05 & 0.5 & 0.5 & 0.5 \\
-2.0 & 0.05 & 1.0 & 0.5 & 0.5 \\
-2.0 & 0.05 & 2.0 & 0.5 & 0.5 \\
-\hline
+All \textit{existing} trajectories must either be assigned a detection or a missed detection. 
+\begin{align}\label{eqn: Existing Targets}
+\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t.
+\end{align}
 
-%%% IEEE %%%
-\end{tabular}
-\caption{Experiment 2 penalty values.}
-\label{tab:Penalties}
-\end{table}
+We restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \textit{j} does not exist. This ensures only existing trajectories are penalized in the objective function. 
+\begin{align}
+|\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j.
+\end{align}
 
-%%% Thesis %%%
-%\caption{Experiment 2 penalty values.}
-%\label{tab:Penalties}
-%\end{longtable}
+Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. We simply need the additional constraint
+\begin{align}
+w_{N_0+1}\geq ...\geq w_{N_1},
+\end{align}
+which reduces the symmetry of the formulation, and thus making it efficiently solvable. Furthermore, we can replace \eqref{eqn: Existing Targets} with the following two constraints:
+\begin{align}
+	\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t\\
+	\sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t.
+\end{align}
 
+\subsection{MIO with Number of Targets as a Decision Variable}
+Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
+\begin{align}
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
+\text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t \nonumber\\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t \nonumber \\
+				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j=N_{0},...,N_{1},t \nonumber \\
+				& \sum_{i=1}^{n_{t}} \sum_{t=1}^{T} F_{it} = TF \nonumber \\
+				& \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM \nonumber \\
+				& w_{N_0+1}\geq ...\geq w_{N_1} \nonumber \\
+				& |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j \nonumber \\
+				& x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j \nonumber \\
+				& x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j \nonumber \\
+				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall j,t \nonumber \\
+				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t \nonumber \\
+			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j \nonumber \\
+				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n,\quad w_{j} \in \mathbb{R}^n \quad \forall j \nonumber \\
+				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t. \nonumber
+\end{align}
 
+Next, we continue with approach to solving problems under detection ambiguity with a discussion on an extension to the heuristic outline in \mysection~\ref{\myabrv Heuristic}. 
 
+\subsection{Heuristic with Number of Targets as a Decision Variable}
