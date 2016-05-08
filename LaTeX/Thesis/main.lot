@@ -4,9 +4,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Heuristic run times (in milliseconds) for a single starting point.\relax }}{50}
-\contentsline {table}{\numberline {6.2}{\ignorespaces Robust heuristic run times (in milliseconds) for a single starting point.\relax }}{59}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Heuristic run times (in milliseconds) for a single starting point.\relax }}{48}
+\contentsline {table}{\numberline {7.2}{\ignorespaces Robust heuristic run times (in milliseconds) for a single starting point.\relax }}{57}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces Experiment 2 penalty values.}}{72}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {B.1}{\ignorespaces Experiment 2 penalty values.\relax }}{76}
+\addvspace {10\p@ }

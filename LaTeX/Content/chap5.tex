@@ -20,16 +20,16 @@ i.e., there can be false alarms.
 
 Several new challenges emerge in the case of detection ambiguity. First, we now need to estimate the number of targets. We denote the number of estimated targets as $P_{\text{est}}$ Second, now each detection must either be assigned to a target, as before, or classified as a false alarm, not both. Finally, for each target we want to identify the scans in which it was not detected. 
 
-In this section, we develop an approach that reduces the difficulty of estimating the number of targets inherent to this new problem by two different approaches.  In the first approach, the number of targets can be determined via the optimization model itself, through the use of additional decision variables and constraints. 
+In this \mytitle, we develop an approach that reduces the difficulty of estimating the number of targets inherent to this new problem by two different approaches.  In the first approach, the number of targets can be determined via the optimization model itself, through the use of additional decision variables and constraints. 
 Alternatively, the second approach  we formulate an MIO model that assumes a fixed number of targets $P$ and then use the power of parallelization to run that model with all possible values of $P$ which satisfy Assumption~\ref{ass:robust_assumptions}, choosing the solution for $P$ that minimizes the total objective function value. These two approaches are equivalent, in the sense they have the same optimal solution set.  
 
 However, as it turns out, the first approach leads to a model which is not tractable for practical use, while the second results in smaller more tractable models, which as we stated can be solved in parallel.
-Therefore, we turn our focus to discuss the second approach and defer the interested reader to Appendix~\ref{sec:Penalty_Appendix} for a complete discussion of the first approach. We begin by extending our basic MIO model to the case of detection ambiguity before discussing necessary adaptations to the basic heuristic, which will also assume a fixed number of targets and provide good quality warm start solutions to its corresponding MIO. 
+Therefore, we turn our focus to discuss the second approach and defer the interested reader to Appendix~\ref{app:Penalty_Appendix} for a complete discussion of the first approach. We begin by extending our basic MIO model to the case of detection ambiguity before discussing necessary adaptations to the basic heuristic, which will also assume a fixed number of targets and provide good quality warm start solutions to its corresponding MIO. 
 
-\subsection{Robust MIO with Fixed Number of Targets}
+\mysubsection{Robust MIO with Fixed Number of Targets}
 In this section, we extend \eqref{eq:generalized_problem} to account for missed detections and false alarms through the addition of decision variables and constraints. The objective function is also updated to reflect the necessary additions. 
 
-\subsubsection{Decision Variables}
+\mysubsubsection{Decision Variables}
 We need to establish new variables for identifying false alarms as well as missed detections. Toward this goal, we introduce new binary decision variables $F_{it}$ to indicate whether or not a detection $x_{it}$ is a false alarm. 
 \[F_{it} = 
 \begin{cases}
@@ -44,14 +44,14 @@ Likewise, we introduce binary decision variables $M_{jt}$ to indicate whether or
 0, & \text{otherwise.}
 \end{cases}\]
 
-\subsubsection{Objective Function}
+\mysubsubsection{Objective Function}
 We can easily extend \eqref{eq:generalized_objective} to account for detection ambiguity by introducing penalties $\theta$ and $\phi$ for each missed detection and false alarm, respectively. This implies a linear penalty function, meaning that every missed detection (false alarm) is contributes the same penalty to the objective function. Therefore, we simply need to penalize the total number of false alarms and missed detections in the objective function. If we denote the total number of false alarms $TF$ and total number of missed detections $TM$, the resulting objective function takes the form:
 \begin{align*}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM.
 \end{align*}
-As a general rule, we would expect to increase $\theta$ or $\phi$, as the number of expected false alarms or missed detections decreases, respectively. A more exhaustive discussion on the insight behind these penalties, in addition to recommendations for tuning them can be found in Appendix~\ref{\myabrv Penalty_Appendix}.
+As a general rule, we would expect to increase $\theta$ or $\phi$, as the number of expected false alarms or missed detections decreases, respectively. A more exhaustive discussion on the insight behind these penalties, in addition to recommendations for tuning them can be found in Appendix~\ref{app:Penalty_Appendix}.
 
-\subsubsection{Constraints}
+\mysubsubsection{Constraints}
 Finally, we must restrict the set of feasible solutions to satisfy the assumptions made earlier. We accomplish this by simply modifying \eqref{eq:all_detections} and \eqref{eq:all_targets} to account for false alarms and missed detections, respectively. Specifically, all detections must either be assigned to a trajectory \textit{j} or to a false alarm:
 \begin{align}\label{eqn: FA Simple}
 \sum_{j=1}^{P} y_{itj} + F_{it} = 1 \qquad \forall i,t.
@@ -76,7 +76,7 @@ Lastly, to properly penalize false alarms and missed detections in the objective
 \sum_{j=1}^{P} \sum_{t=1}^{T} M_{jt} = TM 
 \end{align}
 
-\subsubsection{Full Formulation}
+\mysubsubsection{Full Formulation}
 Merging all of these elements together we arrive at our MIO model for a case of detection ambiguity and a fixed number of targets. We refer to this model as the \textit{robust} MIO. 
 \begin{align}
 g(P)=\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM \label{eq:simple_robust}\\
@@ -89,7 +89,7 @@ g(P)=\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \ps
 				& z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall j,t \nonumber \\
 				& -(z_{jt} - \alpha_{j} - \beta_{j}t) \leq \psi_{jt} \qquad \forall j,t \nonumber \\
 				& y_{itj} \in \{0,1\} \quad \forall i,t,j \nonumber \\
-				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j \nonumber\\
+				& \alpha_{j} \in \mathbb{R}^n \quad \forall j ,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j \nonumber\\
 				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t. \nonumber
 \end{align}
 $P_\text{est}$ would then be given by
@@ -98,8 +98,10 @@ P_\text{est}=\min_{N_o\leq P\leq N_1} g(P),
 \end{align*}
 and the trajectories and assignments will correspond with the optimal solution of the corresponding model.
 
-\subsection{Heuristic with Fixed Number of Targets}
-The heuristic for the scenario with ambiguity follows similarly from the heuristic developed under the scenario without ambiguity. Mainly, the heuristic initializes in the same manner and sweeps through all scans continuously making random swaps. However, the key difference in the newly adapted heuristic is that false alarms and missed detections must be included in the switches. Therefore, the framework of the new algorithm, also referred to as the \textit{robust} heuristic, is the same as the one presented in Figure~\ref{fig:Basic_Heuristic}, but the robust heuristic randomly chooses from the following options when making swaps: 
+\mysubsection{Heuristic with Fixed Number of Targets}
+The heuristic for the scenario with ambiguity follows closely from the heuristic developed under the scenario without ambiguity, with a few key differences. In the first place, the process for establishing a random starting point during the initialization process requires refinement. Initial solutions should allow for false alarms and missed detections. With equal probability, each detection is randomly classified as a false alarm or selected to receive a target assignment. Once a detection has been identified for assignment, assignments are randomly selected uniformly across all targets. The remaining scans for which trajectories do not receive an assignment are identified as missed detections. 
+
+Once a starting point has been initialized, the heuristic progresses in much the same manner as before. Again, it sweeps through all scans continuously making random swaps. However, the swapping process also change.Specifically, false alarms and missed detections must be included in the switches. but the robust heuristic randomly chooses from the following options when making swaps: 
 \begin{enumerate}
   \item Switch detection assignments between two existing targets.
   \item Switch the detection assignment of an existing target with a false alarm.
@@ -108,6 +110,8 @@ The heuristic for the scenario with ambiguity follows similarly from the heurist
   \item Move a false alarm into the location of a missed detection for an existing target.
 \end{enumerate}
 
-Similar to the basic heuristic, this robust extension will accept the switch/move if the objective score improves, and reject the switch/move otherwise, and terminates once it completes a full sweep without accepting a single swap. Due to the increase in potential combinations of solutions, we expect this variant of the heuristic to run slightly slower. Though this effect is mitigated by the fact that this variant is just as paralellizable as the basic heuristic. 
+Similar to the basic heuristic, this robust extension will accept the switch/move if the objective score improves, and reject the switch/move otherwise, and terminates once it completes a full sweep without accepting a single swap.
 
-Next, we shift our discussion to focus on measuring the complexity and performance of our approaches. 
+The framework of this new heuristic, also referred to as the \textit{robust} heuristic, is the same as the one presented in Figure~\ref{fig:Basic_Heuristic} with the appropriate modifications in the initialization and swapping steps. 
+
+Due to the increase in potential combinations of solutions, we expect this variant of the heuristic to run slightly slower. Though this effect is mitigated by the fact that this variant is just as parallelizable as the basic heuristic. Next, we shift our discussion to focus on measuring the complexity and performance of our approaches. 

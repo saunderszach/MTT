@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  6 MAY 2016 01:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  8 MAY 2016 13:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -300,25 +300,21 @@ Enter file names to process, (chap1,chap2 ...), or `all' to process all files:
 
 \files=all
 Including all files.
-(./main.aux (./cover.aux) (./contents.aux)
-
-LaTeX Warning: Label `eq:all_targets' multiply defined.
-
-(./biblio.aux))
+(./main.aux (./cover.aux) (./contents.aux) (./biblio.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: longtable package is loaded.
 
@@ -476,24 +472,14 @@ Underfull \vbox (badness 1675) has occurred while \output is active []
 Underfull \vbox (badness 5652) has occurred while \output is active []
 
  [16]
-[17]
-
-LaTeX Warning: Reference `ch:Robust MIO Model' on page 18 undefined on input li
-ne 35.
-
-) [18]
+[17]) [18]
 Chapter 2.
-(../Content/chap2.tex
-
-LaTeX Warning: Reference `ch:Robust MIO Model' on page 19 undefined on input li
-ne 5.
-
-[19
+(../Content/chap2.tex [19
 
 ]) [20]
 Chapter 3.
 (../Content/chap3.tex
-Underfull \vbox (badness 1052) has occurred while \output is active []
+Underfull \vbox (badness 3088) has occurred while \output is active []
 
  [21
 
@@ -510,15 +496,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [25]
-[26]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [27]
+ [26]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Warning: Reference `ch:Robust MIO Model' on page 28 undefined on input li
-ne 140.
-
-) [28]
+ [27])
+[28]
 Chapter 4.
 (../Content/chap4.tex [29
 
@@ -526,64 +510,58 @@ Chapter 4.
 Underfull \vbox (badness 1675) has occurred while \output is active []
 
  [31]
-(../Content/chap5.tex [32]
-Underfull \vbox (badness 4981) has occurred while \output is active []
-
- [33]
-Underfull \vbox (badness 5475) has occurred while \output is active []
-
- [34]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [35]
-[36]
-Underfull \vbox (badness 5622) has occurred while \output is active []
-
- [37]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [38]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [39])
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [40]
-[41] [42
+[32]
+Chapter 5.
+(../Content/chap5.tex [33
 
 ]
-Chapter 5.
-(../Content/chap6.tex [43]
+Underfull \vbox (badness 5490) has occurred while \output is active []
+
+ [34]
+Underfull \vbox (badness 7030) has occurred while \output is active []
+
+ [35]
+Underfull \vbox (badness 1132) has occurred while \output is active []
+
+ [36]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [44]
-[45]) [46]
+ [37]
+[38]) [39] [40]
 Chapter 6.
+(../Content/chap6.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [41
+
+]
+[42] [43]) [44]
+Chapter 7.
 (../Content/chap7.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [47
+ [45
 
 ]
-[48] <../Figures//Sigma_vs_Rho.pdf, id=180, 1011.78pt x 867.24pt>
+[46] <../Figures//Sigma_vs_Rho.pdf, id=174, 1011.78pt x 867.24pt>
 File: ../Figures//Sigma_vs_Rho.pdf Graphic file (type pdf)
 
 <use ../Figures//Sigma_vs_Rho.pdf>
 Package pdftex.def Info: ../Figures//Sigma_vs_Rho.pdf used on input line 20.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [49 <../Figures//Sigma_vs_Rho.pdf>] [50]
+ [47 <../Figures//Sigma_vs_Rho.pdf>] [48]
 Underfull \vbox (badness 5652) has occurred while \output is active []
 
- [51]
-<../Figures/Basic_Heuristic_Objective.pdf, id=199, 1011.78pt x 867.24pt>
+ [49]
+<../Figures/Basic_Heuristic_Objective.pdf, id=193, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Heuristic_Objective.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Heuristic_Objective.pdf>
 Package pdftex.def Info: ../Figures/Basic_Heuristic_Objective.pdf used on input
  line 72.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [52 <../Figures/Basic_Heuristic_Objective.pdf>]
-<../Figures/Basic_Heuristic_Accuracy.pdf, id=209, 1011.78pt x 867.24pt>
+ [50 <../Figures/Basic_Heuristic_Objective.pdf>]
+<../Figures/Basic_Heuristic_Accuracy.pdf, id=203, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Heuristic_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Heuristic_Accuracy.pdf>
@@ -593,8 +571,8 @@ line 85.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [53]
-<../Figures/Basic_Accuracy_Summary.pdf, id=213, 1011.78pt x 867.24pt>
+ [51]
+<../Figures/Basic_Accuracy_Summary.pdf, id=207, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Accuracy_Summary.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Accuracy_Summary.pdf>
@@ -604,11 +582,11 @@ ne 99.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [54 <../Figures/Basic_Heuristic_Accuracy.pdf>]
+ [52 <../Figures/Basic_Heuristic_Accuracy.pdf>]
 Underfull \vbox (badness 6396) has occurred while \output is active []
 
- [55 <../Figures/Basic_Accuracy_Summary.pdf>]
-<../Figures/Basic_Delta_Summary.pdf, id=233, 1011.78pt x 867.24pt>
+ [53 <../Figures/Basic_Accuracy_Summary.pdf>]
+<../Figures/Basic_Delta_Summary.pdf, id=226, 1011.78pt x 867.24pt>
 File: ../Figures/Basic_Delta_Summary.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Delta_Summary.pdf>
@@ -618,144 +596,140 @@ Package pdftex.def Info: ../Figures/Basic_Delta_Summary.pdf used on input line
 
 Underfull \vbox (badness 1675) has occurred while \output is active []
 
- [56]
+ [54]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [57 <../Figures/Basic_Delta_Summary.pdf>]
-Underfull \vbox (badness 7981) has occurred while \output is active []
+ [55 <../Figures/Basic_Delta_Summary.pdf>]
+Underfull \vbox (badness 4229) has occurred while \output is active []
 
- [58]
-[59] <../Figures/4_8_Histogram.pdf, id=252, 1011.78pt x 867.24pt>
+ [56]
+[57] <../Figures/4_8_Histogram.pdf, id=246, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Histogram.pdf>
 Package pdftex.def Info: ../Figures/4_8_Histogram.pdf used on input line 185.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
 
-<../Figures/8_8_Histogram.pdf, id=253, 1011.78pt x 867.24pt>
+<../Figures/8_8_Histogram.pdf, id=247, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Histogram.pdf>
 Package pdftex.def Info: ../Figures/8_8_Histogram.pdf used on input line 192.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [60]
+ [58]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [61 <../Figures/4_8_Histogram.pdf>]
-<../Figures/4_8_Accuracy.pdf, id=267, 1011.78pt x 867.24pt>
+ [59 <../Figures/4_8_Histogram.pdf>]
+<../Figures/4_8_Accuracy.pdf, id=260, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Accuracy.pdf>
 Package pdftex.def Info: ../Figures/4_8_Accuracy.pdf used on input line 203.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [62 <../Figures/8_8_Histogram.pdf>]
-<../Figures/8_8_Accuracy.pdf, id=277, 1011.78pt x 867.24pt>
+ [60 <../Figures/8_8_Histogram.pdf>]
+<../Figures/8_8_Accuracy.pdf, id=270, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Accuracy.pdf>
 Package pdftex.def Info: ../Figures/8_8_Accuracy.pdf used on input line 210.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [63 <../Figures/4_8_Accuracy.pdf>]
+ [61 <../Figures/4_8_Accuracy.pdf>]
 Underfull \vbox (badness 6396) has occurred while \output is active []
 
- [64 <../Figures/8_8_Accuracy.pdf>]
-<../Figures/4_8_Delta.pdf, id=296, 1011.78pt x 867.24pt>
+ [62 <../Figures/8_8_Accuracy.pdf>]
+<../Figures/4_8_Delta.pdf, id=290, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Delta.pdf>
 Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 226.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
 
-<../Figures/8_8_Delta.pdf, id=297, 1011.78pt x 867.24pt>
+<../Figures/8_8_Delta.pdf, id=291, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Delta.pdf>
 Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 233.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
-) [65] [66 <../Figures/4_8_Delta.pdf>] [67 <../Figures/8_8_Delta.pdf>] [68
+) [63] [64 <../Figures/4_8_Delta.pdf>] [65 <../Figures/8_8_Delta.pdf>] [66
 
 ]
-Chapter 7.
-(../Content/chap8.tex
-
-LaTeX Warning: Reference `ass:general_assumptions' on page 69 undefined on inpu
-t line 3.
-
-) [69] [70
+Chapter 8.
+(../Content/chap8.tex) [67] [68
 
 ]
 Appendix A.
-(../Content/appa.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [71]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [72])
-[73] [74
-
-]
+(../Content/appa.tex [69] [70] [71]) [72]
 Appendix B.
 (../Content/appb.tex
+Underfull \vbox (badness 2772) has occurred while \output is active []
 
-LaTeX Warning: Float too large for page by 317.76898pt on input line 89.
+ [73
 
-) [75] [76]
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [74])
+Underfull \vbox (badness 2452) has occurred while \output is active []
+
+ [75]
+[76]
+Appendix C.
+(../Content/appc.tex [77
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [78])
+[79]
 \openout2 = `biblio.aux'.
 
- (./biblio.tex (./main.bbl
+ (./biblio.tex (./main.bbl [80
+
+
+]
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 28.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [77
-
-
-])) [78]
-(./main.aux (./cover.aux) (./contents.aux) (./biblio.aux))
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+) [81])) [82]
+(./main.aux (./cover.aux) (./contents.aux) (./biblio.aux)) ) 
 Here is how much of TeX's memory you used:
- 5491 strings out of 493117
- 80486 string characters out of 6135433
- 154093 words of memory out of 5000000
- 8683 multiletter control sequences out of 15000+600000
+ 5500 strings out of 493117
+ 80600 string characters out of 6135433
+ 150187 words of memory out of 5000000
+ 8689 multiletter control sequences out of 15000+600000
  23562 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 51i,19n,38p,1813b,816s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb>
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
-usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
-local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
-cal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local
-/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive
-/2014/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2014/
-texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2014/te
-xmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2014/texm
-f-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2014/texmf-
-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2014/texmf-di
-st/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2014/texmf-dist
-/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (78 pages, 639762 bytes).
+ 51i,19n,44p,1813b,814s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive
+/2014/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2
+014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2
+014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/20
+14/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/201
+4/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2014/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2014/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2014/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014/texmf-dist/fo
+nts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2014/texmf-dis
+t/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2014/texmf-dist/
+fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2014/texmf-dist/fo
+nts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2014/texmf-dist/font
+s/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2014/texmf-dist/fonts/
+type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2014/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2014/texmf-dist/fonts/type
+1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
+public/cm-super/sfrm1200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pu
+blic/cm-super/sfrm1440.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publ
+ic/cm-super/sfrm1728.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public
+/cm-super/sfti1200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/c
+m-super/sftt1200.pfb>
+Output written on main.pdf (82 pages, 649032 bytes).
 PDF statistics:
- 433 PDF objects out of 1000 (max. 8388607)
- 300 compressed objects within 3 object streams
+ 447 PDF objects out of 1000 (max. 8388607)
+ 309 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

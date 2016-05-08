@@ -1,4 +1,4 @@
-Here we provide recommendations for the tuning of penalty parameters $\theta$ and $\phi$. We begin with an explanation of grounded in logic. It can be shown that as the false alarm rate $\lambda$ increases, the number of expected false alarms also increases. Therefore, it stands to reason that as a general rule of thumb the false alarm penalty $\theta$ should decrease as $\lambda$ increases. Similarly, the number of expected missed detections increases as the missed detection probability $\gamma$ increases, and so too the missed detection penalty should decrease. Then it follows logically that the missed detection penalty $\phi$ should increase as $\gamma$ decreases. Furthermore, it is convenient to reason that the value of both of these penalties should somehow be tied to the value of $\sigma$, though this is a more difficult sequence of logic to justify. Through examination we found these logical concepts to hold true across a variety of scenario sizes and difficulties. Using this insight as well as the results of a mini experiment, we arrived at the penalty values summarized in Table~\ref{tab:Penalties}.
+Here we provide recommendations for the tuning of penalty parameters $\theta$ and $\phi$. We begin with an explanation grounded in logic. It can be shown that as the false alarm rate $\lambda$ increases, the number of expected false alarms also increases. Therefore, it stands to reason that as a general rule of thumb the false alarm penalty $\theta$ should decrease as $\lambda$ increases. Similarly, the number of expected missed detections increases as the missed detection probability $\gamma$ increases, and so too the missed detection penalty should decrease. Then it follows logically that the missed detection penalty $\phi$ should increase as $\gamma$ decreases. Furthermore, it is convenient to reason that the value of both of these penalties should somehow be tied to the value of $\sigma$, though this is a more difficult sequence of logic to justify. Through examination we found these logical concepts to hold true across a variety of scenario sizes and difficulties. Using this insight as well as the results of a mini experiment, we arrived at the penalty values summarized in Table~\ref{tab:Penalties}.
 
 
 %%% IEEE Paper %%%
@@ -8,14 +8,6 @@ Here we provide recommendations for the tuning of penalty parameters $\theta$ an
 \hline
 $\sigma$ & $\gamma$ & $\lambda$ & $\theta$ & $\phi$\\
 \hline
-
-%%% Thesis %%%
-%\begin{longtable}{c|c|c|c|c}
-%\hline
-%$\sigma$ & $\gamma$ & $\lambda$ & $\theta$ & $\phi$\\
-%\hline
-%\endhead
-
 0.1 & 0.2 & 0.1 & 0.4 & 0.1 \\
 0.1 & 0.2 & 0.5 & 0.2 & 0.1 \\
 0.1 & 0.2 & 1.0 & 0.3 & 0.2 \\
@@ -81,17 +73,87 @@ $\sigma$ & $\gamma$ & $\lambda$ & $\theta$ & $\phi$\\
 2.0 & 0.05 & 1.0 & 0.5 & 0.5 \\
 2.0 & 0.05 & 2.0 & 0.5 & 0.5 \\
 \hline
-
-%%% IEEE %%%
 \end{tabular}
 \caption{Experiment 2 penalty values.}
 \label{tab:Penalties}
 \end{table}
 
-%%% Thesis %%%
+
+%%%% Thesis %%%
+%\begin{longtable}{c|c|c|c|c}
+%\hline
+%$\sigma$ & $\gamma$ & $\lambda$ & $\theta$ & $\phi$\\
+%\hline
+%\endhead
+%0.1 & 0.2 & 0.1 & 0.4 & 0.1 \\
+%0.1 & 0.2 & 0.5 & 0.2 & 0.1 \\
+%0.1 & 0.2 & 1.0 & 0.3 & 0.2 \\
+%0.1 & 0.2 & 2.0 & 0.1 & 0.2 \\
+%0.1 & 0.15 & 0.1 & 0.4 & 0.1 \\
+%0.1 & 0.15 & 0.5 & 0.4 & 0.1 \\
+%0.1 & 0.15 & 1.0 & 0.4 & 0.3 \\
+%0.1 & 0.15 & 2.0 & 0.1 & 0.3 \\
+%0.1 & 0.1 & 0.1 & 0.3 & 0.1 \\
+%0.1 & 0.1 & 0.5 & 0.3 & 0.2 \\
+%0.1 & 0.1 & 1.0 & 0.2 & 0.2 \\
+%0.1 & 0.1 & 2.0 & 0.1 & 0.3 \\
+%0.1 & 0.05 & 0.1 & 0.3 & 0.2 \\
+%0.1 & 0.05 & 0.5 & 0.2 & 0.2 \\
+%0.1 & 0.05 & 1.0 & 0.1 & 0.4 \\
+%0.1 & 0.05 & 2.0 & 0.1 & 0.4 \\
+%0.5 & 0.2 & 0.1 & 0.5 & 0.1 \\
+%0.5 & 0.2 & 0.5 & 0.4 & 0.2 \\
+%0.5 & 0.2 & 1.0 & 0.4 & 0.2 \\
+%0.5 & 0.2 & 2.0 & 0.3 & 0.3 \\
+%0.5 & 0.15 & 0.1 & 0.5 & 0.1 \\
+%0.5 & 0.15 & 0.5 & 0.4 & 0.2 \\
+%0.5 & 0.15 & 1.0 & 0.4 & 0.3 \\
+%0.5 & 0.15 & 2.0 & 0.3 & 0.4 \\
+%0.5 & 0.1 & 0.1 & 0.4 & 0.3 \\
+%0.5 & 0.1 & 0.5 & 0.4 & 0.3 \\
+%0.5 & 0.1 & 1.0 & 0.3 & 0.3 \\
+%0.5 & 0.1 & 2.0 & 0.2 & 0.4 \\
+%0.5 & 0.05 & 0.1 & 0.4 & 0.4 \\
+%0.5 & 0.05 & 0.5 & 0.4 & 0.4 \\
+%0.5 & 0.05 & 1.0 & 0.3 & 0.5 \\
+%0.5 & 0.05 & 2.0 & 0.3 & 0.5 \\
+%1.0 & 0.2 & 0.1 & 0.5 & 0.1 \\
+%1.0 & 0.2 & 0.5 & 0.5 & 0.2 \\
+%1.0 & 0.2 & 1.0 & 0.5 & 0.1 \\
+%1.0 & 0.2 & 2.0 & 0.5 & 0.4 \\
+%1.0 & 0.15 & 0.1 & 0.5 & 0.1 \\
+%1.0 & 0.15 & 0.5 & 0.5 & 0.3 \\
+%1.0 & 0.15 & 1.0 & 0.5 & 0.2 \\
+%1.0 & 0.15 & 2.0 & 0.5 & 0.4 \\
+%1.0 & 0.1 & 0.1 & 0.5 & 0.5 \\
+%1.0 & 0.1 & 0.5 & 0.5 & 0.4 \\
+%1.0 & 0.1 & 1.0 & 0.4 & 0.4 \\
+%1.0 & 0.1 & 2.0 & 0.4 & 0.5 \\
+%1.0 & 0.05 & 0.1 & 0.5 & 0.5 \\
+%1.0 & 0.05 & 0.5 & 0.5 & 0.5 \\
+%1.0 & 0.05 & 1.0 & 0.5 & 0.5 \\
+%1.0 & 0.05 & 2.0 & 0.5 & 0.5 \\
+%2.0 & 0.2 & 0.1 & 0.5 & 0.1 \\
+%2.0 & 0.2 & 0.5 & 0.5 & 0.2 \\
+%2.0 & 0.2 & 1.0 & 0.5 & 0.1 \\
+%2.0 & 0.2 & 2.0 & 0.5 & 0.5 \\
+%2.0 & 0.15 & 0.1 & 0.5 & 0.1 \\
+%2.0 & 0.15 & 0.5 & 0.5 & 0.3 \\
+%2.0 & 0.15 & 1.0 & 0.5 & 0.2 \\
+%2.0 & 0.15 & 2.0 & 0.5 & 0.5 \\
+%2.0 & 0.1 & 0.1 & 0.5 & 0.5 \\
+%2.0 & 0.1 & 0.5 & 0.5 & 0.5 \\
+%2.0 & 0.1 & 1.0 & 0.5 & 0.5 \\
+%2.0 & 0.1 & 2.0 & 0.5 & 0.5 \\
+%2.0 & 0.05 & 0.1 & 0.5 & 0.5 \\
+%2.0 & 0.05 & 0.5 & 0.5 & 0.5 \\
+%2.0 & 0.05 & 1.0 & 0.5 & 0.5 \\
+%2.0 & 0.05 & 2.0 & 0.5 & 0.5 \\
+%\hline
 %\caption{Experiment 2 penalty values.}
 %\label{tab:Penalties}
 %\end{longtable}
+
 
 
 

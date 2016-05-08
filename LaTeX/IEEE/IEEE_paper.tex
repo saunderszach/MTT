@@ -36,8 +36,11 @@
 \usepackage[caption=false, ...]{subfig}
 
 \newcommand{\mysection}{Section}
+\newcommand{\mytitle}{section}
 \newcommand{\myabrv}{sec:}
-\newcommand{\mysubsection}[1]{\subsection{#1}}	       
+\newcommand{\mysubsection}[1]{\subsection{#1}}
+\newcommand{\mysubsubsection}[1]{\subsubsection{#1}}
+
 
 % *** GRAPHICS RELATED PACKAGES ***
 %
@@ -121,13 +124,13 @@ data association; mixed integer optimization; multi-target tracking; optimizatio
 
 \appendices
 
-\section{Detection Ambiguity Penalty Values}\label{sec:Penalty_Appendix}
+\section{Detection Ambiguity Penalty Values}\label{app:Penalty_Appendix}
 \input{../Content/appa}
 
-\section{Robust MIO With Number of Targets as a Decision Variable}\label{sec:Robust_Appendix}
+\section{Robust MIO With Number of Targets as a Decision Variable}\label{app:Robust_Appendix}
 \input{../Content/appb}
 
-\section{Trajectory Assignment Pairing}\label{sec:Assignment_Appendix}
+\section{Trajectory Assignment Pairing}\label{app:Assignment_Appendix}
 \input{../Content/appc}
 
 \section*{Acknowledgments}
@@ -135,26 +138,12 @@ The authors would like to thank Sung-Hyun Son, Ph.D. and Steven Relyea at Lincol
 
 This material is based upon work supported by the Air Force under Air Force Contract No. FA8721-05-C-0002 and/or FA8702-15-D-0001. The views expressed in this document are those of the authors and do not reflect the official policy or position of the United States Air Force, the United States Department of Defense or the United States Government.
 
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
+%\IEEEtriggeratref{15}
 % The "triggered" command can be changed if desired:
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
-% references section
 
-
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\nocite{*}
 \bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
 \bibliography{Bibliography}
-%
-
-%\printbibliography
 
 \end{document}

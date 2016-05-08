@@ -53,7 +53,10 @@
 
 % *** MY COMMANDS ***
 \newcommand{\mysection}{Chapter}
+\newcommand{\mytitle}{chapter}
 \newcommand{\myabrv}{ch:}
+\newcommand{\mysubsection}[1]{\section{#1}}
+\newcommand{\mysubsubsection}[1]{\subsection{#1}}
 
 \makeatletter
 \newcommand{\removelatexerror}{\let\@latex@error\@gobble}
@@ -76,13 +79,13 @@ process all files:}
 \chapter{Problem Description}\label{ch:Problem Description}
 \input{../Content/chap2}
 
-\chapter{Basic MIO Model}\label{ch:Basic MIO Model}
+\chapter{MIO Model}\label{ch:Basic MIO Model}
 \input{../Content/chap3}
 
-\chapter{Heuristic} \label{ch:Heuristic}
+\chapter{Heuristic}\label{ch:Heuristic}
 \input{../Content/chap4}
 
-\section{Extensions to Detection Ambiguity}\label{sec:Robust MIO Model}
+\chapter{Extensions to Detection Ambiguity}\label{ch:Robust MIO Model}
 \input{../Content/chap5}
 
 \chapter{Scenario Complexity \& Performance Metrics} \label{ch:Scenario-Performance}
@@ -96,11 +99,14 @@ process all files:}
 
 \appendix
 
-\chapter{Estimated Trajectory Assignments}\label{ch:Assignment_Appendix}
+\chapter{Detection Ambiguity Penalty Values}\label{app:Penalty_Appendix}
 \input{../Content/appa}
 
-\chapter{Experiment 2 Penalty Values}\label{ch:Penalty_Appendix}
+\chapter{Robust MIO With Number of Targets as a Decision Variable}\label{app:Robust_Appendix}
 \input{../Content/appb}
+
+\chapter{Trajectory Assignment Pairing}\label{app:Assignment_Appendix}
+\input{../Content/appc}
 
 \include{biblio}
 
