@@ -1,22 +1,28 @@
-For completeness here we present an alternative approach to solving the MTT problem with detection ambiguity. This MIO model is an extension to \eqref{eq:simple_robust} that directly determines the number of targets via optimization by incorporating additional variables and constraints into framework of the formulation. 
+For completeness we take the time to present an alternative approach to solving the MTT problem with detection ambiguity. This MIO model is an extension to \eqref{eq:simple_robust} that directly determines the number of targets via optimization by incorporating additional variables and constraints into the framework of the formulation. 
 
 \mysubsection{Decision Variables}
-Because we do not assume a fixed number of targets, this decision must now be made by the model. Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target. Any detections assigned to a non-existing target would be a false alarm. 
+Rather than assuming a fixed number of targets for the model, we now allow this decision to be made by the model itself. Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target:
 \[w_{j} = 
 \begin{cases}
 1, & \text{if trajectory \textit{j} exists,}\\
 0, & \text{otherwise.}
 \end{cases}\]
-Since we by Assumption~\ref{ass:robust_assumptions} the number of targets will be at most $N_1$, the number of needed variables will be $N_1$.
+Of important note, any detections assigned to a non-existing target would be considered to be a false alarm. 
+
+\mysubsection{Objective Function}
+We can utilize the same objective function from \eqref{eq: general_objective}, except for slight adjustments needed to account for the possibility that some trajectories may not exist. Explicitly, the number of possible trajectories is now $N_{1}$ so the objective should be adjusted to sum over \textit{j} the full range of $j$ from 1 to $N_{1}$:
+\begin{align*}
+\underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM
+\end{align*}
 
 \mysubsection{Constraints}
-Most constraints remain similar to their original counterparts in \eqref{eq:simple_robust}, except for slight adjustments needed to account for the possibility that some trajectories may not exist. Explicitly, the number of possible trajectories is now $N_{1}$ so all instances of summing over \textit{j} must be changed accordingly. For example, we adjust \eqref{eqn: FA Simple} and \eqref{eqn: MD Total} as follows: 
+In the same fashion, most constraints remain similar to their original counterparts in \eqref{eq:simple_robust}, with the except that the summations must be adjusted appropriately. For example, we adjust \eqref{eqn: FA Simple} and \eqref{eqn: MD Total} as follows: 
 \begin{align*}
 \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t,\\
 \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM.
 \end{align*}
 
-By the same accord the RHS of \eqref{eqn: MD Simple} no longer equals to 1 because some trajectories may not exist. Therefore we say all \textit{existing} trajectories must either be assigned a detection or a missed detection, which implies the following constraints
+By the same accord the RHS of \eqref{eqn: MD Simple} no longer equals 1 because some trajectories may not exist. Therefore we say that all \textit{existing} trajectories must either be assigned a detection or a missed detection, which implies the following constraint:
 \begin{align}\label{eqn: Existing Targets}
 \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t.
 \end{align}
@@ -26,7 +32,7 @@ Moreover, we restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \tex
 |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j.
 \end{align*}
 
-This model is symmetric between various $w_j$ variables. Such symmetry in models is an undesirable quality since the multiple optimal solutions cause solving such problems to be less efficient. We can actually reduce the symmetry that is inherent to this formulation. Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. Adding the constraints
+This model is symmetric between various $w_j$ variables. Such symmetry in models is an undesirable quality because multiple optimal solutions may exist, resulting in a less efficient formulation. We can actually reduce the symmetry that is inherent to this formulation. Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. Adding the constraints
 \begin{align*}
 w_{N_0+1}\geq ...\geq w_{N_1},
 \end{align*}

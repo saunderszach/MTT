@@ -113,7 +113,7 @@ plot_2 = ggplot(data = Heuristic_Data,
   facet_grid(P~T, labeller=label_both) +
   ggtitle('Mean MIO Objective Value of Heuristic vs Sigma by N')+
   theme(axis.text=element_text(size=rel(2)),
-        axis.title=element_text(size=rel(2),face='bold'),
+        axis.title=element_text(size=rel(3),face='bold'),
         plot.title=element_text(size = rel(3),face='bold'),
         legend.text=element_text(size=rel(3)),
         strip.text.x=element_text(size = rel(3)),

@@ -96,7 +96,8 @@ A.~P. Poore and N.~Rijavec, ``A lagrangian relaxation algorithm for
 
 \bibitem{Continuous_energy}
 A.~Andriyenko and K.~Schindler, ``Multi-target tracking by continuous energy
-  minimization,'' in \emph{CVPR}, 2011.
+  minimization,'' in \emph{Computer Vision and Pattern Recognition (CVPR)},
+  2011.
 
 \bibitem{Discrete-Continuous_energy}
 A.~Andriyenko, K.~Schindler, and S.~Roth, ``Discrete-continuous optimization
@@ -122,12 +123,15 @@ I.~Gurobi~Optimization, ``Gurobi 6.5 performance benchmarks,''
 \bibitem{CPLEX-Benchmark}
 G.~Nemhauser, ``Integer programming: Global impact,''
   \url{https://smartech.gatech.edu/bitstream/handle/1853/49829/presentation.pdf},
-  2013, accessed 4 April 2016s.
+  2013, accessed 4 April 2016.
 
 \bibitem{Supercomputer}
 Top500{\ }Supercomputer{\ }Sites, ``Performance development,''
   \url{http://www.top500.org/statistics/perfdevel/}, 2015, accessed 4 April
-  2016s.
+  2016.
+
+\bibitem{Dunn}
+B.~Bertsimas and J.~Dunn, ``Optimal trees,'' submitted for publication, 2015.
 
 \bibitem{MTT-Performance}
 B.~Ristic, B.~N. Vo, D.~Clark, and B.~T. Vo, ``A metric for performance

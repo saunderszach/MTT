@@ -35,7 +35,7 @@ We can now separate the problem into two parts: given an assignment finding the 
 \begin{align}
 	\bar{x}_{jt} = \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t.
 \end{align}
-Thus, an estimated trajectory can analogically be defined by  $\alpha_{j}$ and $\beta_{j}$ such that its estimated location at the time of scan $t$ is given by
+Thus, an estimated trajectory can analogously be defined by  $\alpha_{j}$ and $\beta_{j}$ such that its estimated location at the time of scan $t$ is given by
 \begin{align}
 	\hat{x}_{jt} =  \alpha_{j} + \beta_{j}t.
 \end{align}
@@ -63,7 +63,7 @@ At this point it is necessary to discuss the advantages and disadvantages of the
 Because of the computational benefits of linear optimization over quadratic optimization, we choose to formulate the objective using the $\ell_1$ norm. Therefore, we now show how \eqref{eq:full_objective} can be reformulated using linear optimization in the case of the $\ell_1$ norm by introducing continuous variables $\psi_{jt} \in \mathbb{R}^n$ and the following constraints:
 \begin{align}
 \sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t \leq \psi_{jt}, \qquad \forall j,t,\\
--\left(\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t\right), \geq \psi_{jt} \qquad \forall j,t.
+-\left(\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t\right) \geq \psi_{jt} \qquad \forall j,t.
 \end{align}
 The resulting objective function for the case of the $\ell_1$ norm would then be:
 \begin{align}
@@ -80,7 +80,7 @@ Similarly, for each scan, each target must be assigned exactly one detection:
 \sum_{i=1}^{P} y_{itj} = 1 \qquad \forall j,t.
 \end{align}
 
-\mysubsection{Simple Formulation}
+\mysubsection{Overall Formulation}
 Integrating all of these elements together, we arrive at the following MIO model:
 \begin{align}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} \label{eq:simple_problem} \\

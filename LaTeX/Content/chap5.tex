@@ -46,9 +46,9 @@ Likewise, we introduce binary decision variables $M_{jt}$ to indicate whether or
 
 \mysubsubsection{Objective Function}
 We can easily extend \eqref{eq:generalized_objective} to account for detection ambiguity by introducing penalties $\theta$ and $\phi$ for each missed detection and false alarm, respectively. This implies a linear penalty function, meaning that every missed detection (false alarm) is contributes the same penalty to the objective function. Therefore, we simply need to penalize the total number of false alarms and missed detections in the objective function. If we denote the total number of false alarms $TF$ and total number of missed detections $TM$, the resulting objective function takes the form:
-\begin{align*}
+\begin{align}\label{eq: general_objective}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM.
-\end{align*}
+\end{align}
 As a general rule, we would expect to increase $\theta$ or $\phi$, as the number of expected false alarms or missed detections decreases, respectively. A more exhaustive discussion on the insight behind these penalties, in addition to recommendations for tuning them can be found in Appendix~\ref{app:Penalty_Appendix}.
 
 \mysubsubsection{Constraints}
