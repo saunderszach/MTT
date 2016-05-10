@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  10 MAY 2016 13:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  10 MAY 2016 15:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -521,7 +521,7 @@ Overfull \hbox (1.08632pt too wide) in paragraph at lines 11--11
 [] 
  []
 
-[9]) (../Content/chap7.tex
+[9]) (../Content/chap7_copy.tex
 <../Figures//Sigma_vs_Rho.pdf, id=46, 1011.78pt x 867.24pt>
 File: ../Figures//Sigma_vs_Rho.pdf Graphic file (type pdf)
 
@@ -550,7 +550,7 @@ File: ../Figures/Basic_Delta_Summary.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Delta_Summary.pdf>
 Package pdftex.def Info: ../Figures/Basic_Delta_Summary.pdf used on input line 
-102.
+103.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
  [12 <../Figures/Basic_Heuristic_Objective.pdf> <../Figures/Basic_Accuracy_Summ
 ary.pdf>] [13 <../Figures/Basic_Delta_Summary.pdf>] <../Figures/4_8_Histogram.p
@@ -558,47 +558,51 @@ df, id=88, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Histogram.pdf>
-Package pdftex.def Info: ../Figures/4_8_Histogram.pdf used on input line 175.
+Package pdftex.def Info: ../Figures/4_8_Histogram.pdf used on input line 181.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
 <../Figures/8_8_Histogram.pdf, id=89, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Histogram.pdf>
-Package pdftex.def Info: ../Figures/8_8_Histogram.pdf used on input line 181.
+Package pdftex.def Info: ../Figures/8_8_Histogram.pdf used on input line 187.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
  [14 <../Figures/4_8_Histogram.pdf> <../Figures/8_8_Histogram.pdf>]
 <../Figures/4_8_Accuracy.pdf, id=106, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Accuracy.pdf>
-Package pdftex.def Info: ../Figures/4_8_Accuracy.pdf used on input line 192.
+Package pdftex.def Info: ../Figures/4_8_Accuracy.pdf used on input line 198.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
 <../Figures/8_8_Accuracy.pdf, id=107, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Accuracy.pdf>
-Package pdftex.def Info: ../Figures/8_8_Accuracy.pdf used on input line 199.
+Package pdftex.def Info: ../Figures/8_8_Accuracy.pdf used on input line 205.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
 <../Figures/4_8_Delta.pdf, id=108, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Delta.pdf>
-Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 215.
+Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 221.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
 <../Figures/8_8_Delta.pdf, id=109, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Delta.pdf>
-Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 222.
+Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 228.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 ) [15 <../Figures/4_8_Accuracy.pdf> <../Figures/8_8_Accuracy.pdf>] (../Content/
 chap8.tex) (../Content/appa.tex)
-(../Content/appb.tex [16 <../Figures/4_8_Delta.pdf> <../Figures/8_8_Delta.pdf>]
-[17]) (../Content/appc.tex [18]) (./IEEE_paper.bbl
+(../Content/appb.tex
+Underfull \vbox (badness 2486) has occurred while \output is active []
+
+ [16 <../Figures/4_8_Delta.pdf> <../Figures/8_8_Delta.pdf>] [17]) (../Content/a
+ppc.tex
+[18]) (./IEEE_paper.bbl
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
 
@@ -620,8 +624,8 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
  ) 
 Here is how much of TeX's memory you used:
  5969 strings out of 493117
- 93707 string characters out of 6135433
- 182327 words of memory out of 5000000
+ 93722 string characters out of 6135433
+ 181327 words of memory out of 5000000
  9263 multiletter control sequences out of 15000+600000
  47789 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -643,7 +647,7 @@ mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on IEEE_paper.pdf (19 pages, 406979 bytes).
+Output written on IEEE_paper.pdf (19 pages, 406284 bytes).
 PDF statistics:
  203 PDF objects out of 1000 (max. 8388607)
  144 compressed objects within 2 object streams
