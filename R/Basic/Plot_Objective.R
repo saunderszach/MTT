@@ -119,7 +119,7 @@ plot_2 = ggplot(data = Heuristic_Data,
         strip.text.x=element_text(size = rel(3)),
         strip.text.y=element_text(size = rel(3))) + 
   xlab('Sigma') +
-  ylab('Mean MIO Objective Value / Ideal Solution MIO Objective Value') +
+  ylab(expression(bold(f[H]/f[I]))) +
   scale_y_log10() + 
   scale_fill_discrete('') +
   theme(legend.position = "bottom") + 

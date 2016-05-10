@@ -128,7 +128,7 @@ isdir(mypath) || mkdir(mypath)
 
 Summary_path = string(Path_stem, "Results/Results_Summaries/", string(P), "_", string(T), "_", string(Scenario_num), "_", string(σ), "_", string(γ), "_", string(λ), ".csv")
 open(Summary_path,"w") do fp
-  println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,MIO_Time,Rho,Accuracy,Delta,Objective,Solution_Type,Scenario_Type")
+  println(fp, "P,T,Scenario_num,Sigma,Gamma,Lambda,Sim_num,Theta,Phi,Test_P,MIO_Time,Rho,Accuracy,Delta,Objective,FA,MD,Solution_Type,Scenario_Type")
 end
 
 ### Define range of times to run MIP
@@ -183,13 +183,13 @@ for Sim_num in Sim_range
   gc()
 
   ### CALCULATE ESTIMATED PARAMETERS & OBJECTIVE SCORE ###
-  (Random_objective, Random_alpha, Random_beta) = solve_estimation(Data, Random_partitions, Num_detections, Grid_size, Random_P, T, θ, ϕ)
+  (Random_objective, Random_alpha, Random_beta, Random_TM, Random_TF) = solve_estimation(Data, Random_partitions, Num_detections, Grid_size, Random_P, T, θ, ϕ)
 
   ### RUN GARBAGE COLLECTOR ###
   gc()
   
   ### CALCULATE ESTIMATED PARAMETERS & OBJECTIVE SCORE ###
-  (Ideal_objective,  Ideal_alpha,  Ideal_beta)  = solve_estimation(Data, Ideal_partitions,  Num_detections, Grid_size, P, T, θ, ϕ)
+  (Ideal_objective,  Ideal_alpha,  Ideal_beta, Ideal_TM, Ideal_TF)  = solve_estimation(Data, Ideal_partitions,  Num_detections, Grid_size, P, T, θ, ϕ)
 
   ### RUN GARBAGE COLLECTOR ###
   gc()
@@ -221,13 +221,13 @@ for Sim_num in Sim_range
   ### WRITE RESULTS TO FILE ###
   if Scenario_num <= Num_parallel
     open(Summary_path, "a") do fp
-      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Random_P, ",", 1, ",", ρ, ",", Random_accuracy, ",", Random_δ, ",", Random_objective, ",", "Random", ",", "Parallel")
-      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", P,        ",", 1, ",", ρ, ",", Ideal_accuracy,  ",", Ideal_δ,  ",", Ideal_objective,  ",", "Ideal",  ",", "Parallel")
+      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Random_P, ",", 1, ",", ρ, ",", Random_accuracy, ",", Random_δ, ",", Random_objective, ",", Random_TF, ",", Random_TM, ",", "Random", ",", "Parallel")
+      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", P,        ",", 1, ",", ρ, ",", Ideal_accuracy,  ",", Ideal_δ,  ",", Ideal_objective,  ",", Ideal_TF, ",", Ideal_TM,",", "Ideal",  ",", "Parallel")
     end
   else
     open(Summary_path, "a") do fp
-      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Random_P, ",", 1, ",", ρ, ",", Random_accuracy, ",", Random_δ, ",", Random_objective, ",", "Random", ",", "Crossing")
-      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",",      P,   ",", 1, ",", ρ, ",", Ideal_accuracy,  ",", Ideal_δ,  ",", Ideal_objective,  ",", "Ideal",  ",", "Crossing")
+      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Random_P, ",", 1, ",", ρ, ",", Random_accuracy, ",", Random_δ, ",", Random_objective, ",", Random_TF, ",", Random_TM,",", "Random", ",", "Crossing")
+      println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",",      P,   ",", 1, ",", ρ, ",", Ideal_accuracy,  ",", Ideal_δ,  ",", Ideal_objective,  ",", Ideal_TF, ",", Ideal_TM,",", "Ideal",  ",", "Crossing")
     end
   end
 
@@ -241,7 +241,7 @@ for Sim_num in Sim_range
     gc()
 
     ### CALCULATE ESTIMATED PARAMETERS & OBJECTIVE SCORE ###
-    (Heuristic_objective, Heuristic_alpha, Heuristic_beta) = solve_estimation(Data, Heuristic_partitions, Num_detections, Grid_size, Test_P, T, θ, ϕ)
+    (Heuristic_objective, Heuristic_alpha, Heuristic_beta, Heuristic_TM, Heuristic_TF) = solve_estimation(Data, Heuristic_partitions, Num_detections, Grid_size, Test_P, T, θ, ϕ)
 
     ### RUN GARBAGE COLLECTOR ###
     gc()
@@ -267,11 +267,11 @@ for Sim_num in Sim_range
     ### WRITE RESULTS TO FILE ###
     if Scenario_num <= Num_parallel
       open(Summary_path, "a") do fp                     
-        println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", 1, ",", ρ, ",", Heuristic_accuracy, ",", Heuristic_δ, ",", Heuristic_objective, ",", "Heuristic", ",", "Parallel")
+        println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", 1, ",", ρ, ",", Heuristic_accuracy, ",", Heuristic_δ, ",", Heuristic_objective, ",", Heuristic_TF, ",", Heuristic_TM, ",", "Heuristic", ",", "Parallel")
       end
     else
       open(Summary_path, "a") do fp
-        println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", 1, ",", ρ, ",", Heuristic_accuracy, ",", Heuristic_δ, ",", Heuristic_objective, ",", "Heuristic", ",", "Crossing")
+        println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", 1, ",", ρ, ",", Heuristic_accuracy, ",", Heuristic_δ, ",", Heuristic_objective, ",", Heuristic_TF, ",", Heuristic_TM, ",", "Heuristic", ",", "Crossing")
       end
     end
 
@@ -291,7 +291,7 @@ for Sim_num in Sim_range
       gc()
 
       ### CALCULATE ESTIMATED PARAMETERS & OBJECTIVE SCORE ###
-      (Optimized_objective, Optimized_alpha,  Optimized_beta) = solve_estimation(Data, Optimized_partitions, Num_detections, Grid_size, Test_P, T, θ, ϕ)
+      (Optimized_objective, Optimized_alpha,  Optimized_beta, Optimized_TM, Optimized_TF) = solve_estimation(Data, Optimized_partitions, Num_detections, Grid_size, Test_P, T, θ, ϕ)
 
       ### RUN GARBAGE COLLECTOR ###
       gc()
@@ -317,11 +317,11 @@ for Sim_num in Sim_range
       ### WRITE RESULTS TO FILE ###
       if Scenario_num <= Num_parallel
         open(Summary_path, "a") do fp        
-          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", Optimized_δ, ",", Optimized_objective, ",", "Optimized", ",", "Parallel")
+          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", Optimized_δ, ",", Optimized_objective, ",", Optimized_TF, ",", Optimized_TM, ",", "Optimized", ",", "Parallel")
         end
       else
         open(Summary_path, "a") do fp
-          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", Optimized_δ, ",", Optimized_objective, ",", "Optimized", ",", "Crossing")
+          println(fp, P, ",", T, ",", Scenario_num, ",", σ, ",", γ, ",", λ, ",", Sim_num, ",", θ, ",", ϕ, ",", Test_P, ",", Time_limit, ",", ρ, ",", Optimized_accuracy, ",", Optimized_δ, ",", Optimized_objective, ",", Optimized_TF, ",", Optimized_TM, ",", "Optimized", ",", "Crossing")
         end
       end
         

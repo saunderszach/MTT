@@ -5,7 +5,7 @@ library(RColorBrewer)
 
 setwd('~/Desktop/Results/Robust/')
 
-Raw_Data = read.csv('Files/Results_summary.csv', 
+Raw_Data = read.csv('Files/Summary.csv', 
                     header=TRUE, 
                     stringsAsFactors=TRUE)
 
@@ -70,6 +70,41 @@ T_range = c(8)
 ###  TEST P HISTOGRAM BY SOLUTION TYPE  ###
 ###                                     ###
 ###########################################
+Sigma_range = c(0.1,0.5,1.0,2.0)
+for (P_loop in P_range){
+  for (T_loop in T_range){
+    for (Sigma_loop in Sigma_range){
+
+Temp3= Data_new %>% group_by(P,T,Sigma,Gamma,Lambda,FA,Solution_Type) %>% summarize(count=n()) %>% filter(P==P_loop, T==T_loop,Sigma==Sigma_loop, Solution_Type!='MIO_3T_sec', Solution_Type!='MIO_1_sec',Solution_Type!='MIO_T_sec') 
+
+plot = ggplot(data = Temp3, aes(x=FA, y=count, fill=Solution_Type)) + geom_bar(stat = "Identity",position="dodge") + facet_grid(Gamma~Lambda, labeller=label_both)
+
+Save_str = paste('Plots/Histogram/',toString(P_loop),'_', 
+                 toString(T_loop),'_', toString(Sigma_loop),
+                 '_FA.pdf', sep='')
+pdf(file=Save_str, width = 14, height = 12)
+print(plot)
+dev.off()
+
+Temp4= Data_new%>% group_by(P,T,Sigma,Gamma,Lambda,MD,Solution_Type) %>% summarize(count=n()) %>% filter(P==P_loop, T==T_loop,Sigma==Sigma_loop, Solution_Type!='MIO_3T_sec', Solution_Type!='MIO_1_sec',Solution_Type!='MIO_T_sec') 
+
+plot_2 = ggplot(data = Temp4, aes(x=MD, y=count, fill=Solution_Type)) + geom_bar(stat = "Identity",position="dodge") + facet_grid(Gamma~Lambda, labeller=label_both)
+
+Save_str = paste('Plots/Histogram/',toString(P_loop),'_', 
+                 toString(T_loop),'_', toString(Sigma_loop),
+                 '_MD.pdf', sep='')
+pdf(file=Save_str, width = 14, height = 12)
+print(plot_2)
+dev.off()
+
+}}}
+
+
+###########################################
+###                                     ###
+###  TEST P HISTOGRAM BY SOLUTION TYPE  ###
+###                                     ###
+###########################################
 Temp = Data_new
 Temp$P = as.numeric(as.character(Temp$P))
 Temp$Test_P = as.numeric(as.character(Temp$Test_P))
@@ -105,7 +140,7 @@ for (P_loop in P_range){
   xlab(expression(bold(P[difference]))) + scale_fill_discrete("",labels=Labels) + theme(legend.position = "bottom") 
     
     Save_str = paste('Plots/Histogram/',toString(P_loop),'_', 
-                     toString(T_loop),'_Histogram.pdf', sep='')
+                     toString(T_loop),'_Pdiff.pdf', sep='')
     pdf(file=Save_str, width = 14, height = 12)
     print(plot)
     dev.off()

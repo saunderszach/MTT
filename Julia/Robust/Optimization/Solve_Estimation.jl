@@ -132,9 +132,10 @@ status = solve(MIP)
 Objective_value = getObjectiveValue(MIP)
 Alpha = getValue(α[:])
 Beta = getValue(β[:])
-
+TMvalue=getValue(TM)
+TFvalue=getValue(TF)
 ### RUN GARBAGE COLLECTOR ###
 gc()
 
-    return Objective_value, Alpha, Beta
+    return Objective_value, Alpha, Beta, TMvalue, TFvalue
 end
