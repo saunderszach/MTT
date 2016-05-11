@@ -26,8 +26,15 @@ DataNew = Data[Data$Test_P %in% Selected,]
 
 DataNew$Test_P = factor(DataNew$Test_P)
 
-DataSubset = DataNew %>% group_by(Test_P, T) %>% summarize(Min_time=min(Heuristic_run_time), Mean_time=mean(Heuristic_run_time), Max_time=max(Heuristic_run_time)) %>% ungroup()
+DataSubset = DataNew %>% group_by(P, T) %>% summarize(Min_time=min(Heuristic_run_time), Mean_time=mean(Heuristic_run_time), Max_time=max(Heuristic_run_time)) %>% ungroup()
 
+bloop=paste(0,0,0)
+for (p in unique(DataNew$P)){
+  for (t in unique(DataNew$T)){
+  DataBloop =DataNew %>% filter(P==p,T==t)
+  bloop=paste(bloop, "\n",paste(p,t,length(unique(DataBloop$Test_P))))
+}}  
+  
 DataSubset
 
 xtable(DataSubset)

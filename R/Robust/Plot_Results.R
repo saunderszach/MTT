@@ -17,7 +17,6 @@ Raw_Data$Gamma         = factor(Raw_Data$Gamma,
                                                       
 Raw_Data$Lambda        = factor(Raw_Data$Lambda)
 Raw_Data$Sim_num       = factor(Raw_Data$Sim_num)
-Raw_Data$Test_P        = factor(Raw_Data$Test_P)
 
 DataOpt1 = Raw_Data %>% filter(Solution_Type=='Optimized',
                                MIO_Time==1) %>% mutate(Solution_Type='MIO_1_sec')
@@ -60,7 +59,14 @@ Labels = c('Random',
            'MIO (2T sec)',
            'Ideal')
 
-Data_new = Data %>% group_by(P, T, Scenario_num, Sigma, Gamma, Lambda, Sim_num, Theta, Phi, Solution_Type) %>% filter(min_rank(Objective) <= 1) %>% ungroup()
+Data_new = Data %>% mutate(obs_ratio = Objective/Test_P) %>% group_by(P, T, Scenario_num, Sigma, Gamma, Lambda, Sim_num, Solution_Type) %>% filter(min_rank(obs_ratio) <= 1) %>% ungroup()
+
+
+#Temp =  Data %>% mutate(obs_ratio = Objective/Test_P) %>% filter(P=='4',T=='8', Solution_Type=='MIO_3T_sec') %>% group_by(P, T, Scenario_num, Sigma, Gamma, Lambda, Sim_num, Solution_Type) %>% filter(min_rank(obs_ratio) <= 1) %>% ungroup()
+
+#Data2 = Data_new %>% group_by(P, T, Sigma, Gamma, Lambda, Solution_Type,Test_P) %>% summarize(n())
+
+Data_new$Test_P = factor(Data_new$Test_P)
 
 P_range = c(4, 8)
 T_range = c(8)
