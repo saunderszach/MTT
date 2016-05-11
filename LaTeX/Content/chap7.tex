@@ -223,15 +223,13 @@ Compared to the scenarios with no detection ambiguity, the solution quality appe
 Furthermore, the robust approaches appear more sensitive to higher false detection rates than higher missed detection probabilities. The MIO after T seconds achieves accuracy levels of almost $65\%$ when increasing the false alarm rate $\lambda$ to 2.0 while fixing $\gamma$ at 0.05. In contrast, the same solution achieves accuracy levels above $75\%$ when increasing the missed detection probability to $\lambda = 0.2$, fixing $\lambda$ at 0.1. Thus, we conclude that our approaches are more robust to changes in the missed detection probability than changes in the false alarm rate.  
 
 \mysubsubsection{Trajectory Estimation}
-We conclude our analysis of the robust approaches with a discussion on their performance in the sphere of the trajectory estimation problem. Figures~\ref{fig:Robust_4_8_Delta} and~\ref{fig:Robust_8_8_Delta} plot the $\delta$ performance metric against the difficulty metric, $\sigma$, for scenarios of four and eight targets, respectively. Again, both scenarios have eight scans and both Figures have been arranged by $\gamma$ and $\lambda$. Note that the range on $\sigma$ has been reduced from $[0.1,5.0]$ to $[0.1, 2.0]$. 
-
+We conclude our analysis of the robust approaches with a discussion on their performance in the sphere of the trajectory estimation problem. Figures~\ref{fig:Robust_4_8_Delta} and~\ref{fig:Robust_8_8_Delta} plot the $\delta$ performance metric against the difficulty metric, $\sigma$, for scenarios of four and eight targets, respectively. Again, both scenarios have eight scans and both figures have been arranged by $\gamma$ and $\lambda$. Note that the range on $\sigma$ has been reduced from $[0.1,5.0]$ in the previous section for scenarios without detection ambiguity to $[0.1, 2.0]$ for this section, where the scenarios now have detection ambiguity. 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{../Figures/4_8_Delta}
   \caption{$\delta$ of robust heuristic and MIO as compared to random solutions for scenarios of 4 targets and 8 scans.}
   \label{fig:Robust_4_8_Delta}
 \end{figure}
-
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{../Figures/8_8_Delta}

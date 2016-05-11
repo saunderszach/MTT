@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  11 MAY 2016 13:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  11 MAY 2016 13:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -597,29 +597,22 @@ Underfull \vbox (badness 1558) has occurred while \output is active []
 File: ../Figures/4_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Delta.pdf>
-Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 230.
+Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 229.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
 
 <../Figures/8_8_Delta.pdf, id=109, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Delta.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Delta.pdf>
-Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 237.
+Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 235.
 (pdftex.def)             Requested size: 252.0pt x 216.00226pt.
  [15 <../Figures/4_8_Accuracy.pdf> <../Figures/8_8_Accuracy.pdf> <../Figures/4_
 8_Delta.pdf>]) (../Content/chap8.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3058) has occurred while \output is active []
 
 )
-(../Content/appa.tex
-
-LaTeX Warning: Reference `tab:Penalties' on page 16 undefined on input line 1.
-
-[16 <../Figures/8_8_Delta.pdf>]) (../Content/appb.tex
-Underfull \vbox (badness 2050) has occurred while \output is active []
-
- [17])
-(../Content/appc.tex [18]) (./IEEE_paper.bbl
+(../Content/appa.tex [16 <../Figures/8_8_Delta.pdf>]) (../Content/appb.tex
+[17]) (../Content/appc.tex [18]) (./IEEE_paper.bbl
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
 
@@ -634,37 +627,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--127
 / presentation . pdf$,
  []
 
-) [19] (./IEEE_paper.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+) [19] (./IEEE_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 6013 strings out of 493117
- 94260 string characters out of 6135433
- 172045 words of memory out of 5000000
- 9306 multiletter control sequences out of 15000+600000
+ 6012 strings out of 493117
+ 94245 string characters out of 6135433
+ 173045 words of memory out of 5000000
+ 9305 multiletter control sequences out of 15000+600000
  46653 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,19n,38p,1514b,771s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
-/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2014/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2014/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
-/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times
-/utmri8a.pfb>
-Output written on IEEE_paper.pdf (19 pages, 405912 bytes).
+{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/
+base/8r.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmbsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi5.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.
+pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pf
+b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><
+/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></us
+r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
+/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/l
+ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/t
+exlive/2014/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/20
+14/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-d
+ist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on IEEE_paper.pdf (19 pages, 405943 bytes).
 PDF statistics:
  203 PDF objects out of 1000 (max. 8388607)
  144 compressed objects within 2 object streams
