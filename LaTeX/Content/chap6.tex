@@ -35,11 +35,10 @@ This metric has several desirable attributes. First and foremost, it falls withi
 \mysubsection{Trajectory Estimation}
 In the case of the trajectory estimation problem, the preferred complexity metric often used in practice is $\sigma$ itself. Increasing the noise may often lead to stronger bias in the trajectory estimation, especially in scenarios with fewer scans, and results in a deteriorated quality of the estimation. Therefore, we believe that $\sigma$ is the correct metric for use in measuring the difficulty of the trajectory estimation problem. 
 
-However, establishing a performance metric for the trajectory estimation problem is necessary. We choose to implement a metric which captures the core goal of the trajectory estimation problem, that is to estimate a trajectory as close as possible to the true ground track. 
+However, establishing a performance metric for the trajectory estimation problem is necessary. We choose to apply a metric that captures the core goal of the trajectory estimation problem: to estimate a trajectory as close as possible to the true ground track. Therefore, we use the following metric as a measure of this error: 
 \begin{align*}
 	\delta = \frac{\sum\limits_{t=1}^{T}\sum\limits_{j=1}^{P}\| \bar{x}_{jt} - \hat{x}_{jt} \|}{PT}.
 \end{align*}
-
-We match the true trajectories to the estimated trajectories using an one-to-one assignment problem which can be formulated using linear optimization. See Appendix~\ref{app:Assignment_Appendix} for more details. Lower values of $\delta$ correspond to higher performance because the distance between the estimated and true ground trajectories is smaller. 
+Lower values of $\delta$ correspond to higher performance because the distance between the estimated and true ground trajectories is smaller. We match the true trajectories to the estimated trajectories using an one-to-one assignment problem which can be formulated using linear optimization. Note that it is necessary to take $P$ as the minimum of the true number of targets and the estimated number of targets when $P$ is unknown in the case of detection ambiguity. See Appendix~\ref{app:Assignment_Appendix} for more details, including a complete formulation of the assignment problem. 
 
 In the next \mytitle, we will see how these measures of complexity and performance are useful in quantifying the strengths and weaknesses of our methods.

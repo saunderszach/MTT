@@ -9,7 +9,7 @@ A.~Andriyenko, K.~Schindler, and S.~Roth.
 \bibitem{Continuous_energy}
 Anton Andriyenko and Konrad Schindler.
 \newblock Multi-target tracking by continuous energy minimization.
-\newblock In {\em CVPR}, 2011.
+\newblock In {\em Computer Vision and Pattern Recognition (CVPR)}, 2011.
 
 \bibitem{Bar-Shalom_MTT}
 Y.~Bar-Shalom and X.R. Li.
@@ -20,6 +20,12 @@ Y.~Bar-Shalom and X.R. Li.
 Yaakov Bar-Shalom and Xiao-Rong Li.
 \newblock {\em Estimation with Applications to Tracking and Navigation}.
 \newblock John Wiley \& Sons, Inc., New York, NY, USA, 2001.
+
+\bibitem{Dunn}
+B~Bertsimas and J.~Dunn.
+\newblock Optimal trees.
+\newblock 2015.
+\newblock submitted for publication.
 
 \bibitem{Gurobi-MIP}
 Robert~E. Bixby.
@@ -104,7 +110,7 @@ George Nemhauser.
 \newblock
   \url{https://smartech.gatech.edu/bitstream/handle/1853/49829/presentation.pdf},
   2013.
-\newblock Accessed 4 April 2016s.
+\newblock Accessed 4 April 2016.
 
 \bibitem{Viterbi-3}
 R.~Perry, A.~Vaddiraju, and K.~Buckley.
@@ -148,7 +154,7 @@ N.~Jakovcevic Stor, I.~Slapnicar, and J.~L. Barlow.
 Top500{\ }Supercomputer{\ }Sites.
 \newblock Performance development.
 \newblock \url{http://www.top500.org/statistics/perfdevel/}, 2015.
-\newblock Accessed 4 April 2016s.
+\newblock Accessed 4 April 2016.
 
 \bibitem{Viterbi-1}
 J.~K. Wolf, A.~M. Viterbi, and G.~S. Dixon.

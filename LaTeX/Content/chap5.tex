@@ -98,7 +98,7 @@ P_\text{est}=\min_{N_o\leq P\leq N_1} g(P),
 \end{align*}
 and the trajectories and assignments will correspond with the optimal solution of the corresponding model.
 
-\mysubsection{Heuristic with Fixed Number of Targets}
+\mysubsection{Heuristic with Fixed Number of Targets}\label{sec:Robust_Heuristic}
 The heuristic for the scenario with ambiguity follows closely from the heuristic developed under the scenario without ambiguity, with a few key differences. In the first place, the process for establishing a random starting point during the initialization process requires refinement. Initial solutions should allow for false alarms and missed detections. With equal probability, each detection is randomly classified as a false alarm or selected to receive a target assignment. Once a detection has been identified for assignment, assignments are randomly selected uniformly across all targets. The remaining scans for which trajectories do not receive an assignment are identified as missed detections. 
 
 Once a starting point has been initialized, the heuristic progresses in much the same manner as before. Again, it sweeps through all scans continuously making random swaps. However, the swapping process also change.Specifically, false alarms and missed detections must be included in the switches. but the robust heuristic randomly chooses from the following options when making swaps: 

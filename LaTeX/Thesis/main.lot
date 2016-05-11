@@ -9,6 +9,7 @@
 \contentsline {table}{\numberline {7.2}{\ignorespaces Robust heuristic run times (in milliseconds) for a single starting point.\relax }}{58}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Experiment 2 penalty values.}}{72}
+\contentsline {table}{\numberline {A.1}{\ignorespaces False alarm penalties ($\theta $) as a function of $\lambda $ and $\sigma $.\relax }}{70}
+\contentsline {table}{\numberline {A.2}{\ignorespaces Missed detection penalties ($\phi $) as a function of $\lambda $, $\gamma $, and $\sigma $.\relax }}{70}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

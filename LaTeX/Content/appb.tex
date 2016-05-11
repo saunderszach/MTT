@@ -40,7 +40,7 @@ further reduces the number of equivalent solution and increases the efficient re
 
 \mysubsection{Full Formulation}
 Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
-\begin{align*}
+\begin{align}\label{eq:MIO_decisions}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
 \text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t \nonumber\\
 				& \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = 1 \qquad \forall j=1,...,N_{0},t \nonumber \\
@@ -56,7 +56,7 @@ Incorporating these additional variables and constraints, we arrive at the follo
 			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j \nonumber \\
 				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n,\quad w_{j} \in \mathbb{R}^n \quad \forall j \nonumber \\
 				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t. \nonumber
-\end{align*}
+\end{align}
 
 \mysubsection{Extension of Robust Heuristic}
-In order to initialize the above MIO we need to explore the entire state space which include specifying the number of targets. Such a heuritic will be identical to that proposed in \mysection~\ref{\myabrv Robust MIO Model}, except the number of target used will also be randomly  selected during the initialization process. As in all previous cases, the warm start will be chosen among the different heuristic solutions based on the objective function value.
+The robust heuristic presented in section~\ref{sec:Robust_Heuristic} can similarly be used to provide warm start solutions to \eqref{eq:MIO_decisions}. Although the robust heuristic requires assuming a fixed number of targets for the heuristic, it does not require running the heuristic in parallel for all values of $P$. Alternatively, $P$ can be selected via randomization prior to initializing the heuristic. No matter the case, the heuristic solutions can be used as a warm start to \eqref{eq:MIO_decisions} by simply setting all $w_{j}=1$ for $j=1,....,P$ and $w_{j}=0$ for all remaining $w_{j}$ up to $N_{1}$.

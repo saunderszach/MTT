@@ -135,7 +135,7 @@ for (P_loop in P_range){
     
     Data3=rbind(Data3,cbind(expand.grid(P=levels(Data3$P),T=levels(Data3$T),Gamma=levels(Data3$Gamma),Lambda=levels(Data3$Lambda),Diff_P=levels(Data3$Diff_P),Solution_Type=levels(Data3$Solution_Type)),count=NA))
   
-    plot = ggplot(data = Data3, aes(x=Diff_P, y=count, fill=Solution_Type)) + geom_bar(stat = "Identity",position="dodge") + facet_grid(Gamma~Lambda, labeller=label_both) + ggtitle(expression(bold(paste('Frequency of ', P[difference])))) +
+    plot = ggplot(data = Data3, aes(x=Diff_P, y=count, fill=Solution_Type)) + geom_bar(stat = "Identity",position="dodge") + facet_grid(Gamma~Lambda, labeller=label_both) + ggtitle(expression(bold(paste('Frequency of ', P[diff])))) +
   theme(axis.text=element_text(size=14),
         axis.title=element_text(size=rel(3),face='bold'),
         plot.title=element_text(size = rel(3),face='bold'),
@@ -143,7 +143,7 @@ for (P_loop in P_range){
         strip.text.x=element_text(size = rel(2)),
         strip.text.y=element_text(size = rel(2))) + 
   ylab('Number of Occurences') + 
-  xlab(expression(bold(P[difference]))) + scale_fill_discrete("",labels=Labels) + theme(legend.position = "bottom") 
+  xlab(expression(bold(P[diff]))) + scale_fill_discrete("",labels=Labels) + theme(legend.position = "bottom") 
     
     Save_str = paste('Plots/Histogram/',toString(P_loop),'_', 
                      toString(T_loop),'_Pdiff.pdf', sep='')
