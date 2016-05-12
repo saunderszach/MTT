@@ -239,20 +239,16 @@ We conclude our analysis of the robust approaches with a discussion on their per
 
 Note that $\delta$ is calculated using the $\min\{P_{\text{true}},P_{\text{est}}\}$. The fact that we tend to overestimate means that more often than not $\delta$ will be calculated using $P_{\text{true}}$. This implies that in most cases we match all the true trajectories to estimated ones, and so the number of trajectories for the $\delta$ calculation is the same as in the scenarios without detection ambiguity. Thus, we can compare and interpret their values directly.
 
-We conclude that although we tend to overestimate the number of targets, we actually estimate the trajectories very well for the trajectories that correspond to the true trajectories. 
+In comparing Figure~\ref{fig:Robust_8_8_Delta} with the graph in Figure~\ref{Fig:Basic_Delta_Summary} corresponding to $P=8$ and $T=8$, we see that for $\lambda=0.1$ and $\gamma=0.05$ there is no observable loss of performance in adding the detection ambiguity, for the MIO after $T$ seconds. This observation also holds true for the heuristic solution. In contrast, comparing Figure~\ref{fig:Robust_4_8_Delta} with the graph in Figure~\ref{Fig:Basic_Delta_Summary} corresponding to $P=4$ and $T=8$, and the same $\lambda$ and $\gamma$ values, the $\delta$ value for the MIO increases for $\sigma$ values larger than $0.5$, and the increase becomes worse as $\sigma$ increases. Moreover, in the same case, the heuritic performance deteriorates even more sharply than the MIO's performance. 
 
-In comparing Figure~\ref{fig:Robust_4_8_Delta} with the graph in Figure~\ref{Fig:Basic_Delta_Summary} corresponding to $P=8$ and $T=8$, we see that there is not observable loss of performance for large values of $\sigma$. However, as $\sigma$ approaches zero, we see a deterioration in performance, particularly for values of $\lambda$ greater than $0.1$. Yet, for $\lambda=0.1$ 
-
-
-
-
-
-As we saw for the data association problem, we again see that our approaches are more robust to increases in the missed detection probability than increases in the false alarm rate. Figures~\ref{fig:Robust_4_8_Delta} and~\ref{fig:Robust_8_8_Delta} both show that there is little to no loss in trajectory estimate quality with increases in $\gamma$ for either the heuristic or MIO. Even more impressively, this holds true across all values of $\sigma$ and $\lambda$, suggesting that our approaches are fairly robust to missed detections when it comes to trajectory estimation.
+Similar to what we have seen for the data association problem, in the trajectory estimation problem our approaches are also more robust to increases in $\gamma$ than increases in $\lambda$. Figures~\ref{fig:Robust_4_8_Delta} and~\ref{fig:Robust_8_8_Delta} both show that there is little to no loss in the quality of the trajectory estimation when increasing $\gamma$ for both the heuristic or MIO, and this holds true across all values of $\sigma$ and $\lambda$. Whereas, especially for small $\sigma$ values, as $\lambda$ increases we see the estimation of the MIO ran for $T$ seconds deteriorating, for example, for eight targets and $\sigma=0.1$, while for $\lambda=0.1$ we get $\delta$ close to zero, for $\lambda=2$ the value of delta increases to $1$.  This deterioration is a lot milder for the case of four targets.
 
 \mysubsubsection{Detection Ambiguity Summary}
-We have shown that in the case of detection ambiguity:
+The case of detection ambiguity provides two additional challenges: the assignment problem is more complex for a fixed number of targets, and an added problem of deciding the correct number of target.
+The results for this case indicate thats
 \begin{itemize}
-\item The case of detection ambiguity provides two additional challenges: the assignment problem is more complex for a fixed number of targets, and an added problem of deciding the correct number of target. We saw that tuning the parameters we can find the correct number of targets in most cases, even for a relatively large scenario, and given that number the detection ambiguity decreases performance by 5\%-10\%,  for the case of low false alarm rate and any detection probability, with respect to the same scenarios with no detection ambiguity.
-\item The parameters are more easily tunable for various missed detection probability than for false alarm rates. This may be caused by the fact that missed detection, similarly to estimation errors, is dependent on the number of targets, while the number false alarm only depends on the false alarm rate. 
-\item Although we tend to overestimate the number of targets, the quality of estimated trajectories that correspond to the true ground track trajectories is very high. 
+\item  Tuning the parameters leads to a correct estimation of the number of targets, even for a relatively large scenario.
+\item The accuracy deteriorates by 5\%-10\% with the addition of detection ambiguity.
+\item Although we tend to overestimate the number of targets, the quality of estimated trajectories that correspond to the true trajectories is similar to the case with no detection ambiguity.
+\item The solution of the MIO is more robust to changes in missed detection probability than to changes in the false alarm rate.
 \end{itemize}
