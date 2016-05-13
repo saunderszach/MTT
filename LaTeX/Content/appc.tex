@@ -1,6 +1,7 @@
-In order to analyze the performance of a multi-target tracking algorithm, we must first find the best matching of the true trajectories of the scenario and the estimated trajectories of the algorithm solution. Put differently, we wish to find a set of assignment pairings which match true and estimated trajectories. Here we present a linear optimization model which solves for the globally optimal assignment pairings of true and estimated trajectories. In addition, we extend the assignment problem to scenarios with detection ambiguity, where the algorithm may overestimate or underestimate the number of targets. When this situation arises, a few minor adjustments are necessary to find the optimal assignment pairing. 
+In order to analyze the performance of a multi-target tracking algorithm, we must first match the true trajectories of the scenario to the estimated trajectories of the algorithm solution. In other words, we wish to the best pairings of true and estimated trajectories. With this in mind, we present an integer optimization model that solves for the globally optimal pairings of true and estimated trajectories. In addition, we extend this assignment problem to scenarios with detection ambiguity, where the MTT algorithms may overestimate or underestimate the number of targets.
 
-The goal of this assignment problem is to optimally assign pairs of true trajectories \textit{i} to estimated trajectories \textit{j} if there exists such a pairing to be made. Only a single set of decision variables are needed to determine if the true trajectory \textit{i} should be assigned to the estimated trajectory \textit{j} or not. 
+\mysubsection{Decision Variables}
+The goal of this assignment problem is to optimally assign pairs of true trajectories \textit{i} to estimated trajectories \textit{j} if there exists such a pairing to be made. Only a single set of decision variables are needed to determine this pairing:
 \[y_{ij} = 
 \begin{cases}
 1, & \text{if true trajectory \textit{i} is assigned}\\
@@ -8,40 +9,42 @@ The goal of this assignment problem is to optimally assign pairs of true traject
 0, & \text{otherwise.}
 \end{cases}\]
 
-Remember that we denote the true position of trajectory \textit{i} at scan \textit{t} with $\bar{x}_{it}$ and the estimated position of trajectory \textit{j} at scan \textit{t} with $\hat{x}_{jt}$. Then the cost $c_{ij}$ of assigning true trajectory \textit{i} to estimated trajectory \textit{j} is the norm distance between these two trajectories as measured at each scan. 
+\mysubsection{Objective Function}
+Remember that we denote the true position of trajectory \textit{i} in scan \textit{t} with $\bar{x}_{it}$ and the estimated position of trajectory \textit{j} in scan \textit{t} with $\hat{x}_{jt}$. Then the cost $c_{ij}$ of assigning true trajectory \textit{i} to estimated trajectory \textit{j} is the norm distance between these two trajectories in all scans. 
 \begin{align*}
-	c_{ij} = \sum_{t=1}^{T} \|\bar{x}_{it} - \hat{x}_{jt}\|
+	c_{ij} = \sum_{t=1}^{T} \|\bar{x}_{it} - \hat{x}_{jt}\|.
 \end{align*}
-If we denote the true number of targets as $P_{\text{true}}$ and the estimated number of targets as $P_{\text{est}}$ then the objective of the integer optimization model would be:
+If we denote the true number of targets as $P_{\text{true}}$ and the estimated number of targets as $P_{\text{est}}$ then the objective of the integer optimization model is:
 \begin{align*}
-\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{est}}} c_{ij}y_{ij}
+\underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{est}}} c_{ij}y_{ij}.
 \end{align*}
 
+\mysubsection{Constraints}
 When the number of true targets is equal to the number of estimated targets ($P_{\text{true}} = P_{\text{est}} = P$), we simply require two equality constraints to ensure that each true trajectory \textit{i} is assigned to exactly one estimated trajectory \textit{j} and vice versa. 
 \begin{align}\label{eqn:assignment_1}
 \sum_{i=1}^{P} y_{ij} = 1 \qquad \forall j = 1,...,P
 \end{align}
 \begin{align}\label{eqn:assignment_2}
-\sum_{j=1}^{P} y_{ij} = 1 \qquad \forall i = 1,...,P
+\sum_{j=1}^{P} y_{ij} = 1 \qquad \forall i = 1,...,P.
 \end{align}
 
-However, when the number of estimated trajectories differs from the number of true trajectories, these constraints must be modified slightly. In the case where the number of true targets exceeds the estimated number of targets ($P_{\text{true}}\geq P_{\text{est}}$), we restrict each true trajectory \textit{i} to the assignment of \textit{at most} one estimated trajectory \textit{j}, and Equation~\ref{eqn:assignment_1} is modified to:
+However, when the number of estimated trajectories differs from the number of true trajectories, these constraints must be adjusted appropriately. For the case in which the number of true targets exceeds the estimated number of targets ($P_{\text{true}}\geq P_{\text{est}}$), we restrict each true trajectory \textit{i} to the assignment of \textit{at most} one estimated trajectory \textit{j}. In effect, Equation~\ref{eqn:assignment_1} is modified to:
 \begin{align*}
 \sum_{i=1}^{P_{\text{true}}} y_{ij} \leq 1 \qquad \forall  j = 1,...,P_{\text{est}}.
 \end{align*}
 
-On the contrary, when the number of estimated targets exceeds the true number of targets ($P_{\text{true}}\leq P_{\text{est}}$), then we restrict each estimated trajectory \textit{j} to the assignment of \textit{at most} one true trajectory \textit{i}, and Equation~\ref{eqn:assignment_2} is modified to:
+By contrast, when the number of estimated targets exceeds the true number of targets ($P_{\text{true}}\leq P_{\text{est}}$), then we restrict each estimated trajectory \textit{j} to the assignment of \textit{at most} one true trajectory \textit{i}, and Equation~\ref{eqn:assignment_2} is modified to:
 \begin{align*}
 \sum_{j=1}^{P_{\text{est}}} y_{ij} \leq 1 \qquad \forall i = 1,...,P_{\text{true}}.
 \end{align*}
 
-In summary, the generalized integer optimization assignment model is presented below.  
+\mysubsection{Generalized Assignment Pairing Model}
+In summary, we arrive at the following generalized integer optimization assignment model:
 \begin{align*}
 \underset{y_{ij}}{\text{minimize: }} & \sum_{i=1}^{P_{\text{true}}} \sum_{j=1}^{P_{\text{est}}} c_{ij}y_{ij}\\
 \text{subject to: }	& \sum_{i=1}^{P_{\text{true}}} y_{ij} = 1 \qquad \forall j = 1,...,P_{\text{est}} \nonumber \\
 				& \sum_{j=1}^{P_{\text{est}}} y_{ij} = 1 \qquad \forall i = 1,...,P_{\text{true}} \nonumber \\
-				& y_{ij} \in \{0,1\} \quad \forall i = 1,...,P_{\text{true}},j = 1,...,P_{\text{est}} \nonumber
+				& y_{ij} \in \{0,1\} \quad \forall i = 1,...,P_{\text{true}},j = 1,...,P_{\text{est}}. \nonumber
 \end{align*}
 This model is vital to scoring the performance of an MTT algorithm's solution because it ensures the globally optimal pairing of true and estimated trajectories.
-
 

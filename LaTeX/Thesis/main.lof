@@ -9,13 +9,13 @@
 \contentsline {figure}{\numberline {7-1}{\ignorespaces Relationship between $\sigma $ and $\rho $ summarized by scenario type for all 20 generated scenarios in this experiment.\relax }}{48}
 \contentsline {figure}{\numberline {7-2}{\ignorespaces Quality of heuristic solution as compared to the ideal solution's MIO objective value summarized by number of starting points.\relax }}{51}
 \contentsline {figure}{\numberline {7-3}{\ignorespaces Accuracy of MIO compared against the heuristic and a randomized solution.\relax }}{53}
-\contentsline {figure}{\numberline {7-4}{\ignorespaces Trajectory estimation performance\relax }}{54}
-\contentsline {figure}{\numberline {7-5}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 4 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{59}
-\contentsline {figure}{\numberline {7-6}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 8 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{60}
+\contentsline {figure}{\numberline {7-4}{\ignorespaces Trajectory estimation performance\relax }}{55}
+\contentsline {figure}{\numberline {7-5}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 4 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{60}
+\contentsline {figure}{\numberline {7-6}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 8 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{61}
 \contentsline {figure}{\numberline {7-7}{\ignorespaces Accuracy of robust heuristic and MIO as compared to random solutions for scenarios of 4 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{62}
 \contentsline {figure}{\numberline {7-8}{\ignorespaces Accuracy of robust heuristic and MIO as compared to random solutions for scenarios of 8 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{63}
-\contentsline {figure}{\numberline {7-9}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 4 targets and 8 scans.\relax }}{64}
-\contentsline {figure}{\numberline {7-10}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 8 targets and 8 scans.\relax }}{65}
+\contentsline {figure}{\numberline {7-9}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 4 targets and 8 scans.\relax }}{65}
+\contentsline {figure}{\numberline {7-10}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 8 targets and 8 scans.\relax }}{66}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

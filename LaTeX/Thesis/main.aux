@@ -51,11 +51,12 @@
 \newlabel{eq:all_targets}{{3.13}{25}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.4}Overall Formulation}{26}}
 \newlabel{eq:simple_problem}{{3.14}{26}}
+\newlabel{eq:equivalence}{{3.15}{26}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.5}Generalized Formulation}{27}}
-\newlabel{eq:objective_forcer}{{3.15}{27}}
-\newlabel{eq:generalized_objective}{{3.16}{27}}
-\newlabel{eq:generalized_linear_objective}{{3.17}{28}}
-\newlabel{eq:generalized_problem}{{3.20}{28}}
+\newlabel{eq:objective_forcer}{{3.16}{27}}
+\newlabel{eq:generalized_objective}{{3.17}{27}}
+\newlabel{eq:generalized_linear_objective}{{3.18}{27}}
+\newlabel{eq:generalized_problem}{{3.19}{28}}
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Local Search Heuristic}{29}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -79,9 +80,10 @@
 \newlabel{eqn: FA Simple}{{5.2}{36}}
 \newlabel{eqn: MD Simple}{{5.3}{36}}
 \newlabel{eqn: MD Total}{{5.4}{37}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.4}Full Formulation}{37}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.4}Full Formulation}{38}}
 \newlabel{eq:simple_robust}{{5.5}{38}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Heuristic with Fixed Number of Targets}{38}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Heuristic with Fixed Number of Targets}{39}}
+\newlabel{sec:Robust_Heuristic}{{5.2}{39}}
 \citation{MTT-Taxonomy}
 \@writefile{toc}{\contentsline {chapter}{\numberline {6}Scenario Complexity \& Performance Metrics}{41}}
 \@writefile{lof}{\addvspace {10\p@ }}
@@ -89,6 +91,7 @@
 \newlabel{ch:Scenario-Performance}{{6}{41}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.1}Data Association}{42}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.2}Trajectory Estimation}{43}}
+\newlabel{eq:def_delta}{{6.1}{44}}
 \citation{MTT-Taxonomy}
 \@writefile{toc}{\contentsline {chapter}{\numberline {7}Experimental Simulations \& Computational Results}{45}}
 \@writefile{lof}{\addvspace {10\p@ }}
@@ -102,7 +105,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.1.1}Scenario Generation}{47}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7-1}{\ignorespaces Relationship between $\sigma $ and $\rho $ summarized by scenario type for all 20 generated scenarios in this experiment.\relax }}{48}}
 \newlabel{fig:Sigma_vs_Rho}{{7-1}{48}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.2}The Basic Heuristic Scalability}{49}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.2}Basic Heuristic}{49}}
 \@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Heuristic run times (in milliseconds) for a single starting point.\relax }}{49}}
 \newlabel{tab:Basic_heuristic_times}{{7.1}{49}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7-2}{\ignorespaces Quality of heuristic solution as compared to the ideal solution's MIO objective value summarized by number of starting points.\relax }}{51}}
@@ -111,55 +114,60 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7-3}{\ignorespaces Accuracy of MIO compared against the heuristic and a randomized solution.\relax }}{53}}
 \newlabel{fig:Basic_Accuracy_Summary}{{7-3}{53}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.1.4}Trajectory Estimation}{54}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7-4}{\ignorespaces Trajectory estimation performance\relax }}{54}}
-\newlabel{Fig:Basic_Delta_Summary}{{7-4}{54}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7-4}{\ignorespaces Trajectory estimation performance\relax }}{55}}
+\newlabel{Fig:Basic_Delta_Summary}{{7-4}{55}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.1.5}Summary of Results}{55}}
 \@writefile{toc}{\contentsline {section}{\numberline {7.2}Scenarios with Detection Ambiguity}{56}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2.1}Robust Heuristic}{57}}
 \@writefile{lot}{\contentsline {table}{\numberline {7.2}{\ignorespaces Robust heuristic run times (in milliseconds) for a single starting point.\relax }}{58}}
 \newlabel{tab:Robust_heuristic_times}{{7.2}{58}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}Number of Targets}{58}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7-5}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 4 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{59}}
-\newlabel{fig:Robust_4_8_Histogram}{{7-5}{59}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7-6}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 8 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{60}}
-\newlabel{fig:Robust_8_8_Histogram}{{7-6}{60}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}Number of Targets}{59}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7-5}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 4 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{60}}
+\newlabel{fig:Robust_4_8_Histogram}{{7-5}{60}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7-6}{\ignorespaces Distribution of the difference in true and estimated number of targets for scenarios with 8 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{61}}
+\newlabel{fig:Robust_8_8_Histogram}{{7-6}{61}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2.3}Data Association}{61}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7-7}{\ignorespaces Accuracy of robust heuristic and MIO as compared to random solutions for scenarios of 4 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{62}}
 \newlabel{fig:Robust_4_8_Accuracy}{{7-7}{62}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.4}Trajectory Estimation}{62}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7-8}{\ignorespaces Accuracy of robust heuristic and MIO as compared to random solutions for scenarios of 8 targets and 8 scans, arranged by $\gamma $ and $\lambda $.\relax }}{63}}
 \newlabel{fig:Robust_8_8_Accuracy}{{7-8}{63}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7-9}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 4 targets and 8 scans.\relax }}{64}}
-\newlabel{fig:Robust_4_8_Delta}{{7-9}{64}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7-10}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 8 targets and 8 scans.\relax }}{65}}
-\newlabel{fig:Robust_8_8_Delta}{{7-10}{65}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.5}Detection Ambiguity Summary}{65}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Summary and Future Work}{67}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.4}Trajectory Estimation}{64}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7-9}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 4 targets and 8 scans.\relax }}{65}}
+\newlabel{fig:Robust_4_8_Delta}{{7-9}{65}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.5}Summary of Detection Ambiguity Results}{65}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7-10}{\ignorespaces $\delta $ of robust heuristic and MIO as compared to random solutions for scenarios of 8 targets and 8 scans.\relax }}{66}}
+\newlabel{fig:Robust_8_8_Delta}{{7-10}{66}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Summary and Future Work}{69}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:Conclusion}{{8}{67}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Detection Ambiguity Penalty Values}{69}}
+\newlabel{ch:Conclusion}{{8}{69}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Detection Ambiguity Penalty Values}{71}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{app:Penalty_Appendix}{{A}{69}}
-\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces False alarm penalties ($\theta $) as a function of $\lambda $ and $\sigma $.\relax }}{70}}
-\newlabel{tab:Theta_Penalties}{{A.1}{70}}
-\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Missed detection penalties ($\phi $) as a function of $\lambda $, $\gamma $, and $\sigma $.\relax }}{70}}
-\newlabel{tab:Phi_Penalties}{{A.2}{70}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Robust MIO With Number of Targets as a Decision Variable}{71}}
+\newlabel{app:Penalty_Appendix}{{A}{71}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces False alarm penalties ($\theta $) as a function of $\lambda $ and $\sigma $.\relax }}{72}}
+\newlabel{tab:Theta_Penalties}{{A.1}{72}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Missed detection penalties ($\phi $) as a function of $\lambda $, $\gamma $, and $\sigma $.\relax }}{73}}
+\newlabel{tab:Phi_Penalties}{{A.2}{73}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Robust MIO With Number of Targets as a Decision Variable}{75}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{app:Robust_Appendix}{{B}{71}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.1}Decision Variables}{71}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.2}Objective Function}{72}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.3}Constraints}{72}}
-\newlabel{eqn: Existing Targets}{{B.1}{72}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.4}Full Formulation}{74}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.5}Extension of Robust Heuristic}{75}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {C}Trajectory Assignment Pairing}{77}}
+\newlabel{app:Robust_Appendix}{{B}{75}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.1}Decision Variables}{75}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}Objective Function}{76}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.3}Constraints}{76}}
+\newlabel{eqn: Existing Targets}{{B.1}{76}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.4}Full Formulation}{78}}
+\newlabel{eq:MIO_decisions}{{B.2}{78}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.5}Extension of Robust Heuristic}{79}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {C}Trajectory Assignment Pairing}{81}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{app:Assignment_Appendix}{{C}{77}}
-\newlabel{eqn:assignment_1}{{C.1}{78}}
-\newlabel{eqn:assignment_2}{{C.2}{78}}
+\newlabel{app:Assignment_Appendix}{{C}{81}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.1}Decision Variables}{81}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.2}Objective Function}{82}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.3}Constraints}{82}}
+\newlabel{eqn:assignment_1}{{C.1}{82}}
+\newlabel{eqn:assignment_2}{{C.2}{82}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.4}Generalized Assignment Pairing Model}{83}}
 \@input{biblio.aux}

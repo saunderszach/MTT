@@ -1,13 +1,17 @@
-For completeness we take the time to present an alternative approach to solving the MTT problem with detection ambiguity. We extend \eqref{eq:simple_robust} to develop a new model that directly determines the number of targets via optimization. We accomplish this by incorporating additional variables and constraints into the framework of the formulation. 
+For completeness we take the time to present an alternative approach to solving the MTT problem with detection ambiguity. We extend \eqref{eq:simple_robust} to develop a new MIO model that directly determines the number of targets via optimization. We accomplish this by incorporating additional decision variables and constraints into the framework of the MIO formulation. 
 
 \mysubsection{Decision Variables}
-Rather than assuming a fixed number of targets for the model, we now allow this decision to be made by the model itself. Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target:
+Rather than assume a fixed number of targets for the model, we now allow this decision to be made by the model itself. Toward this goal, we introduce a new binary decision variable $w_{j}$ to indicate whether or not trajectory \textit{j} corresponds to an existing target:
 \[w_{j} = 
 \begin{cases}
 1, & \text{if trajectory \textit{j} exists,}\\
 0, & \text{otherwise.}
 \end{cases}\]
-Of important note, any detections assigned to a non-existing target would be considered to be a false alarm. 
+We make two important notes in regard to this modification:
+\begin{itemize}
+\item Detections assigned to a non-existing target would be classified as a false alarm. 
+\item $w_{j}$ ranges from $1,....,N_{1}$. As a result, all instances of j in the new MIO must be adjusted accordingly.
+\end{itemize}
 
 \mysubsection{Objective Function}
 We can utilize the same objective function from \eqref{eq: general_objective}, except for slight adjustments needed to account for the possibility that some trajectories may not exist. Explicitly, the number of possible trajectories is now $N_{1}$ so the objective should be adjusted to sum over \textit{j} the full range of $j$ from 1 to $N_{1}$:
@@ -16,30 +20,31 @@ We can utilize the same objective function from \eqref{eq: general_objective}, e
 \end{align*}
 
 \mysubsection{Constraints}
-In the same fashion, most constraints remain similar to their original counterparts in \eqref{eq:simple_robust}, with the except that the summations must be adjusted appropriately. For example, we adjust \eqref{eqn: FA Simple} and \eqref{eqn: MD Total} as follows: 
+In the same fashion, most constraints remain similar to their original counterparts in \eqref{eq:simple_robust}, with the exception that the summations must be adjusted appropriately. For example, we adjust \eqref{eqn: FA Simple} and \eqref{eqn: MD Total} as follows: 
 \begin{align*}
 \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t,\\
 \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} M_{jt} = TM.
 \end{align*}
 
-By the same accord the RHS of \eqref{eqn: MD Simple} no longer equals 1 because some trajectories may not exist. Therefore we say that all \textit{existing} trajectories must either be assigned a detection or a missed detection, which implies the following constraint:
+By the same accord the RHS of \eqref{eqn: MD Simple} no longer equals one because some trajectories may not exist. Therefore we say that all \textit{existing} trajectories must either be assigned a detection or a missed detection, which implies the following constraint:
 \begin{align}\label{eqn: Existing Targets}
 \sum_{i=1}^{n_{t}} y_{itj} + M_{jt} = w_{j} \qquad \forall j,t.
 \end{align}
 
-Moreover, we restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \textit{j} does not exist. This ensures only existing trajectories are penalized in the objective function. 
+Also, we restrict $\alpha_{j}$ and $\beta_{j}$ to be zero if trajectory \textit{j} does not exist. This ensures only existing trajectories are penalized in the objective function. 
 \begin{align*}
 |\alpha_{j}|+|\beta_{j}| \leq M_{0}w_{j}\qquad \forall j.
 \end{align*}
 
-This model is symmetric between various $w_j$ variables. Such symmetry in models is an undesirable quality because multiple optimal solutions may exist, resulting in a less efficient formulation. We can actually reduce the symmetry that is inherent to this formulation. Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ additional binary variables. Adding the constraints
+This model is symmetric with respect to $w_j$ variables. Such symmetry in models is an undesirable quality because multiple optimal solutions may exist, resulting in a less efficient formulation. However, we can actually reduce the symmetry through careful design. Since $N_{0} \leq P \leq N_{1}$, we can set $w_j=1$ for all $j=1,\ldots,N_0$, which leaves us with only $N_1-N_0$ unknown $w_{j}$ variables. In addition, we can add the following constraint:
 \begin{align*}
 w_{N_0+1}\geq ...\geq w_{N_1},
 \end{align*}
-further reduces the number of equivalent solution and increases the efficient resolvability of the model. 
+to further reduce the number of equivalent solutions and increase the efficient resolvability of the model. 
 
+\vfill
 \mysubsection{Full Formulation}
-Incorporating these additional variables and constraints, we arrive at the following complete alternative formulation.
+Incorporating these additional variables and constraints, we arrive at the full formulation of an MIO model that uses decision variables to solve for the number of estimated targets when detection ambiguity exists. 
 \begin{align}\label{eq:MIO_decisions}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{N_{1}} \sum_{t=1}^{T} \psi_{jt} + \theta \cdot TF + \phi \cdot TM\\
 \text{subject to: }	& \sum_{j=1}^{N_{1}} y_{itj} + F_{it} = 1 \qquad \forall i,t \nonumber\\
@@ -57,6 +62,6 @@ Incorporating these additional variables and constraints, we arrive at the follo
 				& \alpha_{j} \in \mathbb{R}^n,\quad \beta_{j} \in \mathbb{R}^n,\quad w_{j} \in \mathbb{R}^n \quad \forall j \nonumber \\
 				& z_{jt} \in \mathbb{R}^n, \quad \forall j,t. \nonumber
 \end{align}
-
+\vfill
 \mysubsection{Extension of Robust Heuristic}
-The robust heuristic presented in section~\ref{sec:Robust_Heuristic} can similarly be used to provide warm start solutions to \eqref{eq:MIO_decisions}. Although the robust heuristic requires assuming a fixed number of targets for the heuristic, it does not require running the heuristic in parallel for all values of $P$. Alternatively, $P$ can be selected via randomization prior to initializing the heuristic. No matter the case, the heuristic solutions can be used as a warm start to \eqref{eq:MIO_decisions} by simply setting all $w_{j}=1$ for $j=1,....,P$ and $w_{j}=0$ for all remaining $w_{j}$ up to $N_{1}$.
+The robust local search heuristic presented in section~\ref{sec:Robust_Heuristic} can also be used to find warm start solutions to \eqref{eq:MIO_decisions}. Although the robust heuristic requires a given fixed number of targets for the heuristic, it does not require running the heuristic in parallel for all values of $P$. Alternatively, the number of targets can be selected at random prior to initializing the heuristic. No matter the case, the heuristic solutions can be used as a warm start to \eqref{eq:MIO_decisions} by simply setting $w_{j}=1$ for all $j=1,....,P$ and $w_{j}=0$ for all remaining $w_{j}$ up to $N_{1}$.

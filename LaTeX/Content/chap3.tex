@@ -3,16 +3,15 @@ In this \mytitle, we deal with the case of no detection ambiguity. Therefore, we
 \begin{assumption}\label{ass:basic_assumptions}
 \leavevmode
 \begin{enumerate}[(i)]
-\item The sensor generates exactly one detection for each target
- at each scan i.e., no missed detections.
-\item The sensor does not generate any additional detections
+\item The sensor generates exactly one detection for each target in each scan i.e., no missed detections.
+\item The sensor does not generate any spurious detections
 i.e., no false alarms.
 \end{enumerate}
 \end{assumption}
-A consequence of Assumption~\ref{ass:basic_assumptions} is that the number of detections at each scan will be constant and equal to the number of targets. This seemingly simple point is critical to developing models in the case of no detection ambiguity. We begin constructing our MIO model by introducing decision variables that define data associations as well as estimated trajectories. Using these decision variables, we then develop an objective function that  mathematically quantifies the value of the model decisions. Finally, we restrict these variables using constraints that force the model to find solutions that are feasible for the MTT problem as we have defined it. A simple model is first developed step by step in the coming sections before generalized formulation is presented. 
+A corollary to Assumption~\ref{ass:basic_assumptions} is that the number of detections at each scan will be constant and equal to the number of targets. This seemingly simple point is critical to developing models in the case of no detection ambiguity. We begin constructing our MIO model by introducing decision variables that define data associations as well as estimated trajectories. Using these decision variables, we then develop an objective function that mathematically quantifies the value of the model solutions. Finally, we restrict the set of feasible solutions using constraints that force the model to find solutions that are suitable for the MTT problem as we have defined it. A simple model is first developed step by step in the coming sections before a generalized formulation is presented. 
 
 \mysubsection{Decision Variables}
-The data association and trajectory estimation problems require unique decision variables. Because these two problems lie in different domains, the variables we use to represent these decisions also differ. First, we introduce \textit{continuous} decision variables $\alpha_{j} \in \mathbb{R}^n$ and $\beta_{j} \in \mathbb{R}^n$ to represent the estimated initial position and velocity, respectively, of each trajectory \textit{j}. In our interpretation of the MTT problem we allow the trajectory parameters to lie anywhere in the real-continuous domain. For the data association problem, we wish to assign detections to trajectories, a naturally discrete problem. Therefore, we introduce binary decision variables $y_{itj}$ to indicate whether detection $x_{it}$ is assigned to trajectory \textit{j} or not:
+The data association and trajectory estimation problems each require unique decision variables. Because these two problems lie in different domains, the variables we use to represent these decisions also differ. First, we introduce continuous decision variables $\alpha_{j} \in \mathbb{R}^n$ and $\beta_{j} \in \mathbb{R}^n$ to represent the estimated initial position and velocity, respectively, of each trajectory \textit{j}. In our interpretation of the MTT problem, we allow the trajectory parameters to lie anywhere in the real-continuous domain. For the data association problem, we wish to assign detections to trajectories, which is a naturally discrete problem. Therefore, we introduce binary decision variables $y_{itj}$ to indicate whether detection $x_{it}$ is assigned to trajectory \textit{j} or not:
 \begin{align}
 y_{itj} =
 \begin{cases}
@@ -20,49 +19,51 @@ y_{itj} =
 0, & \text{otherwise.}
 \end{cases}
 \end{align}
-Next, we use these decision variables to develop an objective function to score the solutions found by the model. 
+Next, we use these decision variables to develop an objective function that accurately scores the solutions found by the model. 
 
 \mysubsection{Objective Function}
-Here, we would like to develop a function that quantifies the quality of a feasible solution. Our goal is to produce a single measure for both the data association and the trajectory estimation problems. For a given assignment and a given estimated trajectories we define the quality of the estimation as the distance of each detection from the estimated position of its associated trajectory. Let $\hat{x}_{jt}$ denote the estimated location of target $j$ at time $t$, then, if at scan $t$ detection $x_{it}$ is associated with trajectory $j$ then, the distance 
+We would like to develop a function that quantifies the quality of a feasible solution. Toward this goal, we aim to establish a single measure for both the data association and the trajectory estimation problems, though we will construct the objective function in steps by considering each of these problems individually. Beginning with the estimation problem, we define the quality of an estimated trajectory as the distance between the estimated position of the trajectory and its associated detections. Let $\hat{x}_{jt}$ denote the estimated position of target $j$ in scan $t$. Then the distance between detection $x_{it}$ and target $j$ in scan $t$ is:
 $$\|x_{it}-\hat{x}_{jt}\|,$$
-is the measure of the quality of estimation for trajectory $j$ at scan $t$, and the total estimation quality for a given association will be given as 
+which represents of measure of the quality of the estimation for trajectory $j$ in scan $t$. The total estimation quality for a trajectory is then given by:
 \begin{align}\label{eq:objective_base}
 \sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - \hat{x}_{jt}\right\|,
 \end{align} 
-where $\mathcal{A}_t$ is pairs of detection-trajectory assignments made for scan $t$. 
+where $\mathcal{A}_t$ is the set of pairs of detection-trajectory associations for scan $t$. 
 
-We can now separate the problem into two parts: given an assignment finding the estimated trajectories which minimizes \eqref{eq:objective_base}, and finding the assignment which results in the best estimated trajectories. Recall that each trajectory is defined by two parameters, $\alpha^{\text{true}}_{j}$ and $\beta^{\text{true}}_{j}t$ such that the true location is given as 
+We can now separate the problem into two parts: 1) given a set of associations, find the estimated trajectories that minimizes \eqref{eq:objective_base}, and 2) find the set of associations that result in the best estimated trajectories. Recall that each trajectory is defined by two parameters, $\alpha^{\text{true}}_{j}$ and $\beta^{\text{true}}_{j}$, such that the true position of target $j$ in scan $t$ is given by:
 \begin{align}
 	\bar{x}_{jt} = \alpha^{\text{true}}_{j} + \beta^{\text{true}}_{j}t.
 \end{align}
-Thus, an estimated trajectory can analogously be defined by  $\alpha_{j}$ and $\beta_{j}$ such that its estimated location at the time of scan $t$ is given by
+Thus, an estimated trajectory can be analogously defined by $\alpha_{j}$ and $\beta_{j}$ such that its estimated location at the time of scan $t$ is given by:
 \begin{align}
 	\hat{x}_{jt} =  \alpha_{j} + \beta_{j}t.
 \end{align}
-Therefore, given a full assignment  $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory which has the best estimation error is given by the solution of the following optimization problem
+Therefore, given a complete set of associations  $\mathcal{A}=(\mathcal{A}_1,\ldots,\mathcal{A}_T)$, the trajectory with the best estimation error is given by the solution to the following optimization problem:
 \begin{align}\label{eq:objective_mintraj}
 \underset{\alpha_{j}, \beta_{j}}{\text{minimize: }}\sum_{j=1}^P\sum_{t=1}^T\left\|\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} - (\alpha_{j} + \beta_{j}t)\right\|.
 \end{align} 
-Notice that under the current assumptions, in which there is no detection ambiguity, \eqref{eq:objective_mintraj} is the cost of assignment $\mathcal{A}$. 
+Notice that under the current assumptions, in which there is no detection ambiguity, \eqref{eq:objective_mintraj} represents the cost of the association set $\mathcal{A}$. 
 
-Now we turn to the problem of choosing the assignment, based on this measure. To this end we formulate the assignment cost \eqref{eq:objective_mintraj} in terms of our decision variables. Note that $(i,j)\in\mathcal{A}_t$ if and only if $y_{itj}=1$, and because all detections will be assigned to a trajectory and vice versa, the following equivalence holds
+Now we turn to the problem of choosing the associations, based on this measure. To this end we formulate the assignment cost \eqref{eq:objective_mintraj} in terms of our decision variables for the association problem. Note that $(i,j)\in\mathcal{A}_t$ if and only if $y_{itj}=1$. Thus,
 \begin{align}
-\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} = \sum_{i=1}^{P}y_{itj}x_{it}.
+\sum_{(i,j)\in \mathcal{A}_{t}} x_{it} = \sum_{i=1}^{P}y_{itj}x_{it},
 \end{align}
-Making the appropriate substitutions, the cost of an assignment described by variables $y_{itj}$ is given as
-\begin{align}\label{eq:assignment_cost}
- \underset{\alpha_{j}, \beta_{j}}{\text{minimize: }} \sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} - (\alpha_{j} + \beta_{j}t)\right \|.
+holds because all detections will be associated to a target and vice versa under Assumption~\ref{ass:basic_assumptions}.
+Making the appropriate substitutions, the cost of an assignment described by variables $y_{itj}$ is given by:\begin{align}\label{eq:assignment_cost}
+\left \| \sum_{i=1}^{P}y_{itj}x_{it} - (\alpha_{j} + \beta_{j}t)\right \|.
 \end{align}
-Therefore, in order to find the assignment with the lowest cost, we are left to minimize cost \eqref{eq:assignment_cost} over all assignments, and obtain the following final objective: 
+Therefore, in order to find the assignment with the lowest cost, we are left to minimize cost \eqref{eq:assignment_cost} over all assignments, and we obtain the following final objective: 
 \begin{align}\label{eq:full_objective}
  \underset{y_{itj}, \alpha_{j}, \beta_{j}}{\text{minimize: }}\sum_{j=1}^{P} \sum_{t=1}^{T}  \left \| \sum_{i=1}^{P}y_{itj}x_{it} - (\alpha_{j} + \beta_{j}t) \right \|.
 \end{align}
 
-At this point it is necessary to discuss the advantages and disadvantages of the two natural distance measures (norms) that will be considered: the $\ell_1$ and the $\ell_2$ norms. The $\ell_1$ norm has the advantage that it can be reformulated using linear optimization (through the addition of continuous variables and constraints), and it is well known to be more robust to outliers. Furthermore, existing algorithms for MIO are more well developed for linear rather than quadratic optimization. However, the $\ell_2$ norm squared form, which is equivalent to the residual sum of squares (RSS), has the advantage that it can be quickly computed using simple linear algebra, making it more amenable to a heuristic. This concept will be discussed further in \mysection~\ref{\myabrv Heuristic}.
+At this point it is necessary to discuss the advantages and disadvantages of the two natural distance measures (norms) that will be considered: the $\ell_1$ and the $\ell_2$ norms. The $\ell_1$ norm has the advantage that it can be reformulated using linear optimization (through the addition of continuous variables and constraints), and it is well known to be more robust to outliers. Furthermore, existing algorithms for MIO are better developed for linear rather than quadratic optimization. However, the $\ell_2$ norm squared form, which is equivalent to the residual sum of squares (RSS), has the advantage that it can be quickly computed using simple linear algebra, making it more amenable to a heuristic. This concept will be discussed further in \mysection~\ref{\myabrv Heuristic}.
 
-Because of the computational benefits of linear optimization over quadratic optimization, we choose to formulate the objective using the $\ell_1$ norm. Therefore, we now show how \eqref{eq:full_objective} can be reformulated using linear optimization in the case of the $\ell_1$ norm by introducing continuous variables $\psi_{jt} \in \mathbb{R}^n$ and the following constraints:
+Because of the computational benefits of linear optimization over quadratic optimization, we choose to formulate the objective function to the MIO model using the $\ell_1$ norm. This allows us to reformulate \eqref{eq:full_objective} using linear optimization by introducing continuous variables $\psi_{jt} \in \mathbb{R}^n$ and the following two constraints:
 \begin{align}
-\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t \leq \psi_{jt}, \qquad \forall j,t,\\
+\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t \leq \psi_{jt}, \qquad \forall j,t,
+\end{align}
+\begin{align}
 -\left(\sum_{i=1}^{P}y_{itj}x_{it} - \alpha_{j} - \beta_{j}t\right) \geq \psi_{jt} \qquad \forall j,t.
 \end{align}
 The resulting objective function for the case of the $\ell_1$ norm would then be:
@@ -71,7 +72,7 @@ The resulting objective function for the case of the $\ell_1$ norm would then be
 \end{align}
 
 \mysubsection{Constraints}
-In addition to the constraints used to linearize the objective function, we also require standard assignment constraints to ensure that only one detection is assigned to a target and vice versa. Specifically, for each scan, each detection $x_{it}$ must be assigned to exactly one target \textit{j}:
+In addition to the constraints used to linearize the objective function, we also require standard assignment constraints to ensure that only one detection is assigned to each target in each scan and vice versa. Specifically, for each target and each scan, each detection must be assigned to exactly one target \textit{j}:
 \begin{align}\label{eq:all_detections}
 \sum_{j=1}^{P} y_{itj} = 1 \qquad \forall i,t.
 \end{align}
@@ -91,39 +92,47 @@ Integrating all of these elements together, we arrive at the following MIO model
 			 	& y_{itj} \in \{0,1\} \quad \forall i,t,j \nonumber\\
 				& \alpha_{j} \in \mathbb{R}^n \quad \forall j,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j. \nonumber
 \end{align}
-This formulation is simple in the sense that it involves few variables and constraints, making it highly interpretable and easily implementable. However, it has the disadvantage of being ill suited for extensions to detection ambiguity because it heavily relies on the fact that exactly one of the detections at each scan is associated to a target. This forces the term $\sum_{i=1}^{P}y_{itj}x_{it}$ to always be equal to one of the detections. However, in the case of detection ambiguity, this no longer holds true, since there might be trajectories which are not associated with a detection in a given scan, resulting in an unintended cost to the assignment. Therefore, in the following section we present a more generalized formulation, which is amenable to scenarios with detection ambiguity.
+This formulation is simple in the sense that it involves few variables and constraints, making it highly interpretable and easily implementable. However, it has the disadvantage of being ill suited for extensions to detection ambiguity because it heavily relies on the fact that exactly one of the detections in each scan is associated to a target, which implies:
+\begin{align}\label{eq:equivalence}
+\sum_{i=1}^{P}y_{itj}x_{it} = x_{it},
+\end{align}
+will always hold true. However, in the case of detection ambiguity, \eqref{eq:equivalence} no longer holds true since there might be trajectories that are not associated with a detection in a given scan. Therefore, in the following section we present a generalized formulation, which is amenable to scenarios with detection ambiguity.
 
 \mysubsection{Generalized Formulation}
-Here we modify \eqref{eq:simple_problem} so that it can be easily extended to handle false alarms and missed detections that occur in scenarios with detection ambiguity. We previously identified that the main issue with \eqref{eq:simple_problem} arises from the fact that $\sum_{i=1}^{P}y_{itj}x_{it}$ will always incur a cost in the objective function. However, we only wish to account for this assignment cost when a target has actually been assigned a detection. To this end, we introduce a new variable $z_{jt}$ to substitute for this term. We force this variable to take the value $x_{it}$ when $y_{itj}=1$ and some arbitrary number when $y_{itj}=0$. 
+Here we modify \eqref{eq:simple_problem} so that it can be easily extended to handle false alarms and missed detections that occur in the case of detection ambiguity. We previously identified that \eqref{eq:simple_problem} cannot extend to handle detection ambiguity because \eqref{eq:equivalence} will no longer hold true. Therefore, we seek an alternate method of representing the objective function. Toward this goal, we introduce a new continuous variable $z_{jt}$, and add the following constraint to the model:
+\begin{align}\label{eq:objective_forcer}
+M_{t}(1-y_{itj}) \geq |z_{jt} - x_{it}y_{itj}| \qquad \forall i,t,j.
+\end{align}
+where $M_{t} = \underset{i}{\text{max}}|x_{it}|$ for each scan. This constraint forces $z_{jt}$ to take the value of $x_{it}$ when $y_{itj}=1$ and some arbitrary number when $y_{itj}=0$. 
 \[z_{jt} =
 \begin{cases}
 x_{it}, & \text{if $y_{itj} = 1$,} \\
 \textit{free}, & \text{otherwise.}
 \end{cases}\]
-In the case of no detection ambiguity, $\sum_{i=1}^{P} y_{itj} = 1$ will always hold true as forced by \eqref{eq:all_targets}, and as a result, we recover the original objective function exactly because $z_{jt}$ will always take on the value of exactly one of the $x_{it}$.
-
-Additionally, this logical condition can be translated to a model constraint through the following constraint:
-\begin{align}\label{eq:objective_forcer}
-M_{t}(1-y_{itj}) \geq |z_{jt} - x_{it}y_{itj}| \qquad \forall i,t,j.
-\end{align}
-where $M_{t} = \underset{j}{\text{max}}|x_{it}|$ for each scan. Furthermore, we can linearize \eqref{eq:objective_forcer} by substituting it for the following two linear constraints:
-\begin{align*}
-x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j,\\
-x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j.
-\end{align*}
-We must also adjust \eqref{eq:full_objective} to account for this change as follows:
+In the case of no detection ambiguity, $\sum_{i=1}^{P} y_{itj} = 1$ will always hold true as forced by \eqref{eq:all_targets}. Thus, we recover \eqref{eq:full_objective} exactly because $z_{jt}$ will always take on the value of exactly one of the $x_{it}$. Thus, the resulting alternate objective function is:
 \begin{align}\label{eq:generalized_objective}
 \underset{z_{jt}, \alpha_{j}, \beta_{j}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \|z_{jt} - \alpha_{j} - \beta_{j}t\|.
 \end{align}
 
-This objective can be linearized in the same fashion as before by again introducing continuous variables $\psi_{jt}$ and additional constraints as follows:
+This objective can be linearized in the same fashion as \eqref{eq:full_objective} by again introducing continuous variables $\psi_{jt}$ and additional constraints as follows:
 \begin{align}\label{eq:generalized_linear_objective}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt}
 \end{align}
-\begin{align}
-z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall i,j,t,\\
+\begin{align*}
+z_{jt} - \alpha_{j} - \beta_{j}t \leq \psi_{jt} \qquad \forall i,j,t,
+\end{align*}
+\begin{align*}
 -(z_{jt} - \alpha_{j} - \beta_{j}t) \geq \psi_{jt} \qquad \forall i,j,t.
-\end{align}
+\end{align*}
+
+Also note that we can linearize \eqref{eq:objective_forcer} by substituting it for the following two linear constraints:
+\begin{align*}
+x_{it}y_{itj} + M_{t}(1-y_{itj}) \geq z_{jt} \qquad \forall i,t,j,
+\end{align*}
+\begin{align*}
+x_{it}y_{itj} - M_{t}(1-y_{itj}) \leq z_{jt} \qquad \forall i,t,j.
+\end{align*}
+
 Again, we consolidate these elements together and arrive at the following generalized MIO model:
 \begin{align}
 \underset{\psi_{jt}}{\text{minimize: }} & \sum_{j=1}^{P} \sum_{t=1}^{T} \psi_{jt} \label{eq:generalized_problem}\\
@@ -137,4 +146,4 @@ Again, we consolidate these elements together and arrive at the following genera
 				& \alpha_{j} \in \mathbb{R}^n \quad \forall j,\quad \beta_{j} \in \mathbb{R}^n \quad \forall j, \quad z_{jt} \in \mathbb{R}^n \quad \forall j,t.\nonumber
 \end{align}
 
-Note that \eqref{eq:simple_problem} and \eqref{eq:generalized_problem} are exactly identical formulations when detection ambiguity does not exist. Throughout the remainder of this paper, we refer to \eqref{eq:simple_problem} as the \textit{basic} MIO. In \mysection~\ref{\myabrv Robust MIO Model} we will extend \eqref{eq:generalized_problem} to account for false alarms and missed detections under sensor ambiguity. 
+Note that \eqref{eq:simple_problem} and \eqref{eq:generalized_problem} are exactly identical formulations when detection ambiguity does not exist. Throughout the remainder of this paper, we refer to \eqref{eq:simple_problem} as the \textit{basic} MIO. In \mysection~\ref{\myabrv Robust MIO Model} we will extend \eqref{eq:generalized_problem} to account for false alarms and missed detections when detection ambiguity exits. 

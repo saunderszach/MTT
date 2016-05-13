@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  11 MAY 2016 15:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  13 MAY 2016 12:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -487,12 +487,12 @@ Chapter 2.
 ]) [20]
 Chapter 3.
 (../Content/chap3.tex
-Underfull \vbox (badness 3088) has occurred while \output is active []
+Underfull \vbox (badness 1052) has occurred while \output is active []
 
  [21
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 2922) has occurred while \output is active []
 
  [22]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -523,7 +523,7 @@ Chapter 5.
 (../Content/chap5.tex [33
 
 ]
-Underfull \vbox (badness 5490) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [34]
 Underfull \vbox (badness 7030) has occurred while \output is active []
@@ -532,10 +532,7 @@ Underfull \vbox (badness 7030) has occurred while \output is active []
 Underfull \vbox (badness 1132) has occurred while \output is active []
 
  [36]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [37]
-[38]) [39] [40]
+[37] [38] [39]) [40]
 Chapter 6.
 (../Content/chap6.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -548,18 +545,6 @@ Chapter 7.
 (../Content/chap7.tex [45
 
 ] [46]
-Overfull \hbox (27.36453pt too wide) in paragraph at lines 14--15
-\T1/cmr/m/n/12 each true po-si-tion mea-sure-ment by an er-ror $\OML/cmm/m/it/1
-2 ^^O \U/msb/m/n/12 s \OMS/cmsy/m/n/12 N\OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; ^^
-[\OT1/cmr/m/n/12 )$ \T1/cmr/m/n/12 with $\OML/cmm/m/it/12 ^^[ \OMS/cmsy/m/n/12 
-2 f\OT1/cmr/m/n/12 0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 ; \OT1/
-cmr/m/n/12 0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 5\OML/cmm/m/it/12 ; \OT1/cmr/m/n/
-12 1\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 2\OML
-/cmm/m/it/12 :\OT1/cmr/m/n/12 0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 3\OML/cmm/m/i
-t/12 :\OT1/cmr/m/n/12 5\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 5\OML/cmm/m/it/12 :\O
-T1/cmr/m/n/12 0\OMS/cmsy/m/n/12 g$\T1/cmr/m/n/12 ,
- []
-
 <../Figures//Sigma_vs_Rho.pdf, id=174, 1011.78pt x 867.24pt>
 File: ../Figures//Sigma_vs_Rho.pdf Graphic file (type pdf)
 
@@ -575,7 +560,7 @@ File: ../Figures/Basic_Heuristic_Objective.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Heuristic_Objective.pdf>
 Package pdftex.def Info: ../Figures/Basic_Heuristic_Objective.pdf used on input
- line 79.
+ line 77.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
 
 Underfull \vbox (badness 1675) has occurred while \output is active []
@@ -589,7 +574,7 @@ File: ../Figures/Basic_Accuracy_Summary.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Accuracy_Summary.pdf>
 Package pdftex.def Info: ../Figures/Basic_Accuracy_Summary.pdf used on input li
-ne 94.
+ne 92.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
  [52]
 Underfull \vbox (badness 6396) has occurred while \output is active []
@@ -600,97 +585,96 @@ File: ../Figures/Basic_Delta_Summary.pdf Graphic file (type pdf)
 
 <use ../Figures/Basic_Delta_Summary.pdf>
 Package pdftex.def Info: ../Figures/Basic_Delta_Summary.pdf used on input line 
-111.
+109.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [54 <../Figures/Basic_Delta_Summary.pdf>]
+ [54]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 125.
- [55] [56] [57]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 123.
+ [55 <../Figures/Basic_Delta_Summary.pdf>] [56]
 
- [58]
-<../Figures/4_8_Histogram.pdf, id=242, 1011.78pt x 867.24pt>
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[57] [58] <../Figures/4_8_Histogram.pdf, id=242, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Histogram.pdf>
-Package pdftex.def Info: ../Figures/4_8_Histogram.pdf used on input line 191.
+Package pdftex.def Info: ../Figures/4_8_Histogram.pdf used on input line 192.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
 
 <../Figures/8_8_Histogram.pdf, id=243, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Histogram.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Histogram.pdf>
-Package pdftex.def Info: ../Figures/8_8_Histogram.pdf used on input line 197.
+Package pdftex.def Info: ../Figures/8_8_Histogram.pdf used on input line 198.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [59 <../Figures/4_8_Histogram.pdf>] [60 <../Figures/8_8_Histogram.pdf>]
-<../Figures/4_8_Accuracy.pdf, id=262, 1011.78pt x 867.24pt>
+ [59]
+Underfull \vbox (badness 6396) has occurred while \output is active []
+
+ [60 <../Figures/4_8_Histogram.pdf>]
+<../Figures/4_8_Accuracy.pdf, id=256, 1011.78pt x 867.24pt>
 File: ../Figures/4_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/4_8_Accuracy.pdf>
-Package pdftex.def Info: ../Figures/4_8_Accuracy.pdf used on input line 208.
+Package pdftex.def Info: ../Figures/4_8_Accuracy.pdf used on input line 211.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
 
-<../Figures/8_8_Accuracy.pdf, id=263, 1011.78pt x 867.24pt>
+<../Figures/8_8_Accuracy.pdf, id=257, 1011.78pt x 867.24pt>
 File: ../Figures/8_8_Accuracy.pdf Graphic file (type pdf)
 
 <use ../Figures/8_8_Accuracy.pdf>
-Package pdftex.def Info: ../Figures/8_8_Accuracy.pdf used on input line 214.
+Package pdftex.def Info: ../Figures/8_8_Accuracy.pdf used on input line 217.
 (pdftex.def)             Requested size: 433.62pt x 371.67526pt.
- [61]
-<../Figures/4_8_Delta.pdf, id=268, 1011.78pt x 867.24pt>
-File: ../Figures/4_8_Delta.pdf Graphic file (type pdf)
+ [61 <../Figures/8_8_Histogram.pdf>]
+Underfull \vbox (badness 6396) has occurred while \output is active []
 
-<use ../Figures/4_8_Delta.pdf>
-Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 229.
-(pdftex.def)             Requested size: 433.62pt x 371.67526pt.
-
-<../Figures/8_8_Delta.pdf, id=269, 1011.78pt x 867.24pt>
-File: ../Figures/8_8_Delta.pdf Graphic file (type pdf)
-
-<use ../Figures/8_8_Delta.pdf>
-Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 235.
-(pdftex.def)             Requested size: 433.62pt x 371.67526pt.
  [62 <../Figures/4_8_Accuracy.pdf>]
 Underfull \vbox (badness 6396) has occurred while \output is active []
 
  [63 <../Figures/8_8_Accuracy.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+<../Figures/4_8_Delta.pdf, id=286, 1011.78pt x 867.24pt>
+File: ../Figures/4_8_Delta.pdf Graphic file (type pdf)
 
- [64 <../Figures/4_8_Delta.pdf>] [65 <../Figures/8_8_Delta.pdf>]) [66]
-Chapter 8.
-(../Content/chap8.tex [67
+<use ../Figures/4_8_Delta.pdf>
+Package pdftex.def Info: ../Figures/4_8_Delta.pdf used on input line 232.
+(pdftex.def)             Requested size: 433.62pt x 371.67526pt.
 
-]) [68]
-Appendix A.
-(../Content/appa.tex) [69
+<../Figures/8_8_Delta.pdf, id=287, 1011.78pt x 867.24pt>
+File: ../Figures/8_8_Delta.pdf Graphic file (type pdf)
 
-] [70]
-Appendix B.
-(../Content/appb.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [71
+<use ../Figures/8_8_Delta.pdf>
+Package pdftex.def Info: ../Figures/8_8_Delta.pdf used on input line 238.
+(pdftex.def)             Requested size: 433.62pt x 371.67526pt.
+ [64] [65 <../Figures/4_8_Delta.pdf>] [66 <../Figures/8_8_Delta.pdf>]) [67] [68
 
 ]
-[72]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Chapter 8.
+(../Content/chap8.tex) [69] [70]
+Appendix A.
+(../Content/appa.tex [71
 
- [73])
-Underfull \vbox (badness 10000) has occurred while \output is active []
+]) [72] [73] [74
 
- [74]
-[75] [76
+]
+Appendix B.
+(../Content/appb.tex [75]
+Underfull \vbox (badness 3396) has occurred while \output is active []
+
+ [76]
+[77]) [78] [79] [80
 
 ]
 Appendix C.
-(../Content/appc.tex [77]
+(../Content/appc.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [78])
-[79]
+ [81]
+Underfull \vbox (badness 3128) has occurred while \output is active []
+
+ [82])
+[83]
 \openout2 = `biblio.aux'.
 
- (./biblio.tex (./main.bbl [80
+ (./biblio.tex (./main.bbl [84
 
 
 ]
@@ -698,16 +682,16 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 34.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [81])) [82]
-[83] (./main.aux (./cover.aux) (./contents.aux) (./biblio.aux)) ) 
+) [85])) [86]
+[87] (./main.aux (./cover.aux) (./contents.aux) (./biblio.aux)) ) 
 Here is how much of TeX's memory you used:
- 5539 strings out of 493117
- 80930 string characters out of 6135433
- 143818 words of memory out of 5000000
- 8726 multiletter control sequences out of 15000+600000
+ 5543 strings out of 493117
+ 81000 string characters out of 6135433
+ 143863 words of memory out of 5000000
+ 8730 multiletter control sequences out of 15000+600000
  23562 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 51i,19n,38p,1508b,814s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 51i,19n,38p,1448b,814s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/te
 xlive/2014/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texl
 ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texl
@@ -733,10 +717,10 @@ e1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
 /public/cm-super/sfrm1728.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/p
 ublic/cm-super/sfti1200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pub
 lic/cm-super/sftt1200.pfb>
-Output written on main.pdf (83 pages, 631345 bytes).
+Output written on main.pdf (87 pages, 636358 bytes).
 PDF statistics:
- 443 PDF objects out of 1000 (max. 8388607)
- 306 compressed objects within 4 object streams
+ 456 PDF objects out of 1000 (max. 8388607)
+ 315 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
